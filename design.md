@@ -17,6 +17,7 @@
 | [Radius](./foundations/radius.md) | `border/radius/sm` ~ `rounded` |
 | [State](./foundations/state.md) | default · hover · focus · disabled · error · loading |
 | [Motion](./foundations/motion.md) | Duration · Easing · 인터랙션 레시피 10종 |
+| **토큰 export** (`DDS_tokens.w3c.json`) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
 
 ### Components
 
@@ -104,16 +105,17 @@ Figma → 코드 변환 시 다음 순서를 따른다.
 
 - 🔜 **다크 모드** — 2026 7월~
 - 🔜 **UX 라이팅 가이드** (한/영 다국어) — 2026 7~10월
-- 🔜 **JSON 코드 연동** (Style Dictionary 등) — 2026 11월
+- 🔄 **JSON 코드 연동** (Style Dictionary 등) — W3C Design Tokens 형식 export 완료, Style Dictionary 빌드 파이프라인 작업 예정
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---
 
 ## ⚠️ 알려진 이슈
 
-- `Brand/Secondary/netural`의 `netural`은 Figma 측 **오타**이지만 코드 일관성을 위해 그대로 유지.
-- 정확한 hex/px 값은 Figma 변수 패널에서 직접 확인. `get_variable_defs`는 노드 선택이 필요해 일부 토큰은 이름만 수집됨.
+- ~~`Brand/Secondary/netural`의 `netural` 오타 유지~~ → **v2.0에서 `neutral`로 정정 완료.** Figma 변수 및 토큰 JSON 모두 반영됨. 함께 `transpaernt`→`transparent`, `Interctive`→`Interactive` 오타도 정정.
+- `primary_typography`의 `font_family`·`font_family_typeface` 토큰 값이 `"String value"` 플레이스홀더 상태. 실사용 토큰(`font_family_typeface_sans` 등)은 정상이므로, Figma에서 두 토큰에 실제 값을 채우거나 미사용 시 삭제 필요.
+- 토큰 값은 W3C Design Tokens 형식 export 파일(`DDS_tokens.w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
 
-*최종 갱신: 2026-05-21 · Figma MCP 기반 인덱싱*
+*최종 갱신: 2026-05-22 · Figma MCP 기반 인덱싱 · 토큰 오타 정정 및 W3C 토큰 export 반영*
