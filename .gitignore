@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (추후 VitePress 등 사용 시 대비)
+node_modules/
+.npm/
+.pnpm-store/
+dist/
+.cache/
+
+# Build / docs SSG
+.vitepress/cache/
+.vitepress/dist/
+_site/
+.jekyll-cache/
+
+# Env
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
