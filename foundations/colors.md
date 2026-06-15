@@ -25,12 +25,31 @@
 
 ### 1.2 브랜드 컬러
 
-| 토큰 | 용도 |
-|------|------|
-| `Brand/Primary/navy` | 동화 브랜드 메인 |
-| `Brand/Primary/black` | 본문/강조 |
-| `Brand/Secondary/netural/white` | 베이스 배경 |
-| `brand primary` | 레거시 호환 별칭 (`Colors` 컬렉션) |
+| 토큰 | 실제 값 (SSOT) | 용도 |
+|------|---------------|------|
+| `Brand/Primary/green` | `#00ad50` (ramp 500 = `#14bc62`) | **동화 브랜드 메인** |
+| `Brand/Primary/navy` | `#1d3c6a` | 보조 강조 (메인 아님) |
+| `Brand/Primary/black` | `#262626` | 본문/강조 |
+| `Brand/Secondary/neutral/white` | `#ffffff` | 베이스 배경 |
+| `brand primary` | — | 레거시 호환 별칭 (`Colors` 컬렉션) |
+
+> ⚠️ **v2.0 정정**: 이전 문서는 브랜드 메인을 `Brand/Primary/navy`로 기재했으나
+> 이는 오류다. 동화 브랜드 메인은 **green 계열**이며, JSON SSOT의 모든
+> `*_interactive_primary` 토큰이 `brand_primary_green_500`을 참조한다.
+> navy는 보조 강조용으로만 사용한다.
+
+### 1.3 인터랙티브(브랜드 메인) 적용 토큰
+
+메인 액션·선택 상태에 쓰는 green 인터랙티브 토큰. **상태별 ramp가 이미 정의돼 있으니 직접 hex 대신 이 토큰을 쓴다.**
+
+| Semantic 토큰 | 참조 Primitive | hex |
+|---------------|----------------|-----|
+| `Color/bg/interactive/primary` | green 500 | `#14bc62` |
+| `Color/bg/interactive/primary_hover` | green 700 | `#0c8048` |
+| `Color/bg/interactive/primary_pressed` | green 800 | `#0a6036` |
+
+> `text/interactive/primary`, `icon/interactive/primary`, `border/interactive/primary`도
+> 동일한 green 500/700/800 체계를 따른다(4 roles × 3 states).
 
 ---
 
