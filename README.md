@@ -2,7 +2,7 @@
 
 > 동화의 통합 디자인시스템. **AI 에이전트와 디자이너·개발자 모두가 한 곳에서** 토큰과 컴포넌트 사양을 확인할 수 있도록 정리한 문서 저장소.
 
-![status](https://img.shields.io/badge/status-active-22c55e) ![version](https://img.shields.io/badge/version-2.0-2563eb) ![mode](https://img.shields.io/badge/mode-light-e5e7eb) ![font](https://img.shields.io/badge/font-Pretendard-111827)
+![status](https://img.shields.io/badge/status-active-22c55e) ![version](https://img.shields.io/badge/version-2.0-2563eb) ![mode](https://img.shields.io/badge/mode-light%20%2B%20dark-6366f1) ![font](https://img.shields.io/badge/font-Pretendard-111827)
 
 ---
 
@@ -51,28 +51,31 @@ https://raw.githubusercontent.com/<owner>/dds-design-system/main/design.md
 ## 📂 폴더 구조
 
 ```
-dds-design-system/
+Dongwha_DDS/
 ├── README.md                ← 지금 보는 파일
 ├── design.md                ← 인덱스 (단일 진실 소스)
-├── foundations/             ← 디자인 토큰 (6 파일)
-│   ├── colors.md
-│   ├── typography.md
-│   ├── spacing.md
-│   ├── radius.md
-│   ├── state.md
-│   └── motion.md
-└── components/              ← 컴포넌트 (10 파일)
-    ├── README.md            ← 컴포넌트 카탈로그
-    ├── button.md
-    ├── input.md
-    ├── switch.md
-    ├── checkbox.md
-    ├── option-group.md
-    ├── tooltip.md
-    ├── table.md
-    ├── page-header.md
-    └── icons.md
+├── foundations/             ← 디자인 토큰 (문서 8 + W3C 토큰 JSON 3)
+│   ├── colors.md            (+ accent · chart · subtle · 다크 모드)
+│   ├── typography.md        (+ 굵기 weight 축)
+│   ├── spacing.md · radius.md · state.md · motion.md
+│   ├── layout.md            ← Container · Grid · Breakpoint · SNB
+│   ├── elevation.md         ← 의미 깊이 레벨
+│   ├── DDS_tokens_w3c.json       ← SSOT (primitive→semantic)
+│   ├── DDS_tokens_extended.json  ← accent · chart · 굵기 토큰
+│   └── DDS_tokens_dark.json      ← 다크 semantic 오버라이드
+├── components/              ← 컴포넌트 (문서 12 + 카탈로그)
+│   ├── README.md            ← 컴포넌트 카탈로그 · componentKey
+│   ├── button.md · input.md · switch.md · checkbox.md · option-group.md
+│   ├── table.md · page-header.md · icons.md · tooltip.md
+│   ├── skeleton.md          ← 로딩 자리표시
+│   ├── feedback.md          ← Toast · Alert · Spinner · Progress · Empty
+│   └── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
+├── scripts/build_tokens.py  ← 토큰 빌드 (JSON → dist, 경량 Style Dictionary)
+├── dist/                    ← 생성물: tokens.css · tokens.resolved.json · tokens.tailwind.js
+└── examples/                ← 데모 (dashboard · layout · feedback · overlay · dark)
 ```
+
+> `dist/`·`examples/`는 직접 수정 금지. 토큰은 JSON 수정 후 `python3 scripts/build_tokens.py`로 재생성.
 
 ---
 
@@ -80,15 +83,18 @@ dds-design-system/
 
 | 카테고리 | 토큰 패턴 | 예시 |
 |----------|-----------|------|
-| 컬러 (Semantic) | `Color/<role>/<intent>` | `Color/bg/primary`, `Color/text/danger` |
-| 간격 | `spacing/<n>` | `spacing/16` (= 16px) |
-| 라디우스 | `border/radius/<size>` | `border/radius/md` (= 8px) |
-| 타이포 (Heading) | `Heading/<size>` | `Heading/lg` |
-| 타이포 (Body) | `body/<size>/<weight>` | `body/md/regular` |
-| 모션 시간 | `motion/duration/<name>` | `motion/duration/base` (= 240ms) |
-| 모션 이징 | `motion/easing/<name>` | `motion/easing/spring/soft` |
+| 컬러 (Semantic) | `--color-<role>-<intent>` | `--color-bg-primary`, `--color-text-danger` |
+| 컬러 (Accent·Chart) | `--color-accent-<hue>`, `--color-chart-<n>` | `--color-accent-violet`, `--color-chart-1` |
+| 틴트 면 | `--color-bg-<intent>-subtle` | `--color-bg-success-subtle` |
+| 간격 | `--space-<n>` | `--space-16` (= 16px) |
+| 라디우스 | `--radius-<size>` | `--radius-md` (= 4px) |
+| 타이포 | `--heading-<sz>-*` · `--body-<sz>-*` | `--heading-lg-font-size` |
+| 굵기 | `--font-weight-<name>` | `--font-weight-medium` (= 500) |
+| 레이아웃 | `--container-*` · `--grid-*` · `--snb-width` | `--container-dashboard` (1680), `--snb-width` (270) |
+| 깊이 | `--elevation-<level>` | `--elevation-raised`, `--elevation-modal` |
+| 모션 | `--motion-duration-*` · `--motion-easing-*` | `--motion-duration-base` (= 240ms) |
 
-→ 자세한 표·CSS·Tailwind 매핑: [foundations/](./foundations/)
+→ 실제 값이 채워진 토큰: **[dist/tokens.css](./dist/)** · 자세한 표·매핑: [foundations/](./foundations/)
 
 ---
 
@@ -112,7 +118,7 @@ Foundation       ▸ Icon System
 
 - **Figma 파일**: [`2026_DDS_v2_배포용`](https://www.figma.com/design/tDGeNJRNR2vCZu5bVdmoNc/2026_DDS_v2_%EB%B0%B0%ED%8F%AC%EC%9A%A9)
 - **폰트**: Pretendard
-- **현재 모드**: Light (Dark는 Phase 2)
+- **모드**: Light · Dark (`[data-theme="dark"]` / OS 자동)
 
 ---
 
@@ -128,10 +134,24 @@ Foundation       ▸ Icon System
 
 ## 📅 로드맵
 
-- 🔜 **다크 모드** — 2026 Q3
-- 🔜 **UX 라이팅 가이드** (한/영 다국어) — 2026 Q3–Q4
-- 🔜 **JSON 토큰 연동** (Style Dictionary) — 2026 Q4
+- ✅ **토큰 빌드 파이프라인** — `build_tokens.py` → `dist/` (경량 Style Dictionary)
+- ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme]` / OS 자동
+- ✅ **레이아웃·Elevation·피드백·오버레이** 추가
+- 🔜 **내비게이션 컴포넌트** — Tabs · Segmented · Breadcrumb
+- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI
+- 🔜 **UX 라이팅 가이드** (한/영 다국어)
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
+
+---
+
+## 📝 변경 이력 (요약)
+
+| 버전 | 변경 |
+|------|------|
+| 2.1 | 토큰 빌드 파이프라인(`dist/`), Accent·Chart·Subtle 컬러, 타이포 굵기 축(body 400), Layout·Elevation 파운데이션, SNB(270·좌측), Skeleton·Feedback·Overlay 컴포넌트, **다크 모드**, 디자인 금지 규칙(이모지·그라데이션 띠·고밀도) |
+| 2.0 | 3-레이어 토큰, W3C 토큰 export, 오타 정정(neutral 등), 기본 컴포넌트 카탈로그 |
+
+> 상세 이력은 git 커밋 로그 참조.
 
 ---
 

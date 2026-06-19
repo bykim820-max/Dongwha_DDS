@@ -122,9 +122,11 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 
 ## 🗺 로드맵
 
+- ✅ **토큰 빌드 파이프라인** — `scripts/build_tokens.py`가 JSON을 해석해 `dist/`(tokens.css·resolved.json·Tailwind preset) 생성 (경량 Style Dictionary)
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme="dark"]`·자동(`prefers-color-scheme`) 지원 ([foundations/colors.md § 다크 모드](./foundations/colors.md#-다크-모드))
-- 🔜 **UX 라이팅 가이드** (한/영 다국어) — 2026 7~10월
-- 🔄 **JSON 코드 연동** (Style Dictionary 등) — W3C Design Tokens 형식 export 완료, Style Dictionary 빌드 파이프라인 작업 예정
+- ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
+- 🔜 **내비게이션 컴포넌트** (Tabs·Segmented·Breadcrumb) · **거버넌스**(stylelint + 빌드 검증 CI)
+- 🔜 **UX 라이팅 가이드** (한/영 다국어)
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---
