@@ -18,6 +18,7 @@
 | [State](./foundations/state.md) | default · hover · focus · disabled · error · loading |
 | [Motion](./foundations/motion.md) | Duration · Easing · 인터랙션 레시피 10종 |
 | [토큰 export](./foundations/DDS_tokens_w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
+| [빌드 산출물](./dist/) | JSON에서 값이 **해석된** `tokens.css`·`tokens.resolved.json`·Tailwind preset. 컬러 hex/px가 실제로 채워진 드롭인 파일 (`python3 scripts/build_tokens.py`로 재생성) |
 
 ### Components
 
@@ -25,7 +26,7 @@
 |----------|------|
 | Actions | [Button](./components/button.md) (Icon Button · Button Stack 포함) |
 | Form Inputs | [Input](./components/input.md) · [Switch](./components/switch.md) · [Checkbox](./components/checkbox.md) · [Option Group](./components/option-group.md) |
-| Feedback & Overlay | [Tooltip](./components/tooltip.md) |
+| Feedback & Overlay | [Tooltip](./components/tooltip.md) · [Skeleton](./components/skeleton.md) · [Feedback & Status](./components/feedback.md) (Toast·Alert·Spinner·Progress·Empty) |
 | Data Display | [Table](./components/table.md) |
 | Layout | [Page Header](./components/page-header.md) |
 | Foundation | [Icon System](./components/icons.md) |
@@ -83,6 +84,22 @@ Figma → 코드 변환 시 다음 순서를 따른다.
 | 변수 값 추출 | `get_variable_defs` (노드 선택 필요) |
 | 토큰/컴포넌트 검색 | `search_design_system` |
 | 코드 생성 컨텍스트 | `get_design_context` |
+
+---
+
+## 🚫 디자인 금지 규칙 (Anti-patterns)
+
+DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래는 예외 없이 금지.
+
+1. **이모지 아이콘 금지** — `₩ 🛒 👤 📦 ⏱ ✅ ⚠️ 🔔` 등 이모지·기호를 아이콘 자리에 쓰지 않는다.
+   모든 아이콘은 **라인(아웃라인) SVG 한 세트**(`stroke="currentColor"`)로 통일. → [components/icons.md §0](./components/icons.md)
+2. **"AI스러운" 그라데이션 띠/배너 UI 지양** — 화면 상단을 가로지르는 브랜드 그라데이션 히어로 띠, 보라↔핑크 글로우 그라데이션, 네온 테두리, 무의미한 글래스모피즘 등 **장식적 그라데이션·배너**를 남발하지 않는다.
+   - 면은 기본적으로 **단색 surface**(`Color/bg/*`)와 **연한 틴트**(`*-subtle`)로 구성.
+   - 그라데이션은 차트·데이터 시각화 등 **기능적 목적**이 있을 때만 제한적으로.
+3. **맹목적 고밀도 지양** — 정보를 욱여넣는 초고밀도(compact) 레이아웃을 기본으로 삼지 않는다.
+   여백·정렬·위계로 **읽기 쉬운 밀도**를 우선하고, 고밀도는 데이터 그리드 등 꼭 필요한 화면에 한정.
+4. **컬러는 다채롭되 조화롭게** — accent·chart 팔레트로 **다양성**은 살리되, 한 화면의 강조색은 절제하고
+   브랜드 green은 주요 액션 전용으로 보존한다. 채도 높은 색의 대면적 사용·무지개식 남발 금지.
 
 ---
 

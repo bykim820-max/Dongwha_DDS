@@ -29,29 +29,49 @@ font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
 
 | Text Style | 변수 키 | 용도 |
 |------------|---------|------|
-| `Heading/xs` | `Heading/xs/font size`, `Heading/xs/line height` | 캡션, 라벨 |
-| `Heading/sm` | `Heading/sm/font size`, `Heading/sm/line height` | 작은 섹션 타이틀 |
-| `Heading/md` | (Text Style only) | 카드 헤더 |
-| `Heading/lg` | `Heading/lg/font size`, `Heading/lg/line height` | 모달·페이지 서브 |
-| `Heading/xl` | `Heading/xl/font size`, `Heading/xl/line height` | 페이지 타이틀 |
-| `Heading/2xl` | `Heading/2xl/font size`, `Heading/2xl/line height` | 디스플레이 |
-| `Heading/3xl` | (Text Style only) | 히어로 |
-| `Heading/4xl` | `Heading/4xl/font size` | 히어로 (랜딩) |
+각 사이즈는 **font size + line height + font weight** 3변수로 구성(전부 `DDS_tokens_w3c.json`에 존재).
+
+| Text Style | px (size / line / weight) | 용도 |
+|------------|---------------------------|------|
+| `Heading/xs` | 18 / 20 / 600 | 캡션, 라벨 |
+| `Heading/sm` | 20 / 24 / 600 | 작은 섹션 타이틀 |
+| `Heading/md` | 24 / 30 / 600 | 카드 헤더 |
+| `Heading/lg` | 30 / 32 / 600 | 모달·페이지 서브 |
+| `Heading/xl` | 32 / 42 / 700 | 페이지 타이틀 |
+| `Heading/2xl` | 42 / 48 / 700 | 디스플레이 |
+| `Heading/3xl` | 48 / 56 / 700 | 히어로 |
+| `Heading/4xl` | 56 / 68 / 700 | 히어로 (랜딩) |
+
+> 타이틀은 **semibold(600)**, 디스플레이(xl 이상)는 **bold(700)**. 전부 본문(400)보다 무거워 위계가 보장된다.
 
 ---
 
 ## 3. Body 스케일
 
-| Text Style | 사이즈 | 가중치 |
-|------------|--------|--------|
-| `body/sm/regular` | sm | regular |
-| `body/sm/medium` | sm | medium |
-| `body/md/regular` | md | regular **(본문 기본)** |
-| `body/md/medium` | md | medium |
-| `body/lg/regular` | lg | regular |
-| `body/lg/medium` | lg | medium |
+Body Text Style = **사이즈 토큰(size·line-height) + 굵기 토큰**의 조합. `regular`/`medium`은 굵기 토큰만 바꿔 표현한다.
 
-공통 변수: `Body/letter spacing`.
+| Text Style | px (size / line) | 굵기 토큰 |
+|------------|------------------|-----------|
+| `body/sm/regular` | 12 / 16 | `--font-weight-regular` (400) |
+| `body/sm/medium` | 12 / 16 | `--font-weight-medium` (500) |
+| `body/md/regular` | 14 / 16 | `--font-weight-regular` (400) **(본문 기본)** |
+| `body/md/medium` | 14 / 16 | `--font-weight-medium` (500) |
+| `body/lg/regular` | 16 / 18 | `--font-weight-regular` (400) |
+| `body/lg/medium` | 16 / 18 | `--font-weight-medium` (500) |
+
+각 사이즈의 기본 굵기 토큰(`--body-{sz}-font-weight`)은 **400(regular)** 이며, `medium`이 필요하면 `--font-weight-medium`로 덮어쓴다.
+공통 변수: `--body-letter-spacing`.
+
+### 3.1 굵기(Weight) 토큰
+
+| 토큰 | 값 | 용도 |
+|------|----|------|
+| `--font-weight-regular` | 400 | 본문 기본 |
+| `--font-weight-medium` | 500 | 버튼·라벨·테이블 헤더 강조 |
+| `--font-weight-semibold` | 600 | 타이틀(Heading sm~lg) |
+| `--font-weight-bold` | 700 | 디스플레이(Heading xl 이상) |
+
+> v2.0: 종전 body 굵기가 200(extra-light)으로 과도하게 얇아 **400(regular)으로 상향**, medium(500) 축을 신설.
 
 ---
 
@@ -96,7 +116,7 @@ font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
   font-family: var(--font-heading);
   font-size:   var(--heading-lg-font-size);
   line-height: var(--heading-lg-line-height);
-  font-weight: 700;
+  font-weight: var(--heading-lg-font-weight);   /* 600 semibold */
 }
 
 .text-body-md-regular {
@@ -104,7 +124,15 @@ font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui,
   font-size:      var(--body-md-font-size);
   line-height:    var(--body-md-line-height);
   letter-spacing: var(--body-letter-spacing);
-  font-weight:    400;
+  font-weight:    var(--font-weight-regular);   /* 400 */
+}
+
+.text-body-md-medium {
+  font-family:    var(--font-body);
+  font-size:      var(--body-md-font-size);
+  line-height:    var(--body-md-line-height);
+  letter-spacing: var(--body-letter-spacing);
+  font-weight:    var(--font-weight-medium);    /* 500 */
 }
 ```
 
@@ -158,7 +186,7 @@ module.exports = {
 ## 8. 규칙
 
 1. **Text Style 이름을 그대로 클래스로** — `<h2 class="text-heading-lg">` 형태
-2. 임의 font-size·line-height 인라인 금지
-3. 굵기는 디자인 토큰의 weight 사용 (보통 400 regular / 500 medium / 700 bold)
+2. 임의 font-size·line-height·font-weight 인라인 금지 — 반드시 토큰 사용
+3. 굵기는 **굵기 토큰만 사용**: `--font-weight-{regular|medium|semibold|bold}` (400/500/600/700). 본문 기본은 400, 200/300(라이트) 직접 사용 금지
 4. 한국어/영문 혼용 시 줄간격(line-height) 충분히 확보 (한글 1.5+ 권장)
 5. 모바일에서 본문은 `16px` 이상 유지 (zoom 방지)

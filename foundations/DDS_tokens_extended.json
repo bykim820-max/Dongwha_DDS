@@ -1,0 +1,62 @@
+{
+  "_comment": "확장 토큰(표현력·다채로움). 원본 DDS_tokens_w3c.json의 primitive를 참조만 함. build_tokens.py가 원본과 병합해 해석. 값 생성 없음 — 잠자던 원시 팔레트의 semantic 승격.",
+  "color": {
+    "semantic": {
+      "color_bg_primary-subtle":  { "$type": "color", "$value": "{color.primitive.brand_primary_green_50}" },
+      "color_bg_success-subtle":  { "$type": "color", "$value": "{color.primitive.brand_primary_green_50}" },
+      "color_bg_info-subtle":     { "$type": "color", "$value": "{color.primitive.primitive_blue_50}" },
+      "color_bg_warning-subtle":  { "$type": "color", "$value": "{color.primitive.primitive_yellow_50}" },
+      "color_bg_danger-subtle":   { "$type": "color", "$value": "{color.primitive.primitive_red_50}" },
+
+      "color_accent_violet-subtle": { "$type": "color", "$value": "{color.primitive.primitive_purple_50}" },
+      "color_accent_violet":        { "$type": "color", "$value": "{color.primitive.primitive_purple_500}" },
+      "color_accent_violet-bold":   { "$type": "color", "$value": "{color.primitive.primitive_purple_700}" },
+      "color_accent_pink-subtle":   { "$type": "color", "$value": "{color.primitive.primitive_pink_50}" },
+      "color_accent_pink":          { "$type": "color", "$value": "{color.primitive.primitive_pink_500}" },
+      "color_accent_pink-bold":     { "$type": "color", "$value": "{color.primitive.primitive_pink_700}" },
+      "color_accent_orange-subtle": { "$type": "color", "$value": "{color.primitive.primitive_orange_50}" },
+      "color_accent_orange":        { "$type": "color", "$value": "{color.primitive.primitive_orange_500}" },
+      "color_accent_orange-bold":   { "$type": "color", "$value": "{color.primitive.primitive_orange_700}" },
+      "color_accent_cyan-subtle":   { "$type": "color", "$value": "{color.primitive.brand_primary_cyan_50}" },
+      "color_accent_cyan":          { "$type": "color", "$value": "{color.primitive.brand_primary_cyan_500}" },
+      "color_accent_cyan-bold":     { "$type": "color", "$value": "{color.primitive.brand_primary_cyan_700}" },
+      "color_accent_mint-subtle":   { "$type": "color", "$value": "{color.primitive.primitive_positive-mint_50}" },
+      "color_accent_mint":          { "$type": "color", "$value": "{color.primitive.primitive_positive-mint_500}" },
+      "color_accent_mint-bold":     { "$type": "color", "$value": "{color.primitive.primitive_positive-mint_700}" },
+      "color_accent_amber-subtle":  { "$type": "color", "$value": "{color.primitive.primitive_yellow_50}" },
+      "color_accent_amber":         { "$type": "color", "$value": "{color.primitive.primitive_yellow_500}" },
+      "color_accent_amber-bold":    { "$type": "color", "$value": "{color.primitive.primitive_yellow_700}" },
+
+      "color_chart_1": { "$type": "color", "$value": "{color.primitive.brand_primary_green_500}" },
+      "color_chart_2": { "$type": "color", "$value": "{color.primitive.primitive_blue_500}" },
+      "color_chart_3": { "$type": "color", "$value": "{color.primitive.primitive_purple_500}" },
+      "color_chart_4": { "$type": "color", "$value": "{color.primitive.primitive_orange_500}" },
+      "color_chart_5": { "$type": "color", "$value": "{color.primitive.brand_primary_cyan_500}" },
+      "color_chart_6": { "$type": "color", "$value": "{color.primitive.primitive_pink_500}" },
+      "color_chart_7": { "$type": "color", "$value": "{color.primitive.primitive_yellow_500}" },
+      "color_chart_8": { "$type": "color", "$value": "{color.primitive.primitive_positive-mint_500}" }
+    }
+  },
+  "typography": {
+    "_comment": "굵기(weight) 축 복구 + 가독성 위해 기본 굵기 400 상향. 원본 font_style_normal_* primitive 참조.",
+    "semantic": {
+      "font_weight_regular":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_regular}" },
+      "font_weight_medium":   { "$type": "number", "$value": "{typography.primitive.font_style_normal_medium}" },
+      "font_weight_semibold": { "$type": "number", "$value": "{typography.primitive.font_style_normal_semi_bold}" },
+      "font_weight_bold":     { "$type": "number", "$value": "{typography.primitive.font_style_normal_bold}" },
+
+      "body_sm_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_regular}" },
+      "body_md_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_regular}" },
+      "body_lg_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_regular}" },
+
+      "heading_xs_font_weight":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_semi_bold}" },
+      "heading_sm_font_weight":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_semi_bold}" },
+      "heading_md_font_weight":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_semi_bold}" },
+      "heading_lg_font_weight":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_semi_bold}" },
+      "heading_xl_font_weight":  { "$type": "number", "$value": "{typography.primitive.font_style_normal_bold}" },
+      "heading_2xl_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_bold}" },
+      "heading_3xl_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_bold}" },
+      "heading_4xl_font_weight": { "$type": "number", "$value": "{typography.primitive.font_style_normal_bold}" }
+    }
+  }
+}

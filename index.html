@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DDS v2.0 · 토큰 적용 데모</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  /* ============================================================
+     DDS v2.0 토큰 (dist/tokens.css 내장본 — 자급식 데모)
+     원본은 dist/tokens.css. 갱신: python3 scripts/build_tokens.py
+     ============================================================ */
+  :root {
+    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#525252;
+    --color-text-info:#196ce8; --color-text-success:#14bc62; --color-text-warning:#e0b20f; --color-text-danger:#f51a1a;
+    --color-text-interactive-inverse:#ffffff; --color-text-disabled:#a3a3a3;
+    --color-bg-primary:#ffffff; --color-bg-secondary:#fafafa; --color-bg-tertiary:#f5f5f5;
+    --color-bg-info:#196ce8; --color-bg-success:#14bc62; --color-bg-warning:#e0b20f; --color-bg-danger:#f51a1a;
+    --color-bg-danger-bold:#d31515; --color-bg-disabled:#a3a3a3;
+    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048; --color-bg-interactive-primary-pressed:#0a6036;
+    --color-bg-interactive-secondary:#fafafa; --color-bg-interactive-secondary-hover:#e5e5e5; --color-bg-interactive-secondary-pressed:#d4d4d4;
+    --color-border-primary:#00ad50; --color-border-secondary:#e5e5e5; --color-border-info:#196ce8; --color-border-danger:#f51a1a;
+    --space-2:2px; --space-4:4px; --space-8:8px; --space-12:12px; --space-16:16px; --space-24:24px; --space-32:32px;
+    --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-rounded:999999px;
+    --border-width-sm:1px; --border-width-md:2px;
+    --font-heading:Pretendard; --font-body:Pretendard; --body-letter-spacing:0.2px; --heading-letter-spacing:-0.2px;
+    --heading-2xl-font-size:42px; --heading-2xl-line-height:48px; --heading-2xl-font-weight:500;
+    --heading-lg-font-size:30px; --heading-lg-line-height:32px; --heading-lg-font-weight:400;
+    --heading-sm-font-size:20px; --heading-sm-line-height:24px; --heading-sm-font-weight:300;
+    --body-md-font-size:14px; --body-md-line-height:16px; --body-md-font-weight:200;
+    --body-sm-font-size:12px; --body-sm-line-height:16px; --body-sm-font-weight:200;
+    --motion-duration-instant:80ms; --motion-duration-quick:160ms; --motion-duration-base:240ms;
+    --motion-easing-standard:cubic-bezier(0.4,0,0.2,1); --motion-easing-spring-snappy:cubic-bezier(0.5,1.25,0.5,1); --motion-easing-spring-soft:cubic-bezier(0.32,0.72,0,1);
+    --shadow-sm:0 1px 2px #00000029, 0 0 1px #0000001f; --shadow-md:0 2px 4px #00000029, 0 0 4px #0000001f;
+  }
+
+  /* 컴포넌트 = 문서 사양 + semantic 토큰만 (하드코딩 hex/px 없음) */
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:var(--font-body),system-ui,sans-serif; font-size:var(--body-md-font-size);
+    line-height:var(--body-md-line-height); letter-spacing:var(--body-letter-spacing);
+    color:var(--color-text-primary); background:var(--color-bg-secondary); }
+  h1,h2 { font-family:var(--font-heading); letter-spacing:var(--heading-letter-spacing); margin:0; }
+  .h-lg { font-size:var(--heading-lg-font-size); line-height:var(--heading-lg-line-height); font-weight:var(--heading-lg-font-weight); }
+  .h-sm { font-size:var(--heading-sm-font-size); line-height:var(--heading-sm-line-height); font-weight:var(--heading-sm-font-weight); }
+  .caption { font-size:var(--body-sm-font-size); line-height:var(--body-sm-line-height); color:var(--color-text-tertiary); }
+  .section-label { font-size:var(--body-sm-font-size); color:var(--color-text-secondary); text-transform:uppercase; letter-spacing:.04em; }
+
+  .page-header { display:flex; align-items:center; justify-content:space-between; gap:var(--space-16);
+    padding:var(--space-24) var(--space-32); background:var(--color-bg-primary);
+    border-bottom:var(--border-width-sm) solid var(--color-border-secondary); }
+  .title-group { display:flex; flex-direction:column; gap:var(--space-2); }
+  main { max-width:960px; margin:0 auto; padding:var(--space-32); display:flex; flex-direction:column; gap:var(--space-32); }
+  .card { background:var(--color-bg-primary); border:var(--border-width-sm) solid var(--color-border-secondary);
+    border-radius:var(--radius-lg); padding:var(--space-24); box-shadow:var(--shadow-sm);
+    display:flex; flex-direction:column; gap:var(--space-16); }
+  .row { display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-12); }
+
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:var(--space-8); height:40px; padding:0 var(--space-16);
+    font-family:var(--font-body); font-size:var(--body-md-font-size); font-weight:var(--body-md-font-weight);
+    border:var(--border-width-sm) solid transparent; border-radius:var(--radius-md); cursor:pointer;
+    transition:transform var(--motion-duration-instant) var(--motion-easing-standard),
+               background-color var(--motion-duration-instant) var(--motion-easing-standard); }
+  .btn:active { transform:scale(0.97); }
+  .btn:focus-visible { outline:2px solid var(--color-border-info); outline-offset:2px; }
+  .btn:disabled { background:var(--color-bg-disabled); color:var(--color-text-disabled); cursor:not-allowed; }
+  .btn--xs { height:24px; padding:0 var(--space-8); font-size:var(--body-sm-font-size); }
+  .btn--sm { height:32px; padding:0 var(--space-12); font-size:var(--body-sm-font-size); }
+  .btn--lg { height:48px; }
+  .btn--primary { background:var(--color-bg-interactive-primary); color:var(--color-text-interactive-inverse); }
+  .btn--primary:hover { background:var(--color-bg-interactive-primary-hover); }
+  .btn--primary:active { background:var(--color-bg-interactive-primary-pressed); }
+  .btn--secondary { background:var(--color-bg-secondary); color:var(--color-text-primary); }
+  .btn--secondary:hover { background:var(--color-bg-interactive-secondary-hover); }
+  .btn--tertiary { background:transparent; color:var(--color-text-primary); }
+  .btn--tertiary:hover { background:var(--color-bg-interactive-secondary-hover); }
+  .btn--outline { background:transparent; color:var(--color-text-primary); border-color:var(--color-border-primary); }
+  .btn--outline:hover { background:var(--color-bg-interactive-secondary-hover); }
+  .btn--danger { background:var(--color-bg-danger); color:var(--color-text-interactive-inverse); }
+  .btn--danger:hover { background:var(--color-bg-danger-bold); }
+  .btn--link { background:transparent; color:var(--color-text-info); text-decoration:underline; height:auto; padding:0; }
+
+  .field { display:flex; flex-direction:column; gap:var(--space-4); min-width:220px; }
+  .field > label { font-size:var(--body-sm-font-size); color:var(--color-text-secondary); }
+  .input { height:40px; padding:0 var(--space-12); border:var(--border-width-sm) solid var(--color-border-secondary);
+    border-radius:var(--radius-md); background:var(--color-bg-primary); color:var(--color-text-primary);
+    font:var(--body-md-font-weight) var(--body-md-font-size)/var(--body-md-line-height) var(--font-body);
+    transition:border-color var(--motion-duration-quick) var(--motion-easing-standard); }
+  .input::placeholder { color:var(--color-text-tertiary); }
+  .input:hover { border-color:var(--color-border-primary); }
+  .input:focus-visible { outline:2px solid var(--color-border-info); outline-offset:-2px; border-color:var(--color-border-info); }
+  .input--error { border-color:var(--color-border-danger); }
+  .help-error { font-size:var(--body-sm-font-size); color:var(--color-text-danger); }
+
+  .switch { position:relative; display:inline-block; width:44px; height:24px; }
+  .switch input { position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer; }
+  .switch-track { position:absolute; inset:0; border-radius:var(--radius-rounded); background:var(--color-bg-secondary);
+    transition:background-color var(--motion-duration-quick) var(--motion-easing-standard); border:var(--border-width-sm) solid var(--color-border-secondary); }
+  .switch-thumb { position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:var(--radius-rounded);
+    background:var(--color-bg-primary); box-shadow:var(--shadow-sm); transition:transform var(--motion-duration-quick) var(--motion-easing-spring-snappy); }
+  .switch input:checked ~ .switch-track { background:var(--color-bg-interactive-primary); border-color:transparent; }
+  .switch input:checked ~ .switch-thumb { transform:translateX(20px); }
+
+  .cb { display:inline-flex; align-items:center; gap:var(--space-8); cursor:pointer; }
+  .cb input { position:absolute; opacity:0; }
+  .cb-box { width:20px; height:20px; display:inline-grid; place-items:center; border:1.5px solid var(--color-border-secondary);
+    border-radius:var(--radius-sm); background:var(--color-bg-primary);
+    transition:background-color var(--motion-duration-quick) var(--motion-easing-standard); }
+  .cb-box svg { width:14px; height:14px; stroke:#fff; opacity:0; }
+  .cb input:checked ~ .cb-box { background:var(--color-bg-interactive-primary); border-color:transparent; }
+  .cb input:checked ~ .cb-box svg { opacity:1; }
+
+  table { width:100%; border-collapse:collapse; font-size:var(--body-md-font-size); }
+  thead th { text-align:left; padding:var(--space-12) var(--space-16); background:var(--color-bg-tertiary);
+    color:var(--color-text-secondary); border-bottom:var(--border-width-md) solid var(--color-border-secondary); }
+  tbody td { padding:var(--space-12) var(--space-16); border-bottom:var(--border-width-sm) solid var(--color-border-secondary); }
+  tbody tr { background:var(--color-bg-primary); transition:background-color var(--motion-duration-instant) var(--motion-easing-standard); }
+  tbody tr:hover { background:var(--color-bg-secondary); }
+  .badge { display:inline-flex; padding:var(--space-2) var(--space-8); border-radius:var(--radius-rounded); font-size:var(--body-sm-font-size); color:#fff; }
+  .badge--success { background:var(--color-bg-success); }
+  .badge--warning { background:var(--color-bg-warning); }
+  .badge--danger { background:var(--color-bg-danger); }
+
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:var(--space-8); }
+  .swatch { border:var(--border-width-sm) solid var(--color-border-secondary); border-radius:var(--radius-md); overflow:hidden; font-size:var(--body-sm-font-size); }
+  .swatch .chip { height:48px; }
+  .swatch .name { padding:var(--space-4) var(--space-8); color:var(--color-text-secondary); }
+
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition-duration:0.01ms !important; } }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="title-group">
+    <h1 class="h-lg">동화 디자인시스템 데모</h1>
+    <span class="caption">DDS 토큰만으로 렌더링 · Semantic 토큰 검증 페이지</span>
+  </div>
+  <div class="row">
+    <button class="btn btn--tertiary">취소</button>
+    <button class="btn btn--primary">저장</button>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2 class="h-sm">Button — Variants</h2>
+    <div class="row">
+      <button class="btn btn--primary">Primary</button>
+      <button class="btn btn--secondary">Secondary</button>
+      <button class="btn btn--tertiary">Tertiary</button>
+      <button class="btn btn--outline">Outline</button>
+      <button class="btn btn--danger">Danger</button>
+      <button class="btn btn--link">Link</button>
+      <button class="btn btn--primary" disabled>Disabled</button>
+    </div>
+    <span class="section-label">Sizes</span>
+    <div class="row">
+      <button class="btn btn--primary btn--xs">XS</button>
+      <button class="btn btn--primary btn--sm">SM</button>
+      <button class="btn btn--primary">MD</button>
+      <button class="btn btn--primary btn--lg">LG</button>
+    </div>
+    <span class="caption">hover·press·focus(Tab) 상태와 모션은 직접 만져 확인하세요.</span>
+  </section>
+
+  <section class="card">
+    <h2 class="h-sm">Form — Input · Switch · Checkbox</h2>
+    <div class="row" style="align-items:flex-start; gap:var(--space-24);">
+      <div class="field"><label>이름</label><input class="input" placeholder="홍길동" /></div>
+      <div class="field"><label>이메일 (에러 상태)</label><input class="input input--error" value="잘못된-이메일" />
+        <span class="help-error">올바른 이메일 형식이 아닙니다.</span></div>
+    </div>
+    <div class="row" style="gap:var(--space-24);">
+      <label class="row" style="gap:var(--space-8);">
+        <span class="switch"><input type="checkbox" checked /><span class="switch-track"></span><span class="switch-thumb"></span></span>
+        <span>알림 받기</span>
+      </label>
+      <label class="cb"><input type="checkbox" checked />
+        <span class="cb-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>약관에 동의합니다</span></label>
+      <label class="cb"><input type="checkbox" />
+        <span class="cb-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>마케팅 수신</span></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="h-sm">Table</h2>
+    <table>
+      <thead><tr><th>주문번호</th><th>고객</th><th>금액</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>#10293</td><td>김보영</td><td>1,240,000원</td><td><span class="badge badge--success">완료</span></td></tr>
+        <tr><td>#10294</td><td>이서준</td><td>320,000원</td><td><span class="badge badge--warning">대기</span></td></tr>
+        <tr><td>#10295</td><td>박지민</td><td>880,000원</td><td><span class="badge badge--danger">실패</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2 class="h-sm">Semantic Color (bg)</h2>
+    <div class="swatches" id="swatches"></div>
+    <span class="caption">아래 칩은 내장 토큰의 실제 값으로 칠해집니다.</span>
+  </section>
+</main>
+
+<script>
+  var bg = ['primary','secondary','tertiary','info','success','warning','danger','disabled',
+    'interactive-primary','interactive-primary-hover','interactive-primary-pressed','interactive-secondary'];
+  var root = getComputedStyle(document.documentElement);
+  var wrap = document.getElementById('swatches');
+  bg.forEach(function(t){
+    var val = root.getPropertyValue('--color-bg-' + t).trim();
+    var el = document.createElement('div');
+    el.className = 'swatch';
+    el.innerHTML = '<div class="chip" style="background:'+val+'"></div><div class="name">bg/'+t+'<br>'+val+'</div>';
+    wrap.appendChild(el);
+  });
+</script>
+</body>
+</html>

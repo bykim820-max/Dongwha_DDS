@@ -15,8 +15,9 @@
 node_modules/
 .npm/
 .pnpm-store/
-dist/
 .cache/
+# 참고: 토큰 빌드 산출물 dist/ 는 의도된 배포물이라 추적함.
+#       SSG(VitePress) 빌드 출력은 아래 .vitepress/dist/ 로 별도 제외.
 
 # Build / docs SSG
 .vitepress/cache/

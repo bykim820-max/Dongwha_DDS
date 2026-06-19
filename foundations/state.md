@@ -52,13 +52,13 @@
 
 .button:hover {
   /* hover */
-  background: var(--color-bg-primary-hover);
+  background: var(--color-bg-interactive-secondary-hover);
 }
 
 .button:active {
   /* pressed */
   transform: scale(0.97);
-  background: var(--color-bg-primary-pressed);
+  background: var(--color-bg-interactive-secondary-pressed);
 }
 
 .button:focus-visible {

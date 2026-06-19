@@ -26,7 +26,7 @@
 
 ### 개발자
 1. [design.md](./design.md) 의 "코드 매핑 핵심 규칙" 7가지 확인
-2. [foundations/](./foundations/) 의 CSS Variables · Tailwind 매핑 그대로 복붙
+2. **[dist/tokens.css](./dist/) 를 import** — 값이 실제 hex/px로 해석된 드롭인 토큰 (Tailwind는 `dist/tokens.tailwind.js` preset)
 3. 컴포넌트 구현 시 [components/](./components/) 의 props·states 시그니처 참고
 4. 모든 인터랙션에 [foundations/motion.md](./foundations/motion.md) 의 Duration·Easing 토큰 적용
 
@@ -97,7 +97,7 @@ dds-design-system/
 ```
 Actions          ▸ Button · Icon Button · Button Stack
 Form Inputs      ▸ Input · Switch · Checkbox · Option Group
-Feedback         ▸ Tooltip
+Feedback         ▸ Tooltip · Skeleton · Toast · Inline Alert · Spinner · Progress · Empty State
 Data Display     ▸ Table
 Layout           ▸ Page Header
 Foundation       ▸ Icon System
@@ -121,6 +121,7 @@ Foundation       ▸ Icon System
 2. 토큰 추가/변경은 Figma 라이브러리 갱신 → 본 저장소 PR
 3. 임의 hex/px 값 인라인 금지. **Semantic 토큰만 사용**
 4. 모든 컴포넌트는 `prefers-reduced-motion` 미디어쿼리 포함
+5. **이모지 아이콘 금지 · 라인 SVG 아이콘만 사용**, **AI스러운 그라데이션 띠/배너·맹목적 고밀도 지양** → [design.md § 디자인 금지 규칙](./design.md#-디자인-금지-규칙-anti-patterns)
 
 ---
 

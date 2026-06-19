@@ -72,7 +72,7 @@
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--radius-md);
   background: var(--color-bg-primary);
-  font: var(--body-md-regular);
+  font: var(--body-md-font-weight) var(--body-md-font-size)/var(--body-md-line-height) var(--font-body);
   transition: border-color var(--motion-duration-quick) var(--motion-easing-standard);
 }
 .input:hover  { border-color: var(--color-border-primary); }
