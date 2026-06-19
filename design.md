@@ -17,7 +17,7 @@
 | [Radius](./foundations/radius.md) | `border/radius/sm` ~ `rounded` |
 | [State](./foundations/state.md) | default · hover · focus · disabled · error · loading |
 | [Motion](./foundations/motion.md) | Duration · Easing · 인터랙션 레시피 10종 |
-| [토큰 export](./foundations/DDS_tokens.w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
+| [토큰 export](./foundations/DDS_tokens_w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
 
 ### Components
 
@@ -114,7 +114,7 @@ Figma → 코드 변환 시 다음 순서를 따른다.
 
 - ~~`Brand/Secondary/netural`의 `netural` 오타 유지~~ → **v2.0에서 `neutral`로 정정 완료.** Figma 변수 및 토큰 JSON 모두 반영됨. 함께 `transpaernt`→`transparent`, `Interctive`→`Interactive` 오타도 정정.
 - `primary_typography`의 `font_family`·`font_family_typeface` 토큰 값이 `"String value"` 플레이스홀더 상태. 실사용 토큰(`font_family_typeface_sans` 등)은 정상이므로, Figma에서 두 토큰에 실제 값을 채우거나 미사용 시 삭제 필요.
-- 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens.w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
+- 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens_w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
 

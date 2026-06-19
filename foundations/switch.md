@@ -2,7 +2,7 @@
 
 > 즉시 적용되는 ON/OFF 상태를 토글하는 컨트롤.
 
-[← Components](./README.md) · [← design.md](../design.md)
+[← Components](../components/README.md) · [← design.md](../design.md)
 
 ---
 
@@ -103,7 +103,7 @@ type SwitchProps = {
 | Track OFF | `Color/bg/secondary` |
 | Track ON | `Color/bg/interactive/primary` (green 500) |
 | Track disabled | `Color/bg/disabled` |
-| Thumb | `Brand/Secondary/netural/white` |
+| Thumb | `Brand/Secondary/neutral/white` |
 | Radius | `border/radius/rounded` |
 | 모션 | `duration/quick` + `easing/spring/snappy` |
 | Focus | `Color/border/info` outline 2px |

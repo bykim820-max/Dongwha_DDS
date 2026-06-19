@@ -56,7 +56,7 @@
 | 속성 | 값 |
 |------|----|
 | 배경색 | `rgba(0, 0, 0, 0.85)` |
-| 테두리 반경 | `8px` (= `border/radius/md`) |
+| 테두리 반경 | `4px` (= `border/radius/md`) |
 | 그림자 | `0px 4px 4px rgba(0,0,0,0.25)`, `0px 0px 8px rgba(0,0,0,0.15)` |
 | 내부 여백 | `10px` |
 | 내부 요소 간격 | `10px` (Closed, Action 타입) |
@@ -136,7 +136,7 @@ type TooltipProps = {
 | 영역 | 토큰 |
 |------|------|
 | 배경 | `rgba(0,0,0,0.85)` (전용, Semantic 외) |
-| 본문 텍스트 | `#FFFFFF` (`Brand/Secondary/netural/white`) |
+| 본문 텍스트 | `#FFFFFF` (`Brand/Secondary/neutral/white`) |
 | Action 텍스트 | `Primitive/neutral/200` (`#E5E5E5`) |
 | Radius | `border/radius/md` |
 | 내부 여백 | 10px (커스텀) |

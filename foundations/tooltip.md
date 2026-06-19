@@ -2,7 +2,7 @@
 
 > 정보 제공 목적의 텍스트 표시 UI. 호버 또는 포커스 시에 보조 설명을 노출.
 
-[← Components](./README.md) · [← design.md](../design.md)
+[← Components](../components/README.md) · [← design.md](../design.md)
 
 ---
 
@@ -136,7 +136,7 @@ type TooltipProps = {
 | 영역 | 토큰 |
 |------|------|
 | 배경 | `rgba(0,0,0,0.85)` (전용, Semantic 외) |
-| 본문 텍스트 | `#FFFFFF` (`Brand/Secondary/netural/white`) |
+| 본문 텍스트 | `#FFFFFF` (`Brand/Secondary/neutral/white`) |
 | Action 텍스트 | `Primitive/neutral/200` (`#E5E5E5`) |
 | Radius | `border/radius/md` |
 | 내부 여백 | 10px (커스텀) |

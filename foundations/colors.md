@@ -19,7 +19,7 @@
 |-----|--------------|-----------|
 | `red` | 50, 100, 200, 400, 500, 600, 700, 800, 900 | `Primitive/red/{scale}` |
 | `pink` | 50, 100, 200, 400, 600, 700 | `Primitive/pink/{scale}` |
-| `neutral`* | white, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 | `Brand/Secondary/netural/{scale}` |
+| `neutral`* | white, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 | `Brand/Secondary/neutral/{scale}` |
 
 > Figma 라이브러리에 등록된 다른 hue(`blue`, `green`, `orange`, `yellow`, `purple` 등)도 동일한 50–900 패턴을 따른다.
 
@@ -177,7 +177,7 @@ module.exports = {
 
 ## ⚠️ 주의 사항
 
-- `Brand/Secondary/netural`의 `netural`은 Figma 측 **오타**이지만 코드 일관성을 위해 그대로 유지.
+- `Brand/Secondary/neutral` — 이전 버전의 `netural` 오타는 **v2.0에서 `neutral`로 정정 완료**(Figma 변수 및 `DDS_tokens_w3c.json` 반영). 문서·코드 모두 `neutral`로 통일한다.
 - 정확한 hex 값은 Figma 변수 패널에서 직접 확인 (Figma MCP `get_variable_defs`는 노드 선택 필요).
 - 다크 모드 토큰은 Phase 2(2026 7월~)에 추가 예정.
 - 컬러만으로 정보를 전달하지 말 것 (색맹 대응) — 아이콘·텍스트 병행.

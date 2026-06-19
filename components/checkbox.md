@@ -54,8 +54,8 @@
 |------|----------|----------|--------|
 | unchecked | `Color/bg/primary` | `Color/border/secondary` | 없음 |
 | unchecked hover | `Color/bg/primary` | `Color/border/primary` | 없음 |
-| checked | `Color/bg/primary` (브랜드) | none | white |
-| indeterminate | `Color/bg/primary` (브랜드) | none | white (가로선) |
+| checked | `Color/bg/interactive/primary` (green 500 = `#14bc62`) | none | white |
+| indeterminate | `Color/bg/interactive/primary` (green 500 = `#14bc62`) | none | white (가로선) |
 | disabled | `Color/bg/disabled` | `Color/border/disabled` | `Color/text/disabled` |
 | error | `Color/bg/primary` | `Color/border/danger` | — |
 | focus-visible | — | outline `Color/border/info` 2px | — |
@@ -73,7 +73,7 @@
 }
 .checkbox[aria-checked="true"],
 .checkbox[aria-checked="mixed"] {
-  background: var(--color-bg-primary-brand);
+  background: var(--color-bg-interactive-primary); /* green 500 */
   border-color: transparent;
 }
 .checkbox[aria-checked="true"] svg,
@@ -110,7 +110,7 @@ type CheckboxProps = {
 | 영역 | 토큰 |
 |------|------|
 | Box 배경 (unchecked) | `Color/bg/primary` |
-| Box 배경 (checked) | 브랜드 컬러 (예: `Brand/Primary/navy`) |
+| Box 배경 (checked) | `Color/bg/interactive/primary` (green 500) |
 | Box 보더 | `Color/border/{secondary|primary|danger|disabled}` |
 | 아이콘 | white |
 | Radius | `border/radius/sm` |

@@ -2,7 +2,7 @@
 
 > 사용자가 취할 수 있는 액션을 표현. 폼 제출 · 작업 시작 · 페이지 이동 등.
 
-[← Components](./README.md) · [← design.md](../design.md)
+[← Components](../components/README.md) · [← design.md](../design.md)
 
 ---
 

@@ -34,7 +34,7 @@
 
 | 변형 | 용도 | 배경 | 텍스트 |
 |------|------|------|--------|
-| `primary` | 메인 액션, 페이지당 1개 | `Color/bg/primary` | 흰색/대비색 |
+| `primary` | 메인 액션, 페이지당 1개 | `Color/bg/interactive/primary` (green 500) | 흰색 |
 | `secondary` | 보조 액션 | `Color/bg/secondary` | `Color/text/primary` |
 | `tertiary` (ghost) | 약한 액션 | transparent | `Color/text/primary` |
 | `outline` | 보조 강조 | transparent + `Color/border/primary` | `Color/text/primary` |
@@ -67,11 +67,11 @@
 }
 
 .btn[data-variant="primary"] {
-  background: var(--color-bg-primary);
+  background: var(--color-bg-interactive-primary); /* green 500 #14bc62 */
   color: #fff;
 }
-.btn[data-variant="primary"]:hover  { /* bg 한 단계 어둡게 */ }
-.btn[data-variant="primary"]:active { transform: scale(0.97); }
+.btn[data-variant="primary"]:hover  { background: var(--color-bg-interactive-primary-hover); }   /* green 700 */
+.btn[data-variant="primary"]:active { background: var(--color-bg-interactive-primary-pressed); transform: scale(0.97); } /* green 800 */
 
 .btn:focus-visible {
   outline: 2px solid var(--color-border-info);

@@ -1,7 +1,7 @@
 # Border Radius
 
 > `Semantic:Appearance` 컬렉션, 스코프 `CORNER_RADIUS`.
-> **이 문서의 px 값은 추정치가 아니라 `DDS_tokens.w3c.json`(SSOT) 실측값이다.**
+> **이 문서의 px 값은 추정치가 아니라 `DDS_tokens_w3c.json`(SSOT) 실측값이다.**
 
 [← design.md](../design.md)
 
@@ -19,7 +19,7 @@
 | `border/radius/rounded` | 999999 | Pill, Avatar, Switch |
 
 > ⚠️ **v2.0 정정**: 이전 문서는 `sm=4 / md=8 / lg=12 / xl=16 / 2xl=24 / rounded=9999`로
-> 적혀 있었으나 이는 일반 컨벤션 추정치였다. 실제 Figma 변수( `DDS_tokens.w3c.json`)는
+> 적혀 있었으나 이는 일반 컨벤션 추정치였다. 실제 Figma 변수( `DDS_tokens_w3c.json`)는
 > 위 표대로 **한 단계씩 더 작다**(`md=4px`). 모든 CSS/Tailwind 매핑을 이 값으로 교체할 것.
 
 ### 1.1 관련 토큰 — Border Width (참고)
@@ -122,6 +122,6 @@ module.exports = {
 
 ## ⚠️ 변경 이력
 
-- **2026-06-15**: 전체 radius 값을 `DDS_tokens.w3c.json` 실측값으로 정정.
+- **2026-06-15**: 전체 radius 값을 `DDS_tokens_w3c.json` 실측값으로 정정.
   기존 추정치(`md=8px` 등) → 실제값(`md=4px` 등)으로 한 단계씩 하향.
   `rounded`는 `9999px` → `999999px`로 정정. Border Width 토큰 추가.

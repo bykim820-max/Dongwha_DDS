@@ -52,7 +52,7 @@
 | OFF (default) | `Color/bg/secondary` | white |
 | OFF hover | bg 한 단계 어둡게 | — |
 | OFF focus-visible | `Color/border/info` outline | — |
-| ON (checked) | `Color/bg/primary` | white |
+| ON (checked) | `Color/bg/interactive/primary` (green 500 = `#14bc62`) | white |
 | ON hover | bg 한 단계 어둡게 | — |
 | disabled | `Color/bg/disabled` | `Color/bg/secondary` (옅게) |
 
@@ -72,7 +72,7 @@
   box-shadow: var(--shadow-sm);
   transition: transform var(--motion-duration-quick) var(--motion-easing-spring-snappy);
 }
-.switch[aria-checked="true"] .switch-track { background: var(--color-bg-primary); }
+.switch[aria-checked="true"] .switch-track { background: var(--color-bg-interactive-primary); /* green 500 */ }
 .switch[aria-checked="true"] .switch-thumb { transform: translateX(20px); }
 .switch:focus-visible .switch-track { outline: 2px solid var(--color-border-info); outline-offset: 2px; }
 .switch[aria-disabled="true"] .switch-track { background: var(--color-bg-disabled); }
@@ -101,9 +101,9 @@ type SwitchProps = {
 | 영역 | 토큰 |
 |------|------|
 | Track OFF | `Color/bg/secondary` |
-| Track ON | `Color/bg/primary` |
+| Track ON | `Color/bg/interactive/primary` (green 500) |
 | Track disabled | `Color/bg/disabled` |
-| Thumb | `Brand/Secondary/netural/white` |
+| Thumb | `Brand/Secondary/neutral/white` |
 | Radius | `border/radius/rounded` |
 | 모션 | `duration/quick` + `easing/spring/snappy` |
 | Focus | `Color/border/info` outline 2px |

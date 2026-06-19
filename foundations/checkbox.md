@@ -2,7 +2,7 @@
 
 > 여러 항목 중 0개 이상을 선택하는 컨트롤. 폼 제출 시 값으로 전달.
 
-[← Components](./README.md) · [← design.md](../design.md)
+[← Components](../components/README.md) · [← design.md](../design.md)
 
 ---
 
@@ -12,7 +12,7 @@
 |------|------|--------------|
 | `check-square` | component | `f9cc1062fadf00fbc6467d6824b90d516efbb4f5` |
 
-> 그룹 사용 시 [Option Group](./option-group.md) 참고.
+> 그룹 사용 시 [Option Group](../components/option-group.md) 참고.
 
 ---
 
