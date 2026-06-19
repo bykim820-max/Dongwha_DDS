@@ -203,10 +203,42 @@
   --shadow-lg: 0 4px 8px #00000029, 0 0px 4px #0000001f;
   --shadow-xl: 0 8px 16px #00000029, 0 0px 8px #0000001f;
 
-  /* ── Spacing (미세 스텝) ── */
+  /* ── Spacing (미세·대형 스텝) ── */
   --space-6: 6px;
   --space-10: 10px;
   --space-20: 20px;
+  --space-80: 80px;
+
+  /* ── Layout (container · grid · 섹션 리듬) ── */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1680px;
+  --container-prose: 680px;
+  --container-dashboard: 1680px;
+  --grid-columns: 12;
+  --grid-gutter: var(--space-24);
+  --grid-margin: var(--space-24);
+  --snb-width: 270px;
+  --snb-width-collapsed: 72px;
+  --layout-section-gap: var(--space-64);
+  --layout-block-gap: var(--space-24);
+  --layout-stack-gap: var(--space-12);
+
+  /* ── Breakpoint (JS·문서 참조용) ── */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* ── Elevation (선 대신 깊이) ── */
+  --elevation-flat: none;
+  --elevation-raised: var(--shadow-sm);
+  --elevation-overlay: var(--shadow-md);
+  --elevation-sticky: var(--shadow-md);
+  --elevation-modal: var(--shadow-lg);
+  --elevation-top: var(--shadow-xl);
 
   /* ── Color · Primitive (참고용 — 직접 사용 금지) ── */
   --p-brand-primary-lightgreen: #78c046;

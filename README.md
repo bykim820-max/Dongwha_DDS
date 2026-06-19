@@ -11,7 +11,7 @@
 | 분야 | 위치 | 한 줄 요약 |
 |------|------|-----------|
 | 📘 **개요 · 철학** | [design.md](./design.md) | 3-레이어 토큰 아키텍처, 코드 매핑 규칙, LLM 변환 워크플로우 |
-| 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion |
+| 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion · Layout · Elevation |
 | 🧩 **Components** | [components/](./components/) | Button · Input · Switch · Checkbox · Tooltip · Table 등 |
 
 ---
@@ -98,6 +98,7 @@ dds-design-system/
 Actions          ▸ Button · Icon Button · Button Stack
 Form Inputs      ▸ Input · Switch · Checkbox · Option Group
 Feedback         ▸ Tooltip · Skeleton · Toast · Inline Alert · Spinner · Progress · Empty State
+Overlay          ▸ Modal · Bottom Sheet · Drawer · Popover · Dropdown Menu
 Data Display     ▸ Table
 Layout           ▸ Page Header
 Foundation       ▸ Icon System

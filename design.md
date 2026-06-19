@@ -17,6 +17,8 @@
 | [Radius](./foundations/radius.md) | `border/radius/sm` ~ `rounded` |
 | [State](./foundations/state.md) | default · hover · focus · disabled · error · loading |
 | [Motion](./foundations/motion.md) | Duration · Easing · 인터랙션 레시피 10종 |
+| [Layout](./foundations/layout.md) | 간격 리듬(섹션·블록·스택) · Container · 12컬럼 Grid · Breakpoint |
+| [Elevation](./foundations/elevation.md) | 의미 깊이 레벨(raised·overlay·modal…) ↔ shadow 매핑, "선 대신 깊이" |
 | [토큰 export](./foundations/DDS_tokens_w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
 | [빌드 산출물](./dist/) | JSON에서 값이 **해석된** `tokens.css`·`tokens.resolved.json`·Tailwind preset. 컬러 hex/px가 실제로 채워진 드롭인 파일 (`python3 scripts/build_tokens.py`로 재생성) |
 
@@ -26,7 +28,7 @@
 |----------|------|
 | Actions | [Button](./components/button.md) (Icon Button · Button Stack 포함) |
 | Form Inputs | [Input](./components/input.md) · [Switch](./components/switch.md) · [Checkbox](./components/checkbox.md) · [Option Group](./components/option-group.md) |
-| Feedback & Overlay | [Tooltip](./components/tooltip.md) · [Skeleton](./components/skeleton.md) · [Feedback & Status](./components/feedback.md) (Toast·Alert·Spinner·Progress·Empty) |
+| Feedback & Overlay | [Tooltip](./components/tooltip.md) · [Skeleton](./components/skeleton.md) · [Feedback & Status](./components/feedback.md) (Toast·Alert·Spinner·Progress·Empty) · [Overlay](./components/overlay.md) (Modal·Sheet·Drawer·Popover·Menu) |
 | Data Display | [Table](./components/table.md) |
 | Layout | [Page Header](./components/page-header.md) |
 | Foundation | [Icon System](./components/icons.md) |

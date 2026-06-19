@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DDS · 와이드 대시보드 레이아웃</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  /* ── DDS 토큰 내장본 — Layout(1680 와이드 고정) · Elevation 중심 ── */
+  :root{
+    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#737373; --color-text-inverse:#fff;
+    --color-text-success:#0c8048; --color-text-danger:#a71010;
+    --color-bg-primary:#fff; --color-bg-secondary:#f5f6f7; --color-bg-tertiary:#eef0f2; --color-bg-inverse-bold:#262626;
+    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048; --color-bg-interactive-secondary-hover:#e5e5e5;
+    --color-bg-success-subtle:#e9f9ef; --color-accent-cyan-subtle:#e5fafc; --color-accent-cyan-bold:#007a82;
+    --color-accent-violet-subtle:#f6e8ff; --color-accent-violet-bold:#68119c; --color-accent-orange-subtle:#fff3e8; --color-accent-orange-bold:#b55723;
+    --color-border-secondary:#ececef;
+    --color-chart-1:#14bc62; --color-chart-2:#196ce8; --color-chart-3:#9c19e8;
+    --color-bg-warning-subtle:#fff9e6; --color-accent-amber-bold:#b3890b; --color-bg-danger-subtle:#ffecec;
+    --space-2:2px; --space-4:4px; --space-6:6px; --space-8:8px; --space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-32:32px;
+    --container-dashboard:1680px; --grid-gutter:var(--space-20); --snb-width:270px;
+    --radius-md:4px; --radius-lg:8px; --radius-xl:12px; --radius-rounded:999999px;
+    --border-width-sm:1px; --border-width-md:2px;
+    --font-heading:Pretendard; --font-body:Pretendard;
+    --heading-md-font-size:24px; --heading-md-line-height:30px; --heading-sm-font-size:18px; --heading-sm-line-height:24px;
+    --body-md-font-size:14px; --body-sm-font-size:13px;
+    --font-weight-regular:400; --font-weight-medium:500; --font-weight-semibold:600; --font-weight-bold:700;
+    --motion-instant:80ms; --motion-base:240ms; --easing-standard:cubic-bezier(0.4,0,0.2,1); --easing-spring:cubic-bezier(0.32,0.72,0,1);
+    --shadow-sm:0 1px 2px #0000000f,0 1px 3px #0000001a; --shadow-md:0 4px 8px #00000014,0 2px 4px #0000000f;
+    --elevation-raised:var(--shadow-sm); --elevation-overlay:var(--shadow-md); --elevation-sticky:var(--shadow-md);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);line-height:1.5;
+    font-weight:var(--font-weight-regular);letter-spacing:.2px;color:var(--color-text-primary);background:var(--color-bg-secondary);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none;}
+  .tnum{font-variant-numeric:tabular-nums;}
+
+  /* Topbar (sticky, 분리는 깊이로) — 폭 가득 */
+  .topbar{position:sticky;top:0;z-index:10;background:var(--color-bg-primary);box-shadow:var(--elevation-sticky);
+    display:flex;align-items:center;justify-content:space-between;gap:var(--space-16);padding:var(--space-12) var(--space-24);}
+  .brand{display:flex;align-items:center;gap:var(--space-8);font-weight:var(--font-weight-semibold);}
+  .mark{width:26px;height:26px;border-radius:var(--radius-md);background:var(--color-bg-interactive-primary);color:#fff;display:grid;place-items:center;font-weight:var(--font-weight-bold);font-size:13px;}
+  .topbar .right{display:flex;align-items:center;gap:var(--space-8);}
+  .search{display:flex;align-items:center;gap:var(--space-8);height:36px;padding:0 var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);background:var(--color-bg-secondary);color:var(--color-text-tertiary);width:220px;}
+  .search input{border:0;background:transparent;outline:none;font-size:var(--body-md-font-size);color:var(--color-text-primary);width:100%;}
+  .avatar{width:34px;height:34px;border-radius:var(--radius-rounded);background:var(--color-bg-inverse-bold);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:var(--font-weight-semibold);}
+  .btn{display:inline-flex;align-items:center;gap:var(--space-6);height:36px;padding:0 var(--space-12);font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);
+    border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;transition:transform var(--motion-instant) var(--easing-standard);}
+  .btn:active{transform:scale(0.97);}
+  .btn--primary{background:var(--color-bg-interactive-primary);color:#fff;border-color:transparent;}
+  .btn--primary:hover{background:var(--color-bg-interactive-primary-hover);}
+  .btn .ic{width:16px;height:16px;}
+
+  /* 셸은 전체 폭 → SNB 칼럼이 항상 뷰포트 왼쪽 끝(left:0)에 붙음 */
+  .container{width:100%;}
+  .dash{display:grid;grid-template-columns:var(--snb-width) 1fr;gap:0;}
+  .sidebar{position:sticky;top:60px;align-self:start;}  /* 좌측 0 고정 + 스크롤 따라 고정 */
+
+  /* Sidebar (데스크톱 고정) */
+  .sidebar{background:var(--color-bg-primary);border-right:var(--border-width-sm) solid var(--color-border-secondary);
+    padding:var(--space-20) var(--space-12);display:flex;flex-direction:column;gap:var(--space-4);min-height:calc(100vh - 60px);}
+  .nav{display:flex;align-items:center;gap:var(--space-12);padding:var(--space-12);border-radius:var(--radius-md);color:var(--color-text-secondary);text-decoration:none;font-weight:var(--font-weight-medium);
+    transition:background-color var(--motion-instant) var(--easing-standard);}
+  .nav:hover{background:var(--color-bg-interactive-secondary-hover);}
+  .nav.active{background:var(--color-bg-interactive-primary);color:#fff;}
+
+  /* Main */
+  /* 콘텐츠 컨테이너: SNB 우측 영역 안에서 1680까지, 가운데 정렬 */
+  .main{width:100%;max-width:var(--container-dashboard);margin-inline:auto;padding:var(--space-24);display:flex;flex-direction:column;gap:var(--space-20);}
+  .pagehead{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-16);}
+  .pagehead h1{font-family:var(--font-heading);font-size:var(--heading-md-font-size);line-height:var(--heading-md-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+  .caption{font-size:var(--body-sm-font-size);color:var(--color-text-tertiary);}
+  h2{font-family:var(--font-heading);font-size:var(--heading-sm-font-size);line-height:var(--heading-sm-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+
+  /* KPI — 6열 가득, 깊이로 분리(테두리 없음) */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--grid-gutter);}
+  .kpi{background:var(--color-bg-primary);border-radius:var(--radius-xl);padding:var(--space-20);display:flex;flex-direction:column;gap:var(--space-8);box-shadow:var(--elevation-raised);}
+  .kpi .chip{width:34px;height:34px;border-radius:var(--radius-md);display:grid;place-items:center;}
+  .kpi .label{color:var(--color-text-tertiary);font-size:var(--body-sm-font-size);}
+  .kpi .value{font-family:var(--font-heading);font-size:22px;font-weight:var(--font-weight-semibold);letter-spacing:-.5px;}
+  .kpi .delta{font-size:var(--body-sm-font-size);font-weight:var(--font-weight-medium);}
+  .up{color:var(--color-text-success);} .down{color:var(--color-text-danger);}
+  .c-green{background:var(--color-bg-success-subtle);color:var(--color-text-success);}
+  .c-cyan{background:var(--color-accent-cyan-subtle);color:var(--color-accent-cyan-bold);}
+  .c-violet{background:var(--color-accent-violet-subtle);color:var(--color-accent-violet-bold);}
+  .c-orange{background:var(--color-accent-orange-subtle);color:var(--color-accent-orange-bold);}
+
+  .grid2{display:grid;grid-template-columns:2fr 1fr;gap:var(--grid-gutter);}
+  .card{background:var(--color-bg-primary);border-radius:var(--radius-xl);padding:var(--space-24);box-shadow:var(--elevation-raised);display:flex;flex-direction:column;gap:var(--space-16);}
+  .card .head{display:flex;align-items:center;justify-content:space-between;}
+  .legend{display:flex;gap:var(--space-12);}.legend span{display:inline-flex;align-items:center;gap:var(--space-6);font-size:var(--body-sm-font-size);color:var(--color-text-secondary);}
+  .dot{width:10px;height:10px;border-radius:var(--radius-rounded);}
+  .bars{display:flex;align-items:flex-end;gap:var(--space-16);height:200px;}
+  .bcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--space-8);height:100%;justify-content:flex-end;}
+  .group{display:flex;align-items:flex-end;gap:4px;width:100%;justify-content:center;height:100%;}
+  .b{width:12px;border-radius:var(--radius-md) var(--radius-md) 0 0;transition:height var(--motion-base) var(--easing-spring);}
+  .bcol .xl{font-size:var(--body-sm-font-size);color:var(--color-text-tertiary);}
+  .tags{display:flex;flex-direction:column;gap:var(--space-12);}
+  .tagrow{display:flex;justify-content:space-between;align-items:center;}
+  .barmini{height:6px;border-radius:var(--radius-rounded);margin-top:var(--space-6);}
+
+  table{width:100%;border-collapse:collapse;font-size:var(--body-md-font-size);}
+  thead th{text-align:left;padding:var(--space-12);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium);border-bottom:var(--border-width-md) solid var(--color-border-secondary);white-space:nowrap;}
+  tbody td{padding:var(--space-12);border-bottom:var(--border-width-sm) solid var(--color-border-secondary);white-space:nowrap;}
+  tbody tr{transition:background-color var(--motion-instant) var(--easing-standard);}
+  tbody tr:hover{background:var(--color-bg-secondary);}
+  .nameC{display:inline-flex;align-items:center;gap:var(--space-8);}
+  .ava{width:24px;height:24px;border-radius:var(--radius-rounded);display:inline-grid;place-items:center;font-size:11px;color:#fff;}
+  .badge{display:inline-flex;padding:var(--space-2) var(--space-8);border-radius:var(--radius-rounded);font-size:var(--body-sm-font-size);}
+  .b-s{background:var(--color-bg-success-subtle);color:var(--color-text-success);}.b-w{background:var(--color-bg-warning-subtle);color:var(--color-accent-amber-bold);}.b-d{background:var(--color-bg-danger-subtle);color:var(--color-text-danger);}
+
+  /* 모바일: breakpoint(768) 미만에서만 접힘 */
+  @media (max-width:767px){
+    .dash{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+    .kpis{grid-template-columns:repeat(2,1fr);}
+    .grid2{grid-template-columns:1fr;}
+    .search{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms !important;}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M2 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 7H5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 4-5"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1l-.4-2.5H10.6l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h3.8l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="brand"><span class="mark">D</span>동화 DDS<span class="caption">· 영업 대시보드</span></div>
+  <div class="right">
+    <span class="search"><svg class="ic"><use href="#i-search"/></svg><input placeholder="검색" /></span>
+    <button class="btn btn--primary"><svg class="ic"><use href="#i-plus"/></svg>새 주문</button>
+    <span class="avatar">보</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="dash">
+    <!-- Sidebar (데스크톱 고정, 모바일 숨김) -->
+    <aside class="sidebar">
+      <a class="nav active" href="#"><svg class="ic"><use href="#i-grid"/></svg>대시보드</a>
+      <a class="nav" href="#"><svg class="ic"><use href="#i-cart"/></svg>주문</a>
+      <a class="nav" href="#"><svg class="ic"><use href="#i-users"/></svg>고객</a>
+      <a class="nav" href="#"><svg class="ic"><use href="#i-chart"/></svg>분석</a>
+      <a class="nav" href="#"><svg class="ic"><use href="#i-gear"/></svg>설정</a>
+    </aside>
+
+    <!-- Main: 1680까지 가득 -->
+    <main class="main">
+      <div class="pagehead">
+        <div><h1>대시보드</h1><span class="caption">2026년 6월 19일 · 실시간 현황</span></div>
+        <button class="btn">리포트 내보내기</button>
+      </div>
+
+      <section class="kpis">
+        <div class="kpi"><span class="chip c-green"><svg class="ic"><use href="#i-card"/></svg></span><span class="label">총 매출</span><span class="value tnum">₩48.2M</span><span class="delta up">+12.4%</span></div>
+        <div class="kpi"><span class="chip c-cyan"><svg class="ic"><use href="#i-cart"/></svg></span><span class="label">주문</span><span class="value tnum">1,284</span><span class="delta up">+6.1%</span></div>
+        <div class="kpi"><span class="chip c-violet"><svg class="ic"><use href="#i-users"/></svg></span><span class="label">신규 고객</span><span class="value tnum">312</span><span class="delta down">−2.3%</span></div>
+        <div class="kpi"><span class="chip c-orange"><svg class="ic"><use href="#i-box"/></svg></span><span class="label">출고</span><span class="value tnum">1,102</span><span class="delta up">+4.8%</span></div>
+        <div class="kpi"><span class="chip c-green"><svg class="ic"><use href="#i-clock"/></svg></span><span class="label">평균 처리</span><span class="value tnum">2.4h</span><span class="delta up">−0.3h</span></div>
+        <div class="kpi"><span class="chip c-cyan"><svg class="ic"><use href="#i-chart"/></svg></span><span class="label">전환율</span><span class="value tnum">3.8%</span><span class="delta up">+0.5%p</span></div>
+      </section>
+
+      <section class="grid2">
+        <div class="card">
+          <div class="head"><h2>채널별 주간 매출</h2>
+            <div class="legend"><span><span class="dot" style="background:var(--color-chart-1)"></span>온라인</span><span><span class="dot" style="background:var(--color-chart-2)"></span>대리점</span><span><span class="dot" style="background:var(--color-chart-3)"></span>직영</span></div>
+          </div>
+          <div class="bars" id="bars"></div>
+        </div>
+        <div class="card">
+          <h2>제품 카테고리</h2>
+          <div class="tags">
+            <div><div class="tagrow"><span>합판/보드</span><b>38%</b></div><div class="barmini" style="width:38%;background:var(--color-chart-1)"></div></div>
+            <div><div class="tagrow"><span>바닥재</span><b>24%</b></div><div class="barmini" style="width:24%;background:var(--color-chart-2)"></div></div>
+            <div><div class="tagrow"><span>벽지/인테리어</span><b>18%</b></div><div class="barmini" style="width:18%;background:var(--color-chart-3)"></div></div>
+            <div><div class="tagrow"><span>몰딩/마감재</span><b>12%</b></div><div class="barmini" style="width:12%;background:var(--color-accent-orange-bold)"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="head"><h2>최근 주문</h2><button class="btn">전체 보기</button></div>
+        <table>
+          <thead><tr><th>주문</th><th>고객</th><th>상품</th><th>채널</th><th>담당</th><th>금액</th><th>상태</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  var weeks=[['월',60,40,30],['화',72,55,38],['수',50,44,28],['목',88,60,40],['금',100,70,52],['토',34,28,20],['일',26,22,16]];
+  var cc=['var(--color-chart-1)','var(--color-chart-2)','var(--color-chart-3)'];
+  document.getElementById('bars').innerHTML=weeks.map(function(w){var g=[w[1],w[2],w[3]].map(function(h,i){return '<span class="b" style="height:'+h+'%;background:'+cc[i]+'"></span>';}).join('');return '<div class="bcol"><div class="group">'+g+'</div><span class="xl">'+w[0]+'</span></div>';}).join('');
+  var avc=['var(--color-chart-3)','var(--color-chart-2)','var(--color-chart-1)','var(--color-accent-orange-bold)','var(--color-chart-3)'];
+  var data=[['#10293','김보영','합판 A2 · 외 2건','온라인','이수','1,240,000','b-s','완료'],['#10294','이서준','MDF 9T','대리점','박민','320,000','b-w','대기'],['#10295','박지민','강마루 · 시공','직영','최유','880,000','b-d','실패'],['#10296','최유나','벽지 프리미엄','온라인','이수','156,000','b-s','완료'],['#10297','정도현','몰딩 세트','대리점','한결','92,000','b-s','완료']];
+  document.getElementById('rows').innerHTML=data.map(function(r,i){return '<tr><td><b>'+r[0]+'</b></td><td><span class="nameC"><span class="ava" style="background:'+avc[i%avc.length]+'">'+r[1][0]+'</span>'+r[1]+'</span></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td class="tnum">'+r[5]+'원</td><td><span class="badge '+r[6]+'">'+r[7]+'</span></td></tr>';}).join('');
+</script>
+</body>
+</html>

@@ -127,8 +127,34 @@ SHADOW = {
     "--shadow-xl": shadow("16"),
 }
 
-# 미세 간격 보강 (JSON 8pt 그리드 사이 스텝)
-EXTRA_SPACE = {"--space-6": "6px", "--space-10": "10px", "--space-20": "20px"}
+# 미세 간격 보강 (JSON 8pt 그리드 사이 스텝) + 섹션 리듬용 대형 스텝
+EXTRA_SPACE = {"--space-6": "6px", "--space-10": "10px", "--space-20": "20px", "--space-80": "80px"}
+
+# 레이아웃 (container 최대폭·grid·섹션 리듬) — source: foundations/layout.md
+LAYOUT = {
+    "--container-sm": "640px", "--container-md": "768px", "--container-lg": "1024px",
+    "--container-xl": "1200px", "--container-2xl": "1680px", "--container-prose": "680px",
+    "--container-dashboard": "1680px",   # 대시보드 기본 — 이 폭까지 가득 채우고 가운데 고정
+    "--grid-columns": "12", "--grid-gutter": "var(--space-24)", "--grid-margin": "var(--space-24)",
+    "--snb-width": "270px",   # SNB(사이드 내비) — 좌측 배치, 권장 폭
+    "--snb-width-collapsed": "72px",
+    "--layout-section-gap": "var(--space-64)",   # 섹션 사이
+    "--layout-block-gap": "var(--space-24)",      # 블록(카드) 사이
+    "--layout-stack-gap": "var(--space-12)",      # 한 덩어리 내부
+}
+# 반응형 분기 (CSS @media는 var 미지원 → JS·문서 참조용)
+BREAKPOINT = {"--breakpoint-sm": "640px", "--breakpoint-md": "768px",
+              "--breakpoint-lg": "1024px", "--breakpoint-xl": "1280px"}
+
+# Elevation: 의미 레벨 ↔ shadow 매핑 ("선 대신 깊이") — source: foundations/elevation.md
+ELEVATION = {
+    "--elevation-flat": "none",                 # 평면 (배경 분리만)
+    "--elevation-raised": "var(--shadow-sm)",   # 카드 기본
+    "--elevation-overlay": "var(--shadow-md)",  # 팝오버·드롭다운·hover lift
+    "--elevation-sticky": "var(--shadow-md)",   # sticky 헤더/바
+    "--elevation-modal": "var(--shadow-lg)",    # 모달·바텀시트
+    "--elevation-top": "var(--shadow-xl)",      # 풀스크린 오버레이
+}
 
 # 주: 그라데이션 띠/배너·고밀도(density) 모드 토큰은 디자인 금지 규칙(design.md §Anti-patterns)에 따라 제공하지 않음.
 
@@ -186,8 +212,20 @@ lines.append("\n  /* ── Shadow (effect_shadow 합성) ── */")
 for k, v in SHADOW.items():
     lines.append(f"  {k}: {v};")
 
-lines.append("\n  /* ── Spacing (미세 스텝) ── */")
+lines.append("\n  /* ── Spacing (미세·대형 스텝) ── */")
 for k, v in EXTRA_SPACE.items():
+    lines.append(f"  {k}: {v};")
+
+lines.append("\n  /* ── Layout (container · grid · 섹션 리듬) ── */")
+for k, v in LAYOUT.items():
+    lines.append(f"  {k}: {v};")
+
+lines.append("\n  /* ── Breakpoint (JS·문서 참조용) ── */")
+for k, v in BREAKPOINT.items():
+    lines.append(f"  {k}: {v};")
+
+lines.append("\n  /* ── Elevation (선 대신 깊이) ── */")
+for k, v in ELEVATION.items():
     lines.append(f"  {k}: {v};")
 
 lines.append("\n  /* ── Color · Primitive (참고용 — 직접 사용 금지) ── */")

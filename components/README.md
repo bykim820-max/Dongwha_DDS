@@ -22,6 +22,7 @@
 - [Tooltip](./tooltip.md) — 정보 제공 말풍선 (13 방향 변형)
 - [Skeleton](./skeleton.md) — 로딩 자리표시자 (콘텐츠 골격)
 - [Feedback & Status](./feedback.md) — Toast · Inline Alert · Spinner · Progress · Empty State
+- [Overlay](./overlay.md) — Modal · Bottom Sheet · Drawer · Popover · Dropdown Menu
 
 ### Data Display
 - [Table](./table.md) — 데이터 테이블
