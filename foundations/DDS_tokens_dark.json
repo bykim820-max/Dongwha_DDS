@@ -1,0 +1,56 @@
+{
+  "_comment": "다크 테마 semantic 오버라이드. primitive(hex 램프) 참조만. build_tokens.py가 [data-theme=dark] 블록으로 출력. light 대비 표면 반전·상태색 한 단계 상향·subtle은 900 tier.",
+  "color": {
+    "semantic": {
+      "color_bg_secondary":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_900}" },
+      "color_bg_primary":    { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_800}" },
+      "color_bg_tertiary":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_700}" },
+      "color_bg_disabled":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_700}" },
+      "color_bg_inverse-bold": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_50}" },
+      "color_bg_interactive_primary":         { "$type": "color", "$value": "{color.primitive.brand_primary_green_500}" },
+      "color_bg_interactive_primary-hover":   { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
+      "color_bg_interactive_primary-pressed": { "$type": "color", "$value": "{color.primitive.brand_primary_green_300}" },
+      "color_bg_interactive_secondary":         { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_700}" },
+      "color_bg_interactive_secondary-hover":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_600}" },
+      "color_bg_interactive_secondary-pressed": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_500}" },
+      "color_bg_success-subtle": { "$type": "color", "$value": "{color.primitive.brand_primary_green_900}" },
+      "color_bg_info-subtle":    { "$type": "color", "$value": "{color.primitive.primitive_blue_900}" },
+      "color_bg_warning-subtle": { "$type": "color", "$value": "{color.primitive.primitive_yellow_900}" },
+      "color_bg_danger-subtle":  { "$type": "color", "$value": "{color.primitive.primitive_red_900}" },
+      "color_bg_primary-subtle": { "$type": "color", "$value": "{color.primitive.brand_primary_green_900}" },
+
+      "color_text_primary":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_50}" },
+      "color_text_secondary": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_300}" },
+      "color_text_tertiary":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_400}" },
+      "color_text_disabled":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_600}" },
+      "color_text_success":   { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
+      "color_text_info":      { "$type": "color", "$value": "{color.primitive.primitive_blue_400}" },
+      "color_text_warning":   { "$type": "color", "$value": "{color.primitive.primitive_yellow_400}" },
+      "color_text_danger":    { "$type": "color", "$value": "{color.primitive.primitive_red_400}" },
+      "color_text_interactive_primary": { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
+      "color_text_interactive_inverse": { "$type": "color", "$value": "{color.primitive.brand_primary_base_white}" },
+
+      "color_icon_primary":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_50}" },
+      "color_icon_secondary": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_400}" },
+      "color_icon_tertiary":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_400}" },
+      "color_icon_disabled":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_600}" },
+      "color_icon_success":   { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
+      "color_icon_info":      { "$type": "color", "$value": "{color.primitive.primitive_blue_400}" },
+      "color_icon_warning":   { "$type": "color", "$value": "{color.primitive.primitive_yellow_400}" },
+      "color_icon_danger":    { "$type": "color", "$value": "{color.primitive.primitive_red_400}" },
+
+      "color_border_secondary": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_700}" },
+      "color_border_focusing":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_500}" },
+      "color_border_info":      { "$type": "color", "$value": "{color.primitive.primitive_blue_400}" },
+      "color_border_danger":    { "$type": "color", "$value": "{color.primitive.primitive_red_400}" },
+      "color_border_success":   { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
+
+      "color_accent_violet-subtle": { "$type": "color", "$value": "{color.primitive.primitive_purple_900}" },
+      "color_accent_pink-subtle":   { "$type": "color", "$value": "{color.primitive.primitive_pink_900}" },
+      "color_accent_orange-subtle": { "$type": "color", "$value": "{color.primitive.primitive_orange_900}" },
+      "color_accent_cyan-subtle":   { "$type": "color", "$value": "{color.primitive.brand_primary_cyan_900}" },
+      "color_accent_mint-subtle":   { "$type": "color", "$value": "{color.primitive.primitive_positive-mint_900}" },
+      "color_accent_amber-subtle":  { "$type": "color", "$value": "{color.primitive.primitive_yellow_900}" }
+    }
+  }
+}

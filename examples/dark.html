@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DDS · 다크 모드 데모</title>
+<!-- 실제 토큰 파일 링크 → [data-theme="dark"] 블록이 그대로 적용됨 -->
+<link rel="stylesheet" href="../dist/tokens.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  /* 컴포넌트는 semantic var()만 사용 → 테마 따라 값만 바뀜(코드 동일) */
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);line-height:1.5;
+    font-weight:var(--font-weight-regular);letter-spacing:var(--body-letter-spacing);
+    color:var(--color-text-primary);background:var(--color-bg-secondary);
+    transition:background-color var(--motion-duration-base) var(--motion-easing-standard),color var(--motion-duration-base) var(--motion-easing-standard);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:var(--space-16) var(--space-24);
+    background:var(--color-bg-primary);box-shadow:var(--elevation-sticky);}
+  .brand{display:flex;align-items:center;gap:var(--space-8);font-weight:var(--font-weight-semibold);}
+  .mark{width:26px;height:26px;border-radius:var(--radius-md);background:var(--color-bg-interactive-primary);color:#fff;display:grid;place-items:center;font-weight:var(--font-weight-bold);font-size:13px;}
+  main{max-width:var(--container-lg);margin:0 auto;padding:var(--space-32);display:flex;flex-direction:column;gap:var(--space-24);}
+  h1{font-family:var(--font-heading);font-size:var(--heading-md-font-size);line-height:var(--heading-md-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+  h2{font-family:var(--font-heading);font-size:var(--heading-sm-font-size);line-height:var(--heading-sm-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+  .caption{font-size:var(--body-sm-font-size);color:var(--color-text-tertiary);}
+  .btn{display:inline-flex;align-items:center;gap:var(--space-6);height:40px;padding:0 var(--space-16);font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);
+    border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;}
+  .btn--primary{background:var(--color-bg-interactive-primary);color:var(--color-text-interactive-inverse);border-color:transparent;}
+  .btn--primary:hover{background:var(--color-bg-interactive-primary-hover);}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-16);}
+  .kpi{background:var(--color-bg-primary);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-xl);padding:var(--space-20);display:flex;flex-direction:column;gap:var(--space-6);box-shadow:var(--elevation-raised);}
+  .kpi .label{color:var(--color-text-tertiary);font-size:var(--body-sm-font-size);}
+  .kpi .value{font-family:var(--font-heading);font-size:22px;font-weight:var(--font-weight-semibold);}
+  .kpi .up{color:var(--color-text-success);font-size:var(--body-sm-font-size);font-weight:var(--font-weight-medium);}
+  .card{background:var(--color-bg-primary);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-xl);padding:var(--space-24);display:flex;flex-direction:column;gap:var(--space-16);box-shadow:var(--elevation-raised);}
+  .alert{display:flex;gap:var(--space-8);padding:var(--space-12) var(--space-16);border-radius:var(--radius-md);background:var(--color-bg-success-subtle);color:var(--color-text-success);}
+  .alert .t{font-weight:var(--font-weight-medium);}
+  table{width:100%;border-collapse:collapse;font-size:var(--body-md-font-size);}
+  thead th{text-align:left;padding:var(--space-12);color:var(--color-text-tertiary);font-weight:var(--font-weight-medium);border-bottom:var(--border-width-md) solid var(--color-border-secondary);}
+  tbody td{padding:var(--space-12);border-bottom:var(--border-width-sm) solid var(--color-border-secondary);}
+  tbody tr:hover{background:var(--color-bg-secondary);}
+  .badge{display:inline-flex;padding:var(--space-2) var(--space-8);border-radius:var(--radius-rounded);font-size:var(--body-sm-font-size);background:var(--color-bg-success-subtle);color:var(--color-text-success);}
+  .badge.w{background:var(--color-bg-warning-subtle);color:var(--color-text-warning);}
+  .toggle{display:inline-flex;align-items:center;gap:var(--space-6);height:36px;padding:0 var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="brand"><span class="mark">D</span>동화 DDS<span class="caption">· 다크 모드</span></div>
+  <button class="toggle" id="tg" aria-pressed="false" onclick="toggle()"><svg class="ic" id="tgi"><use href="#i-moon"/></svg><span id="tgl">다크</span></button>
+</header>
+
+<main>
+  <div><h1>대시보드</h1><span class="caption">같은 컴포넌트 코드 · 테마만 전환 (semantic 토큰 스왑)</span></div>
+
+  <section class="kpis">
+    <div class="kpi"><span class="label">총 매출</span><span class="value">₩48.2M</span><span class="up">+12.4%</span></div>
+    <div class="kpi"><span class="label">주문</span><span class="value">1,284</span><span class="up">+6.1%</span></div>
+    <div class="kpi"><span class="label">신규 고객</span><span class="value">312</span><span class="up">+2.1%</span></div>
+    <div class="kpi"><span class="label">전환율</span><span class="value">3.8%</span><span class="up">+0.5%p</span></div>
+  </section>
+
+  <div class="alert"><svg class="ic"><use href="#i-sun"/></svg><div><span class="t">동기화 완료</span> · 최신 데이터를 반영했습니다.</div></div>
+
+  <section class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h2>최근 주문</h2>
+      <div style="display:flex;gap:var(--space-8)"><button class="btn">취소</button><button class="btn btn--primary">새 주문</button></div></div>
+    <table>
+      <thead><tr><th>주문</th><th>고객</th><th>금액</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td><b>#10293</b></td><td>김보영</td><td>1,240,000원</td><td><span class="badge">완료</span></td></tr>
+        <tr><td><b>#10294</b></td><td>이서준</td><td>320,000원</td><td><span class="badge w">대기</span></td></tr>
+        <tr><td><b>#10295</b></td><td>박지민</td><td>880,000원</td><td><span class="badge">완료</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<script>
+  function toggle(){
+    var root=document.documentElement;
+    var dark=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme', dark?'light':'dark');
+    document.getElementById('tg').setAttribute('aria-pressed', String(!dark));
+    document.getElementById('tgi').firstElementChild.setAttribute('href', dark?'#i-moon':'#i-sun');
+    document.getElementById('tgl').textContent = dark?'다크':'라이트';
+  }
+</script>
+</body>
+</html>

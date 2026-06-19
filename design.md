@@ -114,7 +114,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 | 라이브러리 키 | `lk-c82741c9eb3cfc2addd0404224304df5d65a7036ad1f38eeac26f7e660286d91e1723437ace74f6d2a826e6755a0744aa5d72288b5a47a47ff789573d602ab7c` |
 | 페이지 ID | `5001:88244` (DDS ver.2.0) |
 | 폰트 | Pretendard |
-| 모드 | Light (Dark는 Phase 2) |
+| 모드 | Light · Dark (`[data-theme="dark"]` / OS 자동) |
 
 🔗 [Figma 파일 열기](https://www.figma.com/design/tDGeNJRNR2vCZu5bVdmoNc/2026_DDS_v2_%EB%B0%B0%ED%8F%AC%EC%9A%A9)
 
@@ -122,7 +122,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 
 ## 🗺 로드맵
 
-- 🔜 **다크 모드** — 2026 7월~
+- ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme="dark"]`·자동(`prefers-color-scheme`) 지원 ([foundations/colors.md § 다크 모드](./foundations/colors.md#-다크-모드))
 - 🔜 **UX 라이팅 가이드** (한/영 다국어) — 2026 7~10월
 - 🔄 **JSON 코드 연동** (Style Dictionary 등) — W3C Design Tokens 형식 export 완료, Style Dictionary 빌드 파이프라인 작업 예정
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑

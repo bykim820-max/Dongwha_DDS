@@ -175,6 +175,39 @@ module.exports = {
 
 ---
 
+## 🌙 다크 모드
+
+semantic 토큰만 다크 값으로 다시 매핑한다. **primitive(hex 램프)는 그대로**, 컴포넌트 코드는 **수정 없음**(같은 `var(--color-*)`가 테마에 따라 값만 바뀜).
+
+### 적용 방법
+```html
+<!-- 수동: 루트에 속성 지정 -->
+<html data-theme="dark"> … </html>   <!-- 또는 "light" 강제 -->
+```
+- `[data-theme="dark"]` → 다크 강제
+- `[data-theme="light"]` → 라이트 강제
+- 속성 미지정 → **OS 설정 따름**(`@media (prefers-color-scheme: dark)`)
+
+값은 `dist/tokens.css`의 `[data-theme="dark"]` 블록에 생성된다(`scripts/build_tokens.py`).
+다크 매핑 정의: `foundations/DDS_tokens_dark.json`.
+
+### 매핑 원칙
+| 항목 | Light | Dark |
+|------|-------|------|
+| 페이지 배경 `bg/secondary` | neutral 50 | **neutral 900** (`#171717`) |
+| 표면 `bg/primary`(카드) | white | **neutral 800** (`#262626`) |
+| inset `bg/tertiary` | neutral 100 | **neutral 700** |
+| 본문 `text/primary` | neutral 900 | **neutral 50** |
+| 보조 `text/secondary·tertiary` | 700·600 | **300·400** |
+| 브랜드 hover | 한 단계 **어둡게**(green 700) | 한 단계 **밝게**(green 400) |
+| 상태 텍스트(success·danger…) | 500 | **400 tier**(밝게) |
+| subtle 틴트(`*-subtle`) | 50 tier(밝음) | **900 tier**(어두운 틴트) |
+
+> 다크에선 그림자가 약하므로 **표면 밝기 차(900↔800↔700)로 깊이**를 표현한다. → [elevation.md](./elevation.md)
+> 대비: 본문/배경 대비 WCAG AA(4.5:1) 이상 유지.
+
+---
+
 ## ⚠️ 주의 사항
 
 - `Brand/Secondary/neutral` — 이전 버전의 `netural` 오타는 **v2.0에서 `neutral`로 정정 완료**(Figma 변수 및 `DDS_tokens_w3c.json` 반영). 문서·코드 모두 `neutral`로 통일한다.

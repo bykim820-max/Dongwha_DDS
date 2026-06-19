@@ -17,6 +17,7 @@ import json, re, os, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "foundations" / "DDS_tokens_w3c.json"
 EXT = ROOT / "foundations" / "DDS_tokens_extended.json"
+DARK = ROOT / "foundations" / "DDS_tokens_dark.json"
 DIST = ROOT / "dist"
 DIST.mkdir(exist_ok=True)
 
@@ -80,6 +81,13 @@ colors = semantic("color.semantic.")
 dims = semantic("dimension.semantic.")
 typo = semantic("typography.semantic.")
 primitives = {k.split(".")[-1]: v for k, v in flat.items() if k.startswith("color.primitive.")}
+
+# 다크 테마: light(colors) 위에 dark 오버라이드만 덮어 해석 (primitive 공유)
+dark_colors = dict(colors)
+if DARK.exists():
+    dark_sem = json.load(open(DARK, encoding="utf-8")).get("color", {}).get("semantic", {})
+    for leaf, node in dark_sem.items():
+        dark_colors[leaf] = resolve(node["$value"])
 
 # ── 2. 토큰명 → CSS 변수명 매핑 (문서 컨벤션과 1:1) ───────────────────────
 def color_var(leaf):                       # color_bg_interactive_primary-hover -> --color-bg-interactive-primary-hover
@@ -233,6 +241,28 @@ for leaf, v in primitives.items():
     lines.append(f"  --p-{leaf.replace('_', '-')}: {resolve(v)};")
 
 lines.append("}")
+
+# ── 다크 테마: 색상 토큰만 오버라이드 ──
+def dark_rules(indent):
+    out = []
+    for leaf in colors:
+        if leaf.startswith("color_effect_"):
+            continue
+        out.append(f"{indent}{color_var(leaf)}: {dark_colors[leaf]};")
+    return out
+
+lines.append('\n/* ── Dark theme (수동: [data-theme="dark"]) ── */')
+lines.append('[data-theme="dark"] {')
+lines += dark_rules("  ")
+lines.append("}")
+
+lines.append('\n/* ── Dark theme (자동: OS 설정 — light 명시 시 제외) ── */')
+lines.append("@media (prefers-color-scheme: dark) {")
+lines.append('  :root:not([data-theme="light"]) {')
+lines += dark_rules("    ")
+lines.append("  }")
+lines.append("}")
+
 (DIST / "tokens.css").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 # ── 5. tokens.resolved.json (평탄 맵) ────────────────────────────────────
