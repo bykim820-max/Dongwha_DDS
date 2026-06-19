@@ -155,4 +155,4 @@ Foundation       ▸ Icon System
 
 ---
 
-*동화 디자인시스템 팀 · Pretendard 기반 · 2026*
+*동화 스마트워크팀 김부영 · 2026*
