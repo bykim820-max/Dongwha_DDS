@@ -19,6 +19,8 @@
 | [Motion](./foundations/motion.md) | Duration · Easing · 인터랙션 레시피 10종 |
 | [Layout](./foundations/layout.md) | 간격 리듬(섹션·블록·스택) · Container · 12컬럼 Grid · Breakpoint |
 | [Elevation](./foundations/elevation.md) | 의미 깊이 레벨(raised·overlay·modal…) ↔ shadow 매핑, "선 대신 깊이" |
+| [UX Writing](./foundations/writing.md) | 보이스·톤, 문장 규칙, 버튼·오류·안내 문구 패턴, 용어 사전 |
+| [i18n](./foundations/i18n.md) | 다국어 — 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 용어 대응 |
 | [토큰 export](./foundations/DDS_tokens_w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
 | [빌드 산출물](./dist/) | JSON에서 값이 **해석된** `tokens.css`·`tokens.resolved.json`·Tailwind preset. 컬러 hex/px가 실제로 채워진 드롭인 파일 (`python3 scripts/build_tokens.py`로 재생성) |
 
@@ -61,6 +63,7 @@ Primitive  →  Semantic   →  Component
 5. **상태는 표준 셀렉터** (`:hover`, `:focus-visible`, `:disabled`, `[data-state]`)
 6. **모션은 항상** `prefers-reduced-motion` 미디어쿼리 포함
 7. **컴포넌트는 라이브러리 인스턴스 = 코드 컴포넌트 1:1**
+8. **UI 문자열 하드코딩 금지** → i18n 키로 출력, 문안은 [writing.md](./foundations/writing.md) 패턴 준수
 
 ---
 
@@ -75,7 +78,8 @@ Figma → 코드 변환 시 다음 순서를 따른다.
 4. 상태 정의       — foundations/state.md 기준 셀렉터 작성
 5. 타이포 적용     — Text Style 이름 → 클래스 매핑
 6. 모션 적용       — foundations/motion.md §9 우선순위 따르기
-7. 검증           — 임의 px/hex 잔존 여부 확인
+7. 문구 작성       — foundations/writing.md §10 · i18n.md §11 우선순위 따르기
+8. 검증           — 임의 px/hex·하드코딩 문자열 잔존 여부 확인
 ```
 
 ### Figma MCP 호출 매핑
@@ -125,8 +129,8 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - ✅ **토큰 빌드 파이프라인** — `scripts/build_tokens.py`가 JSON을 해석해 `dist/`(tokens.css·resolved.json·Tailwind preset) 생성 (경량 Style Dictionary)
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme="dark"]`·자동(`prefers-color-scheme`) 지원 ([foundations/colors.md § 다크 모드](./foundations/colors.md#-다크-모드))
 - ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
-- 🔜 **내비게이션 컴포넌트** (Tabs·Segmented·Breadcrumb) · **거버넌스**(stylelint + 빌드 검증 CI)
-- 🔜 **UX 라이팅 가이드** (한/영 다국어)
+- ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
+- 🔜 **내비게이션 컴포넌트** (Tabs·Segmented·Breadcrumb) · **거버넌스**(stylelint + 빌드 검증 CI + i18n 키 검증)
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---

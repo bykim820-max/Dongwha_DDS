@@ -13,6 +13,9 @@
 | 📘 **개요 · 철학** | [design.md](./design.md) | 3-레이어 토큰 아키텍처, 코드 매핑 규칙, LLM 변환 워크플로우 |
 | 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion · Layout · Elevation |
 | 🧩 **Components** | [components/](./components/) | Button · Input · Switch · Checkbox · Tooltip · Table 등 |
+| ✍️ **UX Writing** | [foundations/writing.md](./foundations/writing.md) | 보이스·톤, 버튼·오류·안내 문구 규칙, 용어 사전 |
+| 🌐 **다국어(i18n)** | [foundations/i18n.md](./foundations/i18n.md) | 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 대응 |
+| 🧪 **라이팅 샘플** | [examples/writing.html](./examples/writing.html) | 거래처 관리 화면 5가지 상황 — 규칙 위반 ↔ DDS 적용 비교 (한/영 토글) |
 
 ---
 
@@ -54,12 +57,14 @@ https://raw.githubusercontent.com/<owner>/dds-design-system/main/design.md
 Dongwha_DDS/
 ├── README.md                ← 지금 보는 파일
 ├── design.md                ← 인덱스 (단일 진실 소스)
-├── foundations/             ← 디자인 토큰 (문서 8 + W3C 토큰 JSON 3)
+├── foundations/             ← 디자인 토큰·규범 (문서 10 + W3C 토큰 JSON 3)
 │   ├── colors.md            (+ accent · chart · subtle · 다크 모드)
 │   ├── typography.md        (+ 굵기 weight 축)
 │   ├── spacing.md · radius.md · state.md · motion.md
 │   ├── layout.md            ← Container · Grid · Breakpoint · SNB
 │   ├── elevation.md         ← 의미 깊이 레벨
+│   ├── writing.md           ← UX 라이팅 (버튼·오류·안내 문구 · 용어 사전)
+│   ├── i18n.md              ← 다국어 (키 · 복수형 · 날짜/숫자 · 한↔영 대응)
 │   ├── DDS_tokens_w3c.json       ← SSOT (primitive→semantic)
 │   ├── DDS_tokens_extended.json  ← accent · chart · 굵기 토큰
 │   └── DDS_tokens_dark.json      ← 다크 semantic 오버라이드
@@ -72,7 +77,7 @@ Dongwha_DDS/
 │   └── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
 ├── scripts/build_tokens.py  ← 토큰 빌드 (JSON → dist, 경량 Style Dictionary)
 ├── dist/                    ← 생성물: tokens.css · tokens.resolved.json · tokens.tailwind.js
-└── examples/                ← 데모 (dashboard · layout · feedback · overlay · dark)
+└── examples/                ← 데모 (dashboard · layout · feedback · overlay · dark · writing)
 ```
 
 > `dist/`·`examples/`는 직접 수정 금지. 토큰은 JSON 수정 후 `python3 scripts/build_tokens.py`로 재생성.
@@ -129,6 +134,7 @@ Foundation       ▸ Icon System
 3. 임의 hex/px 값 인라인 금지. **Semantic 토큰만 사용**
 4. 모든 컴포넌트는 `prefers-reduced-motion` 미디어쿼리 포함
 5. **이모지 아이콘 금지 · 라인 SVG 아이콘만 사용**, **AI스러운 그라데이션 띠/배너·맹목적 고밀도 지양** → [design.md § 디자인 금지 규칙](./design.md#-디자인-금지-규칙-anti-patterns)
+6. **UI 문자열 하드코딩 금지** — i18n 키로 작성하고 문안은 [writing.md](./foundations/writing.md) 패턴 준수
 
 ---
 
@@ -137,9 +143,9 @@ Foundation       ▸ Icon System
 - ✅ **토큰 빌드 파이프라인** — `build_tokens.py` → `dist/` (경량 Style Dictionary)
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme]` / OS 자동
 - ✅ **레이아웃·Elevation·피드백·오버레이** 추가
+- ✅ **UX 라이팅 가이드** — [writing.md](./foundations/writing.md) + 한/영 다국어 [i18n.md](./foundations/i18n.md)
 - 🔜 **내비게이션 컴포넌트** — Tabs · Segmented · Breadcrumb
-- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI
-- 🔜 **UX 라이팅 가이드** (한/영 다국어)
+- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI + i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---
@@ -148,6 +154,7 @@ Foundation       ▸ Icon System
 
 | 버전 | 변경 |
 |------|------|
+| 2.2 | **UX 라이팅 가이드**(보이스·톤, 버튼/오류/안내 문구 규칙, 용어 사전), **다국어(i18n)** 규범(문자열 키·확장률·ICU 복수형·`Intl` 포맷·한↔영 용어 대응) |
 | 2.1 | 토큰 빌드 파이프라인(`dist/`), Accent·Chart·Subtle 컬러, 타이포 굵기 축(body 400), Layout·Elevation 파운데이션, SNB(270·좌측), Skeleton·Feedback·Overlay 컴포넌트, **다크 모드**, 디자인 금지 규칙(이모지·그라데이션 띠·고밀도) |
 | 2.0 | 3-레이어 토큰, W3C 토큰 export, 오타 정정(neutral 등), 기본 컴포넌트 카탈로그 |
 

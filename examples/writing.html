@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DDS · UX 라이팅 샘플 (거래처 관리)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  /* ── DDS 토큰 내장본 ── */
+  :root{
+    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#737373;
+    --color-text-info:#0f4aa8; --color-text-success:#0c8048; --color-text-warning:#b3890b; --color-text-danger:#a71010;
+    --color-bg-primary:#fff; --color-bg-secondary:#fafafa; --color-bg-tertiary:#f5f5f5; --color-bg-inverse-bold:#262626;
+    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048;
+    --color-bg-danger:#f51a1a; --color-bg-danger-hover:#a71010;
+    --color-bg-info-subtle:#eff6ff; --color-bg-success-subtle:#e9f9ef; --color-bg-warning-subtle:#fff9e6; --color-bg-danger-subtle:#ffecec;
+    --color-icon-info:#196ce8; --color-icon-success:#14bc62; --color-icon-warning:#e0b20f; --color-icon-danger:#f51a1a;
+    --color-icon-tertiary:#a3a3a3;
+    --color-border-primary:#d4d4d4; --color-border-secondary:#e5e5e5; --color-border-info:#196ce8; --color-border-danger:#f51a1a;
+    --color-bg-disabled:#f5f5f5; --color-text-disabled:#a3a3a3;
+    --space-2:2px; --space-4:4px; --space-6:6px; --space-8:8px; --space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-32:32px; --space-40:40px;
+    --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-rounded:999999px;
+    --border-width-sm:1px; --border-width-md:2px;
+    --font-heading:Pretendard; --font-body:Pretendard;
+    --heading-lg-font-size:28px; --heading-lg-line-height:36px;
+    --heading-md-font-size:24px; --heading-md-line-height:30px;
+    --heading-sm-font-size:20px; --heading-sm-line-height:26px;
+    --body-md-font-size:14px; --body-md-line-height:21px; --body-sm-font-size:12px; --body-sm-line-height:18px;
+    --font-weight-regular:400; --font-weight-medium:500; --font-weight-semibold:600;
+    --motion-duration-instant:80ms; --motion-duration-quick:160ms; --motion-duration-base:240ms; --motion-duration-moderate:320ms;
+    --motion-easing-standard:cubic-bezier(0.4,0,0.2,1); --motion-easing-decelerate:cubic-bezier(0,0,0.2,1);
+    --motion-easing-accelerate:cubic-bezier(0.4,0,1,1); --motion-easing-spring-soft:cubic-bezier(0.32,0.72,0,1);
+    --shadow-sm:0 1px 2px #00000029,0 0 1px #0000001f; --shadow-lg:0 4px 8px #00000029,0 0 4px #0000001f;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);line-height:1.5;
+    font-weight:var(--font-weight-regular);letter-spacing:.2px;color:var(--color-text-primary);
+    background:var(--color-bg-secondary);padding:var(--space-32) var(--space-24);word-break:keep-all;}
+  main{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-32);}
+  h1{font-family:var(--font-heading);font-size:var(--heading-lg-font-size);line-height:var(--heading-lg-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+  h2{font-family:var(--font-heading);font-size:var(--heading-sm-font-size);line-height:var(--heading-sm-line-height);font-weight:var(--font-weight-semibold);margin:0;}
+  h3{font-size:var(--body-md-font-size);font-weight:var(--font-weight-semibold);margin:0;}
+  p{margin:0;}
+  .lead{color:var(--color-text-secondary);}
+  .caption{font-size:var(--body-sm-font-size);line-height:var(--body-sm-line-height);color:var(--color-text-tertiary);}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--body-sm-font-size);
+    background:var(--color-bg-tertiary);padding:1px var(--space-4);border-radius:var(--radius-sm);}
+  .ic{width:18px;height:18px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none;}
+
+  /* 페이지 헤더 */
+  .pagehead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:var(--space-16);
+    padding-bottom:var(--space-20);border-bottom:var(--border-width-sm) solid var(--color-border-secondary);}
+  .pagehead .titles{display:flex;flex-direction:column;gap:var(--space-8);}
+
+  /* 언어 토글 (Segmented) */
+  .seg{display:inline-flex;padding:var(--space-2);gap:var(--space-2);background:var(--color-bg-tertiary);border-radius:var(--radius-md);}
+  .seg button{height:32px;padding:0 var(--space-12);border:0;background:transparent;border-radius:var(--radius-sm);cursor:pointer;
+    font-family:var(--font-body);font-size:var(--body-sm-font-size);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);
+    transition:background-color var(--motion-duration-quick) var(--motion-easing-standard);}
+  .seg button[aria-pressed="true"]{background:var(--color-bg-primary);color:var(--color-text-primary);box-shadow:var(--shadow-sm);}
+
+  /* 시나리오 블록 */
+  .scenario{display:flex;flex-direction:column;gap:var(--space-16);}
+  .scenario > header{display:flex;flex-direction:column;gap:var(--space-4);}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;
+    border-radius:var(--radius-rounded);background:var(--color-bg-inverse-bold);color:#fff;
+    font-size:var(--body-sm-font-size);font-weight:var(--font-weight-semibold);}
+  .scenario > header .line{display:flex;align-items:center;gap:var(--space-8);}
+
+  /* 비교 그리드 */
+  .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-16);align-items:stretch;}
+  .panel{display:flex;flex-direction:column;gap:var(--space-12);padding:var(--space-20);border-radius:var(--radius-lg);
+    background:var(--color-bg-primary);border:var(--border-width-sm) solid var(--color-border-secondary);box-shadow:var(--shadow-sm);}
+  .panel > .tag{display:inline-flex;align-items:center;gap:var(--space-6);font-size:var(--body-sm-font-size);
+    font-weight:var(--font-weight-medium);}
+  .panel--bad{border-color:#f3caca;}
+  .panel--bad .tag{color:var(--color-text-danger);}
+  .panel--good{border-color:#bfe8d1;}
+  .panel--good .tag{color:var(--color-text-success);}
+  .tag .ic{width:16px;height:16px;}
+  .demo{padding:var(--space-16);border-radius:var(--radius-md);background:var(--color-bg-secondary);
+    border:var(--border-width-sm) solid var(--color-border-secondary);display:flex;flex-direction:column;gap:var(--space-12);}
+  .why{display:flex;flex-direction:column;gap:var(--space-4);margin:0;padding:0;list-style:none;}
+  .why li{position:relative;padding-left:var(--space-12);font-size:var(--body-sm-font-size);line-height:var(--body-sm-line-height);color:var(--color-text-tertiary);}
+  .why li::before{content:"";position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:var(--radius-rounded);background:var(--color-icon-tertiary);}
+  .rule{font-size:var(--body-sm-font-size);color:var(--color-text-tertiary);border-top:var(--border-width-sm) solid var(--color-border-secondary);padding-top:var(--space-12);}
+  .rule b{color:var(--color-text-secondary);font-weight:var(--font-weight-medium);}
+
+  /* 버튼 */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-6);height:40px;min-width:64px;padding:0 var(--space-16);
+    font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);white-space:nowrap;
+    border:var(--border-width-sm) solid var(--color-border-primary);border-radius:var(--radius-md);
+    background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;
+    transition:transform var(--motion-duration-instant) var(--motion-easing-standard),
+               background-color var(--motion-duration-instant) var(--motion-easing-standard);}
+  .btn:hover{background:var(--color-bg-tertiary);}
+  .btn:active{transform:scale(0.97);}
+  .btn:focus-visible{outline:var(--border-width-md) solid var(--color-border-info);outline-offset:2px;}
+  .btn--primary{background:var(--color-bg-interactive-primary);color:#fff;border-color:transparent;}
+  .btn--primary:hover{background:var(--color-bg-interactive-primary-hover);}
+  .btn--danger{background:var(--color-bg-danger);color:#fff;border-color:transparent;}
+  .btn--danger:hover{background:var(--color-bg-danger-hover);}
+  .btn--ghost{background:transparent;border-color:transparent;}
+  .btn--ghost:hover{background:var(--color-bg-tertiary);}
+  .btn--sm{height:32px;padding:0 var(--space-12);font-size:var(--body-sm-font-size);}
+  .btn .ic{width:16px;height:16px;}
+  .btnrow{display:flex;gap:var(--space-12);justify-content:flex-end;flex-wrap:wrap;}
+
+  /* 폼 */
+  .field{display:flex;flex-direction:column;gap:var(--space-4);}
+  .field label{font-size:var(--body-sm-font-size);font-weight:var(--font-weight-medium);color:var(--color-text-primary);}
+  .field .req{color:var(--color-text-danger);}
+  .input{height:40px;padding:0 var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);
+    border-radius:var(--radius-md);background:var(--color-bg-primary);font-family:var(--font-body);
+    font-size:var(--body-md-font-size);color:var(--color-text-primary);width:100%;
+    transition:border-color var(--motion-duration-quick) var(--motion-easing-standard);}
+  .input::placeholder{color:var(--color-text-tertiary);}
+  .input:focus-visible{border-color:var(--color-border-info);outline:var(--border-width-md) solid var(--color-border-info);outline-offset:-2px;}
+  .input[aria-invalid="true"]{border-color:var(--color-border-danger);}
+  .help{font-size:var(--body-sm-font-size);line-height:var(--body-sm-line-height);color:var(--color-text-tertiary);}
+  .err{display:flex;align-items:flex-start;gap:var(--space-4);font-size:var(--body-sm-font-size);
+    line-height:var(--body-sm-line-height);color:var(--color-text-danger);}
+  .err .ic{width:14px;height:14px;margin-top:2px;}
+
+  /* Inline Alert */
+  .alert{display:flex;gap:var(--space-8);padding:var(--space-12) var(--space-16);border-radius:var(--radius-md);align-items:flex-start;}
+  .alert .body{display:flex;flex-direction:column;gap:var(--space-4);flex:1;}
+  .alert .title{font-weight:var(--font-weight-medium);}
+  .alert--danger{background:var(--color-bg-danger-subtle);color:var(--color-text-danger);}
+  .alert--info{background:var(--color-bg-info-subtle);color:var(--color-text-info);}
+  .alert ul{margin:0;padding-left:var(--space-16);font-size:var(--body-sm-font-size);line-height:var(--body-sm-line-height);}
+
+  /* Empty State */
+  .empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--space-32) var(--space-16);gap:var(--space-8);}
+  .empty .ic{width:40px;height:40px;color:var(--color-icon-tertiary);margin-bottom:var(--space-4);}
+  .empty .t{font-size:var(--heading-sm-font-size);line-height:var(--heading-sm-line-height);font-weight:var(--font-weight-semibold);}
+  .empty .d{color:var(--color-text-tertiary);max-width:36ch;}
+  .empty .btn{margin-top:var(--space-8);}
+
+  /* 로딩 */
+  .loading{display:flex;align-items:center;gap:var(--space-8);color:var(--color-text-secondary);}
+  .spinner{width:18px;height:18px;border:2px solid var(--color-border-secondary);border-top-color:var(--color-bg-interactive-primary);
+    border-radius:50%;animation:spin 800ms linear infinite;flex:none;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* 모달 */
+  .scrim{position:fixed;inset:0;background:#00000066;opacity:0;pointer-events:none;z-index:40;
+    transition:opacity var(--motion-duration-quick) var(--motion-easing-standard);}
+  .scrim[data-open="true"]{opacity:1;pointer-events:auto;}
+  .modal{position:fixed;z-index:50;left:50%;top:50%;width:min(440px,calc(100vw - 32px));
+    transform:translate(-50%,calc(-50% + 12px));opacity:0;pointer-events:none;
+    background:var(--color-bg-primary);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+    padding:var(--space-24);display:flex;flex-direction:column;gap:var(--space-12);
+    transition:opacity var(--motion-duration-moderate) var(--motion-easing-spring-soft),
+               transform var(--motion-duration-moderate) var(--motion-easing-spring-soft);}
+  .modal[data-open="true"]{opacity:1;pointer-events:auto;transform:translate(-50%,-50%);}
+  .modal .mt{font-size:var(--heading-sm-font-size);line-height:var(--heading-sm-line-height);font-weight:var(--font-weight-semibold);}
+  .modal .mb{color:var(--color-text-secondary);}
+
+  /* 토스트 */
+  #toasts{position:fixed;left:50%;bottom:var(--space-24);transform:translateX(-50%);z-index:60;
+    display:flex;flex-direction:column;gap:var(--space-8);align-items:center;}
+  .toast{display:flex;align-items:center;gap:var(--space-12);padding:var(--space-12) var(--space-16);
+    background:var(--color-bg-inverse-bold);color:#fff;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
+    animation:toastin var(--motion-duration-base) var(--motion-easing-decelerate);max-width:calc(100vw - 32px);}
+  .toast .link{background:none;border:0;color:#7ee2a8;font-family:var(--font-body);font-size:var(--body-md-font-size);
+    font-weight:var(--font-weight-medium);cursor:pointer;padding:0;white-space:nowrap;}
+  @keyframes toastin{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+  /* i18n 폭 비교 */
+  .lentable{width:100%;border-collapse:collapse;font-size:var(--body-sm-font-size);}
+  .lentable th,.lentable td{text-align:left;padding:var(--space-8) var(--space-12);border-bottom:var(--border-width-sm) solid var(--color-border-secondary);vertical-align:middle;}
+  .lentable th{color:var(--color-text-tertiary);font-weight:var(--font-weight-medium);}
+  .bar{height:8px;border-radius:var(--radius-rounded);background:var(--color-bg-interactive-primary);min-width:4px;}
+  .bar--en{background:var(--color-icon-info);}
+  .growth{font-weight:var(--font-weight-semibold);color:var(--color-text-danger);white-space:nowrap;}
+  pre{margin:0;padding:var(--space-16);background:var(--color-bg-inverse-bold);color:#e5e5e5;border-radius:var(--radius-md);
+    overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--body-sm-font-size);line-height:1.6;}
+  pre .k{color:#7ee2a8;} pre .s{color:#ffd479;} pre .c{color:#8f8f8f;}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+    .spinner{animation-duration:1600ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h16.9a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></symbol>
+</svg>
+
+<main>
+
+  <div class="pagehead">
+    <div class="titles">
+      <h1>UX 라이팅 샘플 — 거래처 관리</h1>
+      <p class="lead">하나의 화면에서 벌어지는 5가지 상황을 <b>규칙 위반</b> ↔ <b>DDS 적용</b>으로 비교합니다.<br />
+        규범 문서: <a href="../foundations/writing.md">writing.md</a> · <a href="../foundations/i18n.md">i18n.md</a></p>
+    </div>
+    <div class="seg" role="group" aria-label="샘플 언어 선택">
+      <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+      <button type="button" data-lang="en" aria-pressed="false">English</button>
+    </div>
+  </div>
+
+  <p class="caption">언어 토글은 오른쪽 <b>DDS 적용</b> 패널에만 적용됩니다. 왼쪽은 안티패턴 예시라 번역 대상이 아닙니다.</p>
+
+  <!-- ① Empty State -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">1</span><h2>거래처 목록이 비어 있다</h2></div>
+      <p class="caption">첫 진입 사용자가 가장 먼저 보는 화면. 여기서 다음 행동을 못 찾으면 이탈한다.</p>
+    </header>
+    <div class="cmp">
+
+      <div class="panel panel--bad">
+        <span class="tag"><svg class="ic"><use href="#i-x-circle"/></svg>규칙 위반</span>
+        <div class="demo">
+          <div class="empty">
+            <p class="t">데이터 없음</p>
+          </div>
+        </div>
+        <ul class="why">
+          <li>상태만 알리고 다음 행동이 없다</li>
+          <li>"데이터"는 시스템의 단어이지 사용자의 단어가 아니다</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--good">
+        <span class="tag"><svg class="ic"><use href="#i-check-circle"/></svg>DDS 적용</span>
+        <div class="demo">
+          <div class="empty" lang="ko">
+            <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>
+            <p class="t" data-i18n="vendor.empty.title">등록된 거래처가 없습니다</p>
+            <p class="d" data-i18n="vendor.empty.desc">거래처를 추가하면 주문·정산 내역을 한곳에서 관리할 수 있습니다.</p>
+            <button class="btn btn--primary" type="button">
+              <svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>
+              <span data-i18n="vendor.action.add">거래처 추가</span>
+            </button>
+          </div>
+        </div>
+        <ul class="why">
+          <li>제목은 <b>상황</b>, 설명은 <b>이유·이득</b>, 버튼은 <b>다음 행동</b></li>
+          <li>제목에 마침표 없음 · 설명은 서술문이라 마침표 있음</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · writing.md §6(Empty State 패턴) · §4.1(동사 라벨) · §3.2(마침표)</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ② 폼 오류 -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">2</span><h2>거래처 등록 폼에서 입력이 틀렸다</h2></div>
+      <p class="caption">오류 문구는 "무엇이 문제인지"가 아니라 <b>"무엇을 하면 되는지"</b>를 말해야 한다.</p>
+    </header>
+    <div class="cmp">
+
+      <div class="panel panel--bad">
+        <span class="tag"><svg class="ic"><use href="#i-x-circle"/></svg>규칙 위반</span>
+        <div class="demo">
+          <div class="field">
+            <input class="input" type="text" placeholder="이메일" aria-label="이메일" value="hong@" />
+            <p class="err"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>입력값이 잘못되었습니다.</p>
+          </div>
+          <div class="btnrow"><button class="btn btn--primary" type="button">확인</button></div>
+        </div>
+        <ul class="why">
+          <li>라벨 없이 placeholder로 대체 — 입력하면 라벨이 사라진다</li>
+          <li>"잘못되었습니다"는 사용자를 탓하고, 고칠 방법을 안 준다</li>
+          <li>"확인"은 눌렀을 때 무슨 일이 생기는지 알려주지 않는다</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--good">
+        <span class="tag"><svg class="ic"><use href="#i-check-circle"/></svg>DDS 적용</span>
+        <div class="demo" lang="ko">
+          <div class="alert alert--danger" role="alert">
+            <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+            <div class="body">
+              <span class="title" data-i18n="form.error.summary">입력값 2개를 확인해 주세요</span>
+              <ul>
+                <li data-i18n="form.error.item.email">담당자 이메일 — 형식을 확인해 주세요</li>
+                <li data-i18n="form.error.item.bizno">사업자등록번호 — 10자리 숫자를 입력해 주세요</li>
+              </ul>
+            </div>
+          </div>
+          <div class="field">
+            <label for="s-email"><span data-i18n="field.email.label">담당자 이메일</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="s-email" type="email" value="hong@" aria-invalid="true" aria-describedby="s-email-err" />
+            <p class="err" id="s-email-err" role="alert">
+              <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+              <span data-i18n="field.email.error">이메일 형식을 확인해 주세요.</span>
+            </p>
+          </div>
+          <div class="field">
+            <label for="s-bizno"><span data-i18n="field.bizno.label">사업자등록번호</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="s-bizno" type="text" inputmode="numeric" placeholder="1234567890" aria-describedby="s-bizno-help" />
+            <p class="help" id="s-bizno-help" data-i18n="field.bizno.helper">하이픈 없이 10자리 숫자로 입력해 주세요</p>
+          </div>
+          <div class="btnrow">
+            <button class="btn btn--ghost" type="button" data-i18n="common.action.cancel">취소</button>
+            <button class="btn btn--primary" type="button" data-i18n="vendor.action.register">거래처 등록</button>
+          </div>
+        </div>
+        <ul class="why">
+          <li>폼 상단에 <b>요약 Alert</b>, 각 필드에 <b>구체적 지시</b> — 3계층 중 2개 층 사용</li>
+          <li>사업자등록번호는 <b>Helper로 미리</b> 조건을 알려 오류 자체를 예방</li>
+          <li>버튼이 "확인"이 아니라 "거래처 등록" — 결과를 예측할 수 있다</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · writing.md §5.1(무슨 일+어떻게) · §5.2(3계층) · §5.3(표준 문안) · §6(Helper 우선) · §4.2(라벨)</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ③ 삭제 확인 -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">3</span><h2>거래처 3곳을 삭제하려 한다</h2></div>
+      <p class="caption">되돌릴 수 없는 액션에만 다이얼로그를 쓴다. 되돌릴 수 있으면 실행 후 "실행 취소"를 준다.</p>
+    </header>
+    <div class="cmp">
+
+      <div class="panel panel--bad">
+        <span class="tag"><svg class="ic"><use href="#i-x-circle"/></svg>규칙 위반</span>
+        <div class="demo">
+          <p class="mt" style="font-weight:600">경고!</p>
+          <p style="color:var(--color-text-secondary)">정말로 삭제하시겠습니까? 삭제된 데이터는 영구히 파괴됩니다.</p>
+          <div class="btnrow">
+            <button class="btn" type="button">아니오</button>
+            <button class="btn btn--danger" type="button">예</button>
+          </div>
+        </div>
+        <ul class="why">
+          <li>"경고!" — 느낌표로 겁을 주지만 정보는 없다</li>
+          <li>무엇이 <b>몇 개</b> 삭제되는지 안 밝힌다</li>
+          <li>"예/아니오"는 질문을 다시 읽어야 뜻을 안다</li>
+          <li>"영구히 파괴" — 공포 조성 표현</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--good">
+        <span class="tag"><svg class="ic"><use href="#i-check-circle"/></svg>DDS 적용</span>
+        <div class="demo" lang="ko">
+          <p class="mt" style="font-weight:600" data-i18n="vendor.delete.title">거래처 3곳을 삭제할까요?</p>
+          <p style="color:var(--color-text-secondary)" data-i18n="vendor.delete.body">삭제한 거래처의 주문 이력은 복구할 수 없습니다.</p>
+          <div class="btnrow">
+            <button class="btn btn--ghost" type="button" data-i18n="common.action.cancel">취소</button>
+            <button class="btn btn--danger" type="button" data-i18n="common.action.delete">삭제</button>
+          </div>
+        </div>
+        <ul class="why">
+          <li>제목이 <b>개수를 포함한 질문</b> — 물음표는 여기서만 쓴다</li>
+          <li>본문은 <b>복구 가능 여부</b>만 사실대로</li>
+          <li>버튼이 제목의 질문에 동사로 답한다</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · writing.md §7(다이얼로그 구조) · §4.3(버튼 쌍) · §2(톤) · §3.2(물음표)</p>
+        <button class="btn btn--sm" type="button" onclick="openModal()">실제로 열어보기</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ④ 결과 알림 -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">4</span><h2>삭제 결과를 알린다</h2></div>
+      <p class="caption">성공은 사라져도 되지만, <b>실패는 사라지면 안 된다.</b></p>
+    </header>
+    <div class="cmp">
+
+      <div class="panel panel--bad">
+        <span class="tag"><svg class="ic"><use href="#i-x-circle"/></svg>규칙 위반</span>
+        <div class="demo">
+          <div class="toast" style="animation:none">처리에 실패하였습니다.</div>
+        </div>
+        <ul class="why">
+          <li>무엇이 실패했는지, 이제 뭘 해야 하는지 없다</li>
+          <li>시스템 오류를 4초 뒤 사라지는 Toast로만 알린다 — 놓치면 끝</li>
+          <li>재시도 경로가 없다</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--good">
+        <span class="tag"><svg class="ic"><use href="#i-check-circle"/></svg>DDS 적용</span>
+        <div class="demo" lang="ko">
+          <p class="caption">성공 — 일시 Toast + 되돌리기</p>
+          <div class="toast" style="animation:none">
+            <span data-i18n="vendor.delete.success">거래처 3곳을 삭제했습니다.</span>
+            <button class="link" type="button" data-i18n="common.action.undo">실행 취소</button>
+          </div>
+          <p class="caption" style="margin-top:var(--space-8)">실패 — 지속 Inline Alert + 재시도</p>
+          <div class="alert alert--danger" role="alert">
+            <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>
+            <div class="body">
+              <span class="title" data-i18n="vendor.delete.fail.title">거래처를 삭제하지 못했습니다</span>
+              <span data-i18n="vendor.delete.fail.desc">일시적인 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.</span>
+              <span class="caption" style="color:inherit;opacity:.7"><span data-i18n="common.error.code">오류 코드</span>: DW-5021</span>
+              <div style="margin-top:var(--space-4)">
+                <button class="btn btn--sm" type="button">
+                  <svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg>
+                  <span data-i18n="common.action.retry">다시 시도</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="why">
+          <li>성공은 <b>Toast + 실행 취소</b>, 실패는 <b>Inline Alert + 다시 시도</b>로 분리</li>
+          <li>오류 코드는 문장 안이 아니라 <b>별도 줄 보조 텍스트</b>로</li>
+          <li>Toast 서술문에는 마침표, 액션 버튼 라벨에는 없음</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · writing.md §6(컴포넌트별 패턴) · §5.2(시스템 계층) · §5.3(서버 오류 표준 문안)</p>
+        <button class="btn btn--sm" type="button" onclick="showToast()">토스트 띄워보기</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⑤ 로딩 -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">5</span><h2>목록을 불러오는 중이다</h2></div>
+      <p class="caption">로딩 문구도 문구다. 무엇을 기다리는지 밝힌다.</p>
+    </header>
+    <div class="cmp">
+
+      <div class="panel panel--bad">
+        <span class="tag"><svg class="ic"><use href="#i-x-circle"/></svg>규칙 위반</span>
+        <div class="demo">
+          <div class="loading"><div class="spinner"></div><span>Loading...</span></div>
+        </div>
+        <ul class="why">
+          <li>번역되지 않은 영문 + 무엇을 기다리는지 없음</li>
+          <li>말줄임표를 마침표 3개로 대체</li>
+        </ul>
+      </div>
+
+      <div class="panel panel--good">
+        <span class="tag"><svg class="ic"><use href="#i-check-circle"/></svg>DDS 적용</span>
+        <div class="demo" lang="ko">
+          <div class="loading" role="status">
+            <div class="spinner" aria-hidden="true"></div>
+            <span data-i18n="vendor.list.loading">거래처 목록을 불러오는 중…</span>
+          </div>
+        </div>
+        <ul class="why">
+          <li>대상을 밝히고 <b>진행형</b>으로 쓴다</li>
+          <li>말줄임표는 <code>…</code>(U+2026) 하나</li>
+          <li>0.3초 이상 걸릴 때만 노출 (깜빡임 방지)</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · writing.md §6(로딩) · §3.2(말줄임표) · feedback.md §4</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⑥ 다국어 -->
+  <section class="scenario">
+    <header>
+      <div class="line"><span class="num">6</span><h2>같은 화면을 영어로 낸다</h2></div>
+      <p class="caption">한국어는 짧다. 번역하면 <b>버튼이 먼저 깨진다.</b></p>
+    </header>
+
+    <div class="cmp">
+      <div class="panel">
+        <h3>문자열 키 · ICU 복수형</h3>
+        <p class="caption">위 ③ 다이얼로그의 실제 리소스. 개수는 변수로, 복수형은 ICU로 처리한다.</p>
+<pre><span class="c">// locales/ko-KR/vendor.json</span>
+{
+  <span class="k">"vendor.delete.title"</span>: <span class="s">"거래처 {count}곳을 삭제할까요?"</span>,
+  <span class="k">"vendor.delete.success"</span>: <span class="s">"거래처 {count}곳을 삭제했습니다."</span>
+}
+
+<span class="c">// locales/en-US/vendor.json</span>
+{
+  <span class="k">"vendor.delete.title"</span>: <span class="s">"{count, plural,</span>
+<span class="s">     one {Delete this vendor?}</span>
+<span class="s">     other {Delete # vendors?}}"</span>,
+  <span class="k">"vendor.delete.success"</span>: <span class="s">"{count, plural,</span>
+<span class="s">     one {# vendor deleted.}</span>
+<span class="s">     other {# vendors deleted.}}"</span>
+}</pre>
+        <ul class="why">
+          <li><b>금지</b> — <code>t('prefix') + count + t('suffix')</code> 방식은 어순이 다른 언어에서 무너진다</li>
+          <li>한국어는 복수 표지가 없어 단일 문안, 영어는 <code>one/other</code> 분기</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · i18n.md §2(키 네이밍) · §4(조립 금지) · §5.2(ICU plural)</p>
+      </div>
+
+      <div class="panel">
+        <h3>라벨 길이 확장 — 실측</h3>
+        <p class="caption">지금 이 브라우저에서 잰 <b>텍스트 렌더 폭</b>입니다. 글자 수는 2~3배로 늘어도
+          폭은 그만큼 늘지 않습니다 — 한글 1자가 라틴 1.7~1.8자만큼 넓기 때문입니다.</p>
+        <table class="lentable" id="lentable">
+          <thead><tr><th>한국어</th><th>English</th><th>글자 수</th><th style="width:30%">렌더 폭</th><th>폭 증가</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <ul class="why">
+          <li><b>2자 라벨이 가장 위험하다</b> — 취소 → Cancel은 폭이 80% 늘어난다</li>
+          <li>반대로 <b>내보내기 → Export는 오히려 짧아진다.</b> 글자 수만 보면 판단할 수 없다</li>
+          <li>문장은 폭보다 <b>줄 수</b>가 는다 — 영어는 단어 단위로만 줄바꿈되기 때문</li>
+          <li>버튼에 <b>고정 <code>width</code> 금지</b> — <code>min-width</code> + 패딩으로만</li>
+        </ul>
+        <p class="rule"><b>적용 규칙</b> · i18n.md §3(확장률·레이아웃) · §8(줄바꿈) · §9(용어 대응)</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="caption" style="text-align:center;padding-top:var(--space-16);border-top:var(--border-width-sm) solid var(--color-border-secondary)">
+    동화 스마트워크팀 김부영 · 2026 — <a href="../foundations/writing.md">writing.md</a> · <a href="../foundations/i18n.md">i18n.md</a>
+  </p>
+
+</main>
+
+<div class="scrim" id="scrim" onclick="closeModal()"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <p class="mt" id="modal-title" data-i18n="vendor.delete.title">거래처 3곳을 삭제할까요?</p>
+  <p class="mb" data-i18n="vendor.delete.body">삭제한 거래처의 주문 이력은 복구할 수 없습니다.</p>
+  <div class="btnrow">
+    <button class="btn btn--ghost" type="button" onclick="closeModal()" data-i18n="common.action.cancel">취소</button>
+    <button class="btn btn--danger" type="button" onclick="closeModal(); showToast();" data-i18n="common.action.delete">삭제</button>
+  </div>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+  /* ── 문자열 리소스: 키 = <domain>.<component>.<element> (i18n.md §2) ── */
+  const I18N = {
+    ko: {
+      'common.action.cancel': '취소',
+      'common.action.delete': '삭제',
+      'common.action.retry':  '다시 시도',
+      'common.action.undo':   '실행 취소',
+      'common.action.save':   '저장',
+      'common.action.export': '내보내기',
+      'common.action.selectAll': '전체 선택',
+      'common.error.code':    '오류 코드',
+      'vendor.empty.title':   '등록된 거래처가 없습니다',
+      'vendor.empty.desc':    '거래처를 추가하면 주문·정산 내역을 한곳에서 관리할 수 있습니다.',
+      'vendor.action.add':    '거래처 추가',
+      'vendor.action.register': '거래처 등록',
+      'vendor.delete.title':  '거래처 3곳을 삭제할까요?',
+      'vendor.delete.body':   '삭제한 거래처의 주문 이력은 복구할 수 없습니다.',
+      'vendor.delete.success':'거래처 3곳을 삭제했습니다.',
+      'vendor.delete.fail.title': '거래처를 삭제하지 못했습니다',
+      'vendor.delete.fail.desc':  '일시적인 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
+      'vendor.list.loading':  '거래처 목록을 불러오는 중…',
+      'form.error.summary':   '입력값 2개를 확인해 주세요',
+      'form.error.item.email':'담당자 이메일 — 형식을 확인해 주세요',
+      'form.error.item.bizno':'사업자등록번호 — 10자리 숫자를 입력해 주세요',
+      'field.email.label':    '담당자 이메일',
+      'field.email.error':    '이메일 형식을 확인해 주세요.',
+      'field.bizno.label':    '사업자등록번호',
+      'field.bizno.helper':   '하이픈 없이 10자리 숫자로 입력해 주세요'
+    },
+    en: {
+      'common.action.cancel': 'Cancel',
+      'common.action.delete': 'Delete',
+      'common.action.retry':  'Try again',
+      'common.action.undo':   'Undo',
+      'common.action.save':   'Save',
+      'common.action.export': 'Export',
+      'common.action.selectAll': 'Select all',
+      'common.error.code':    'Error code',
+      'vendor.empty.title':   'No vendors yet',
+      'vendor.empty.desc':    'Add a vendor to manage orders and settlements in one place.',
+      'vendor.action.add':    'Add vendor',
+      'vendor.action.register': 'Register vendor',
+      'vendor.delete.title':  'Delete 3 vendors?',
+      'vendor.delete.body':   "Order history for deleted vendors can't be restored.",
+      'vendor.delete.success':'3 vendors deleted.',
+      'vendor.delete.fail.title': "We couldn't delete the vendors",
+      'vendor.delete.fail.desc':  'Something went wrong on our end. Try again in a moment.',
+      'vendor.list.loading':  'Loading vendors…',
+      'form.error.summary':   'Check 2 fields',
+      'form.error.item.email':'Contact email — enter a valid address',
+      'form.error.item.bizno':'Business number — enter 10 digits',
+      'field.email.label':    'Contact email',
+      'field.email.error':    'Enter a valid email address.',
+      'field.bizno.label':    'Business registration number',
+      'field.bizno.helper':   'Enter 10 digits without hyphens'
+    }
+  };
+
+  let lang = 'ko';
+
+  function applyLang(next){
+    lang = next;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = I18N[lang][el.dataset.i18n];
+      if (v) el.textContent = v;
+    });
+    // lang 속성 전환 — 스크린리더 발음 · 줄바꿈 규칙 (i18n.md §8)
+    document.querySelectorAll('.panel--good .demo, .panel--good .empty, #modal').forEach(el => { el.lang = lang; });
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  }
+
+  document.querySelectorAll('.seg button').forEach(b => {
+    b.addEventListener('click', () => applyLang(b.dataset.lang));
+  });
+
+  /* ── 모달 ── */
+  let lastFocus = null;
+  function openModal(){
+    lastFocus = document.activeElement;
+    scrim.dataset.open = 'true';
+    modal.dataset.open = 'true';
+    modal.querySelector('.btn--danger').focus();
+  }
+  function closeModal(){
+    scrim.dataset.open = 'false';
+    modal.dataset.open = 'false';
+    if (lastFocus) lastFocus.focus();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ── 토스트 ── */
+  function showToast(){
+    const t = document.createElement('div');
+    t.className = 'toast';
+    const msg = document.createElement('span');
+    msg.textContent = I18N[lang]['vendor.delete.success'];
+    const undo = document.createElement('button');
+    undo.className = 'link';
+    undo.type = 'button';
+    undo.textContent = I18N[lang]['common.action.undo'];
+    undo.onclick = () => t.remove();
+    t.append(msg, undo);
+    toasts.append(t);
+    setTimeout(() => t.remove(), 4000);   // motion.md §5.5 — 4초 자동 닫힘
+  }
+
+  /* ── 라벨 길이 실측 (i18n.md §3) ──
+     버튼 폭이 아니라 '텍스트 렌더 폭'을 잰다. 버튼 폭에는 좌우 패딩 32px가 섞여
+     증가율이 실제보다 작게 보이기 때문. */
+  (function measure(){
+    const KEYS = ['common.action.save','common.action.cancel','common.action.export',
+                  'common.action.retry','vendor.action.add','field.email.error'];
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;white-space:nowrap;' +
+      'font-family:Pretendard,system-ui,sans-serif;font-size:var(--body-md-font-size);' +
+      'font-weight:var(--font-weight-medium);letter-spacing:.2px';
+    document.body.append(probe);
+
+    const width = txt => { probe.textContent = txt; return Math.round(probe.getBoundingClientRect().width); };
+    const rows = KEYS.map(k => {
+      const ko = I18N.ko[k], en = I18N.en[k];
+      const wKo = width(ko), wEn = width(en);
+      return {
+        ko, en, wKo, wEn,
+        chars: Math.round((en.length / ko.length - 1) * 100),
+        growth: Math.round((wEn / wKo - 1) * 100)
+      };
+    });
+    probe.remove();
+
+    const max = Math.max(...rows.flatMap(r => [r.wKo, r.wEn]));
+    const tbody = document.querySelector('#lentable tbody');
+    const sign = n => (n >= 0 ? '+' : '−') + Math.abs(n) + '%';
+
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      const bar = (w, cls) =>
+        `<div style="display:flex;align-items:center;gap:6px">
+           <div class="bar ${cls}" style="width:${(w / max * 100).toFixed(1)}%"></div>
+           <span style="color:var(--color-text-tertiary);white-space:nowrap">${w}px</span>
+         </div>`;
+      // 폭 증가 50% 이상만 경고색 — 그 아래는 레이아웃이 흡수 가능한 범위
+      const cls = r.growth >= 50 ? 'growth' : '';
+      const style = r.growth >= 50 ? '' : 'style="color:var(--color-text-tertiary)"';
+      tr.innerHTML =
+        `<td>${r.ko}</td><td lang="en">${r.en}</td>` +
+        `<td style="color:var(--color-text-tertiary);white-space:nowrap">${sign(r.chars)}</td>` +
+        `<td>${bar(r.wKo, '')}${bar(r.wEn, 'bar--en')}</td>` +
+        `<td class="${cls}" ${style}>${sign(r.growth)}</td>`;
+      tbody.append(tr);
+    });
+  })();
+</script>
+</body>
+</html>

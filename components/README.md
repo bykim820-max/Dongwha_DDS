@@ -71,6 +71,8 @@
 6. **모션** → [foundations/motion.md](../foundations/motion.md) Duration·Easing 토큰
 7. **접근성** → 시맨틱 HTML, `aria-*` 속성, 키보드 네비게이션
 8. **변형 = props** → Figma Variant Property ↔ 코드 props 1:1
+9. **문구** → [foundations/writing.md](../foundations/writing.md) 라벨·오류·안내 패턴 (모호한 "확인/OK" 금지)
+10. **다국어** → [foundations/i18n.md](../foundations/i18n.md) 문자열 키·신축 레이아웃 (하드코딩 금지)
 
 ---
 
