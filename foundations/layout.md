@@ -65,7 +65,46 @@
 
 ---
 
-## 3.1 App Shell · SNB (사이드 내비게이션)
+## 3.1 Topbar (앱 상단 헤더)
+
+화면 최상단에 고정되는 전역 헤더. 레거시 용어로는 **GNB**에 해당한다.
+(페이지 안쪽 제목 영역은 Topbar가 아니라 → [Page Header](../components/page-header.md))
+
+| 항목 | 데스크톱 (≥ md) | 모바일 (< md) |
+|------|----------------|---------------|
+| **높이** | `--topbar-h` = **56px** | **40px** (`--topbar-h-mobile`, 자동 전환) |
+| **축약형** | `--topbar-h-compact` = 46px — 메뉴를 아이콘 하나로 접었을 때 | — |
+| **좌우 패딩** | `--grid-margin` (`spacing/24`) | `spacing/16` |
+| **아이콘** | `lg`(24) | `md`(20) |
+| **폭** | 뷰포트 full-width. 내부 콘텐츠만 `--container-dashboard`로 제한 | full-width |
+| **깊이** | 스크롤 시 `--elevation-sticky` | 동일 |
+
+```css
+:root { /* dist/tokens.css 제공 */ }
+
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--topbar-h);                    /* md 미만에서 40px로 자동 전환 */
+  padding-inline: var(--grid-margin);
+  background: var(--color-bg-primary);        /* 반투명 금지 */
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+.topbar[data-scrolled="true"] { box-shadow: var(--elevation-sticky); }
+
+@media (max-width: 767px) {
+  .topbar { padding-inline: var(--space-16); }
+}
+```
+
+> **`--topbar-h`는 단일 참조점이다.** SNB·드로어·스티키 요소는 헤더 높이를 직접 쓰지 말고
+> 항상 `var(--topbar-h)`를 참조한다. 값은 브레이크포인트에서 자동으로 바뀐다.
+
+값의 출처는 레거시 `동화디자인시스템_배포용`의 헤더 규격(PC 56 / 축약 46 / 모바일 40)이다.
+좌우 패딩만 레거시 30px → DDS **8pt 그리드에 맞춰 24px**로 정규화했다.
+
+---
+
+## 3.2 App Shell · SNB (사이드 내비게이션)
 
 대시보드형 화면의 기본 골격은 **좌측 SNB + 콘텐츠** 2분할이다.
 
@@ -173,6 +212,7 @@
 | 간격 리듬 | `--layout-{section,block,stack}-gap` |
 | 최대폭 | `--container-dashboard`(1680, 기본) · `--container-{2xl,xl,lg,md,prose,sm}` |
 | 그리드 | `--grid-{columns,gutter,margin}` |
+| Topbar(상단 헤더) | `--topbar-h`(56 → md 미만 40 자동) · `--topbar-h-compact`(46) · `--topbar-h-mobile`(40) |
 | SNB(사이드 내비) | `--snb-width`(270, 좌측) · `--snb-width-collapsed`(72) |
 | 반응형 | `--breakpoint-{sm,md,lg,xl}` |
 | 깊이 | → [elevation.md](./elevation.md) |

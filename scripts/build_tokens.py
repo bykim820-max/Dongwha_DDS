@@ -146,6 +146,10 @@ LAYOUT = {
     "--grid-columns": "12", "--grid-gutter": "var(--space-24)", "--grid-margin": "var(--space-24)",
     "--snb-width": "270px",   # SNB(사이드 내비) — 좌측 배치, 권장 폭
     "--snb-width-collapsed": "72px",
+    # Topbar(앱 상단 헤더) — 레거시 동화디자인시스템 실측 기준(PC 56 / 전체메뉴형 46 / 모바일 40)
+    "--topbar-h": "56px",             # 기본. md 미만에서 --topbar-h-mobile 로 자동 전환
+    "--topbar-h-compact": "46px",     # 메뉴를 아이콘 하나로 접은 축약형
+    "--topbar-h-mobile": "40px",
     "--layout-section-gap": "var(--space-64)",   # 섹션 사이
     "--layout-block-gap": "var(--space-24)",      # 블록(카드) 사이
     "--layout-stack-gap": "var(--space-12)",      # 한 덩어리 내부
@@ -240,6 +244,13 @@ lines.append("\n  /* ── Color · Primitive (참고용 — 직접 사용 금�
 for leaf, v in primitives.items():
     lines.append(f"  --p-{leaf.replace('_', '-')}: {resolve(v)};")
 
+lines.append("}")
+
+# ── 반응형 오버라이드: 모바일 헤더 높이 (source: foundations/layout.md §3.1) ──
+# var(--topbar-h) 하나만 참조하면 데스크톱 56 / 모바일 40이 자동 적용된다.
+lines.append("\n/* ── Responsive · Topbar (md 미만에서 모바일 높이로 전환) ── */")
+lines.append(f"@media (max-width: {int(BREAKPOINT['--breakpoint-md'][:-2]) - 1}px) {{")
+lines.append("  :root { --topbar-h: var(--topbar-h-mobile); }")
 lines.append("}")
 
 # ── 다크 테마: 색상 토큰만 오버라이드 ──

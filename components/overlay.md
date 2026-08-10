@@ -95,7 +95,7 @@
 
 ## 4. Drawer (Side Panel)
 
-좌/우 가장자리에서 슬라이드. 필터·상세·내비 보조에 사용. → 좌측 영구 내비는 [layout.md §3.1 SNB](../foundations/layout.md#31-app-shell--snb-사이드-내비게이션).
+좌/우 가장자리에서 슬라이드. 필터·상세·내비 보조에 사용. → 좌측 영구 내비는 [layout.md §3.2 SNB](../foundations/layout.md#32-app-shell--snb-사이드-내비게이션).
 
 | Property | 값 |
 |----------|-----|
