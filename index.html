@@ -90,6 +90,50 @@
   .tip .bub{position:absolute;bottom:calc(100% + var(--space-8));left:50%;transform:translateX(-50%) translateY(4px);background:var(--color-bg-inverse-bold);color:#fff;padding:var(--space-6) var(--space-12);border-radius:var(--radius-md);font-size:var(--body-sm-font-size);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-duration-base) var(--motion-easing-standard),transform var(--motion-duration-base) var(--motion-easing-spring-soft);}
   .tip:hover .bub,.tip:focus-within .bub{opacity:1;transform:translateX(-50%) translateY(0);}
 
+  /* Navigation — Tabs */
+  .tabs{display:flex;flex-direction:column;gap:var(--space-16);}
+  .tablist{position:relative;display:flex;gap:var(--space-4);overflow-x:auto;scrollbar-width:none;border-bottom:var(--border-width-sm) solid var(--color-border-secondary);}
+  .tablist::-webkit-scrollbar{display:none;}
+  .tab{position:relative;display:inline-flex;align-items:center;gap:var(--space-6);height:44px;padding:0 var(--space-12);white-space:nowrap;
+    border:0;background:transparent;cursor:pointer;font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);
+    color:var(--color-text-tertiary);transition:color var(--motion-duration-quick) var(--motion-easing-standard);}
+  .tab:hover{color:var(--color-text-secondary);}
+  .tab[aria-selected="true"]{color:var(--color-text-primary);}
+  .tab:focus-visible{outline:2px solid var(--color-border-info);outline-offset:-3px;border-radius:var(--radius-md);}
+  .tab .cnt{display:inline-flex;align-items:center;height:18px;padding:0 var(--space-6);border-radius:var(--radius-rounded);
+    background:var(--color-bg-tertiary);color:var(--color-text-secondary);font-size:var(--body-sm-font-size);}
+  /* 인디케이터: X 위치·폭만 트랜지션 (motion.md §5.10) */
+  .tabind{position:absolute;bottom:0;left:0;height:2px;background:var(--color-bg-interactive-primary);
+    transition:transform var(--motion-duration-base) var(--motion-easing-emphasized),width var(--motion-duration-base) var(--motion-easing-emphasized);}
+  .tabpanel{color:var(--color-text-secondary);animation:fadein 100ms var(--motion-easing-standard);}
+  .tabpanel[hidden]{display:none;}
+  @keyframes fadein{from{opacity:0;}to{opacity:1;}}
+
+  /* Navigation — Segmented Control (라디오 그룹) */
+  .seg{display:inline-flex;padding:var(--space-2);gap:var(--space-2);background:var(--color-bg-tertiary);border-radius:var(--radius-md);}
+  .seg button{height:40px;padding:0 var(--space-12);border:0;background:transparent;border-radius:var(--radius-sm);cursor:pointer;
+    font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);color:var(--color-text-secondary);
+    transition:background-color var(--motion-duration-quick) var(--motion-easing-standard);}
+  .seg button[aria-checked="true"]{background:var(--color-bg-primary);color:var(--color-text-primary);box-shadow:var(--shadow-sm);}
+  .seg button:focus-visible{outline:2px solid var(--color-border-info);outline-offset:2px;}
+  .seg--sm button{height:32px;font-size:var(--body-sm-font-size);}
+
+  /* Navigation — Breadcrumb */
+  .bc ol{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-8);list-style:none;margin:0;padding:0;font-size:var(--body-sm-font-size);}
+  .bc a{color:var(--color-text-tertiary);text-decoration:none;}
+  .bc a:hover{color:var(--color-text-secondary);text-decoration:underline;}
+  .bc .sep{color:var(--color-text-tertiary);}
+  .bc [aria-current="page"]{color:var(--color-text-primary);font-weight:var(--font-weight-medium);}
+  .bc-back{display:none;}
+  /* md 미만: Breadcrumb 숨김 → 뒤로가기 버튼으로 대체 (navigation.md §7) */
+  @media (max-width:767px){
+    .bc{display:none;}
+    .bc-back{display:inline-flex;}
+    /* Segmented는 한 줄을 차지하고(flex-basis 100%) 내부 세그먼트만 균등 분할 */
+    .seg{flex:1 0 100%;}
+    .seg button{flex:1;}
+  }
+
   /* Foundations samples */
   .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:var(--space-8);}
   .sw{border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);overflow:hidden;font-size:var(--body-sm-font-size);}
@@ -132,7 +176,7 @@
   <div class="brand"><span class="mark">D</span>DDS v2.0</div>
   <nav class="nav">
     <a href="#foundations">Foundations</a><a href="#buttons">Button</a><a href="#form">Form</a>
-    <a href="#feedback">Feedback</a><a href="#overlay">Overlay</a><a href="#data">Table</a>
+    <a href="#feedback">Feedback</a><a href="#overlay">Overlay</a><a href="#navigation">Navigation</a><a href="#data">Table</a>
   </nav>
   <button class="toggle" onclick="toggleTheme()"><svg class="ic" id="tgi"><use href="#i-moon"/></svg><span id="tgl">다크</span></button>
 </header>
@@ -225,6 +269,54 @@
     </div></div>
   </section>
 
+  <!-- Navigation -->
+  <section id="navigation">
+    <div class="h2">Navigation</div>
+    <span class="cap">현재 위치와 이동 경로 — Tabs(패널 교체) · Segmented(보는 방식 전환) · Breadcrumb(계층 경로). 색만이 아니라 굵기·<code>aria</code>로도 선택을 알립니다.</span>
+    <div class="card">
+
+      <span class="lbl">Tabs <span class="cap">— 서로 다른 내용을 담은 패널을 교체 · <code>role="tablist"</code> · ← → Home End</span></span>
+      <div class="tabs" id="tabs-demo">
+        <div class="tablist" role="tablist" aria-label="설정 영역">
+          <button class="tab" role="tab" id="tb-1" aria-controls="tp-1" aria-selected="true"  tabindex="0">프로필</button>
+          <button class="tab" role="tab" id="tb-2" aria-controls="tp-2" aria-selected="false" tabindex="-1">알림 <span class="cnt">12</span></button>
+          <button class="tab" role="tab" id="tb-3" aria-controls="tp-3" aria-selected="false" tabindex="-1">보안</button>
+          <button class="tab" role="tab" id="tb-4" aria-controls="tp-4" aria-selected="false" tabindex="-1">결제</button>
+          <span class="tabind" aria-hidden="true"></span>
+        </div>
+        <div class="tabpanel" role="tabpanel" id="tp-1" aria-labelledby="tb-1" tabindex="0">이름·연락처 등 계정 기본 정보를 관리합니다.</div>
+        <div class="tabpanel" role="tabpanel" id="tp-2" aria-labelledby="tb-2" tabindex="0" hidden>읽지 않은 알림 <b>12건</b>. 채널별 수신 여부를 설정합니다.</div>
+        <div class="tabpanel" role="tabpanel" id="tp-3" aria-labelledby="tb-3" tabindex="0" hidden>비밀번호·2단계 인증·로그인 기기를 관리합니다.</div>
+        <div class="tabpanel" role="tabpanel" id="tp-4" aria-labelledby="tb-4" tabindex="0" hidden>결제 수단과 청구 주소를 관리합니다.</div>
+      </div>
+
+      <span class="lbl" style="margin-top:var(--space-8)">Segmented Control <span class="cap">— 내용은 그대로, 구간만 전환 · <code>role="radiogroup"</code> (탭 아님)</span></span>
+      <div class="row">
+        <div class="seg" role="radiogroup" aria-label="집계 구간" id="seg-demo">
+          <button role="radio" aria-checked="true"  tabindex="0"  data-v="일별">일별</button>
+          <button role="radio" aria-checked="false" tabindex="-1" data-v="주별">주별</button>
+          <button role="radio" aria-checked="false" tabindex="-1" data-v="월별">월별</button>
+        </div>
+        <span class="cap" id="seg-out">일별 집계 · 주문 23건</span>
+      </div>
+
+      <span class="lbl" style="margin-top:var(--space-8)">Breadcrumb <span class="cap">— 3단계 이하 · 마지막 항목은 링크가 아님 · 화면을 좁히면 뒤로가기로 대체</span></span>
+      <div>
+        <nav class="bc" aria-label="탐색 경로">
+          <ol>
+            <li><a href="#navigation">홈</a></li>
+            <li class="sep" aria-hidden="true">/</li>
+            <li><a href="#navigation">주문</a></li>
+            <li class="sep" aria-hidden="true">/</li>
+            <li aria-current="page">주문번호 #10293</li>
+          </ol>
+        </nav>
+        <button class="btn btn--sm bc-back">← 주문</button>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Table -->
   <section id="data">
     <div class="h2">Table</div>
@@ -270,6 +362,57 @@
   function openOv(id){trg=document.activeElement;cur=document.getElementById(id);document.getElementById('scrim').classList.add('open');cur.classList.add('open');document.body.classList.add('lock');var f=cur.querySelector('button,input');if(f)f.focus();}
   function closeOv(){if(!cur)return;document.getElementById('scrim').classList.remove('open');cur.classList.remove('open');document.body.classList.remove('lock');cur=null;if(trg&&trg.focus)trg.focus();}
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOv();});
+  // Tabs — roving tabindex + 화살표 이동, 인디케이터는 X/폭만 이동
+  (function(){
+    var root=document.getElementById('tabs-demo');
+    var list=root.querySelector('.tablist'), ind=root.querySelector('.tabind');
+    var tabs=[].slice.call(list.querySelectorAll('[role="tab"]'));
+    function moveInd(){
+      var t=list.querySelector('[aria-selected="true"]');
+      ind.style.width=t.offsetWidth+'px';
+      ind.style.transform='translateX('+t.offsetLeft+'px)';
+    }
+    function select(i,focus){
+      tabs.forEach(function(t,j){
+        var on=(j===i);
+        t.setAttribute('aria-selected',on?'true':'false');
+        t.tabIndex=on?0:-1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+      });
+      moveInd();
+      if(focus){tabs[i].focus();tabs[i].scrollIntoView({inline:'center',block:'nearest'});}
+    }
+    tabs.forEach(function(t,i){t.addEventListener('click',function(){select(i);});});
+    list.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(document.activeElement); if(i<0)return;
+      var n=null;
+      if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+      else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+      else if(e.key==='Home')n=0;
+      else if(e.key==='End')n=tabs.length-1;
+      if(n!==null){e.preventDefault();select(n,true);}   // automatic 활성화
+    });
+    window.addEventListener('resize',moveInd);
+    if(document.fonts&&document.fonts.ready)document.fonts.ready.then(moveInd);
+    moveInd();
+  })();
+  // Segmented — 라디오 그룹: 화살표 이동 = 즉시 선택
+  (function(){
+    var root=document.getElementById('seg-demo'), out=document.getElementById('seg-out');
+    var btns=[].slice.call(root.querySelectorAll('[role="radio"]'));
+    var counts={'일별':'23건','주별':'147건','월별':'612건'};
+    function select(i,focus){
+      btns.forEach(function(b,j){var on=(j===i);b.setAttribute('aria-checked',on?'true':'false');b.tabIndex=on?0:-1;});
+      var v=btns[i].dataset.v; out.textContent=v+' 집계 · 주문 '+counts[v];
+      if(focus)btns[i].focus();
+    }
+    btns.forEach(function(b,i){b.addEventListener('click',function(){select(i);});});
+    root.addEventListener('keydown',function(e){
+      var i=btns.indexOf(document.activeElement); if(i<0)return;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();select((i+1)%btns.length,true);}
+      if(e.key==='ArrowLeft' ||e.key==='ArrowUp')  {e.preventDefault();select((i-1+btns.length)%btns.length,true);}
+    });
+  })();
   // 토스트
   function toast(msg){var wr=document.getElementById('toasts'),t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.innerHTML='<svg class="ic"><use href="#i-check"/></svg>'+msg;wr.appendChild(t);setTimeout(function(){t.remove();},3500);}
 </script>
