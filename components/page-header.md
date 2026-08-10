@@ -135,9 +135,10 @@ type PageHeaderProps = {
 
 - `<header>` 시맨틱 엘리먼트 사용
 - 페이지 제목은 `<h1>` (페이지당 1개)
-- 브레드크럼은 `<nav aria-label="Breadcrumb">` + `<ol>` 구조, 마지막 항목 `aria-current="page"`
+- 브레드크럼은 `<nav>` + `<ol>` 구조, 마지막 항목 `aria-current="page"` → 상세 규칙 [navigation.md §4](./navigation.md)
+  - `aria-label`은 하드코딩하지 말고 번역 키로 (ko `탐색 경로` / en `Breadcrumb`) → [i18n.md §4](../foundations/i18n.md)
 - 뒤로가기 버튼: `<button>` (또는 `<a>` if href) + `aria-label="이전 페이지로"`
-- 탭: `role="tablist"`, 개별 탭 `role="tab"` + `aria-selected`
+- 탭: `role="tablist"`, 개별 탭 `role="tab"` + `aria-selected` → 키보드·오버플로 규칙 [navigation.md §2](./navigation.md)
 - Sticky 시 키보드 스크롤이 가려지지 않도록 z-index 관리
 
 ---

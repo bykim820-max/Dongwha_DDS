@@ -31,6 +31,7 @@
 | Actions | [Button](./components/button.md) (Icon Button · Button Stack 포함) |
 | Form Inputs | [Input](./components/input.md) · [Switch](./components/switch.md) · [Checkbox](./components/checkbox.md) · [Option Group](./components/option-group.md) |
 | Feedback & Overlay | [Tooltip](./components/tooltip.md) · [Skeleton](./components/skeleton.md) · [Feedback & Status](./components/feedback.md) (Toast·Alert·Spinner·Progress·Empty) · [Overlay](./components/overlay.md) (Modal·Sheet·Drawer·Popover·Menu) |
+| Navigation | [Navigation](./components/navigation.md) (Tabs · Segmented Control · Breadcrumb) |
 | Data Display | [Table](./components/table.md) |
 | Layout | [Page Header](./components/page-header.md) |
 | Foundation | [Icon System](./components/icons.md) |
@@ -130,7 +131,8 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme="dark"]`·자동(`prefers-color-scheme`) 지원 ([foundations/colors.md § 다크 모드](./foundations/colors.md#-다크-모드))
 - ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
 - ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
-- 🔜 **내비게이션 컴포넌트** (Tabs·Segmented·Breadcrumb) · **거버넌스**(stylelint + 빌드 검증 CI + i18n 키 검증)
+- ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs·Segmented·Breadcrumb). 사양 정의 완료, **Figma 게시 및 componentKey 발급은 대기 중**
+- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI + i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---

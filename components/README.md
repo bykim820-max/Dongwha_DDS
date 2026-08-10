@@ -24,6 +24,9 @@
 - [Feedback & Status](./feedback.md) — Toast · Inline Alert · Spinner · Progress · Empty State
 - [Overlay](./overlay.md) — Modal · Bottom Sheet · Drawer · Popover · Dropdown Menu
 
+### Navigation
+- [Navigation](./navigation.md) — Tabs · Segmented Control · Breadcrumb
+
 ### Data Display
 - [Table](./table.md) — 데이터 테이블
 
@@ -56,6 +59,7 @@
 | `Page Header` | comp | `c7f1e925dda0381a7e2e61d21b791b4b931af411` | [page-header.md](./page-header.md) |
 | `user`, `bell_on`, `more-horizontal`, `check-square`, `message-square` | comp | (각 아이콘) | [icons.md](./icons.md) |
 | `Icon placeholder` | set | `8868c045bed192a967b70eacec637ec8ea259a35` | [icons.md](./icons.md) |
+| `Tabs` · `Segmented Control` · `Breadcrumb` | — | **미발급 (Figma 미게시)** | [navigation.md §0](./navigation.md) |
 
 ---
 

@@ -74,7 +74,8 @@ Dongwha_DDS/
 │   ├── table.md · page-header.md · icons.md · tooltip.md
 │   ├── skeleton.md          ← 로딩 자리표시
 │   ├── feedback.md          ← Toast · Alert · Spinner · Progress · Empty
-│   └── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
+│   ├── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
+│   └── navigation.md        ← Tabs · Segmented Control · Breadcrumb
 ├── scripts/build_tokens.py  ← 토큰 빌드 (JSON → dist, 경량 Style Dictionary)
 ├── dist/                    ← 생성물: tokens.css · tokens.resolved.json · tokens.tailwind.js
 └── examples/                ← 데모 (dashboard · layout · feedback · overlay · dark · writing)
@@ -95,7 +96,7 @@ Dongwha_DDS/
 | 라디우스 | `--radius-<size>` | `--radius-md` (= 4px) |
 | 타이포 | `--heading-<sz>-*` · `--body-<sz>-*` | `--heading-lg-font-size` |
 | 굵기 | `--font-weight-<name>` | `--font-weight-medium` (= 500) |
-| 레이아웃 | `--container-*` · `--grid-*` · `--snb-width` | `--container-dashboard` (1680), `--snb-width` (270) |
+| 레이아웃 | `--container-*` · `--grid-*` · `--snb-width` · `--topbar-h` | `--container-dashboard` (1680), `--snb-width` (270), `--topbar-h` (56 / 모바일 40) |
 | 깊이 | `--elevation-<level>` | `--elevation-raised`, `--elevation-modal` |
 | 모션 | `--motion-duration-*` · `--motion-easing-*` | `--motion-duration-base` (= 240ms) |
 
@@ -110,6 +111,7 @@ Actions          ▸ Button · Icon Button · Button Stack
 Form Inputs      ▸ Input · Switch · Checkbox · Option Group
 Feedback         ▸ Tooltip · Skeleton · Toast · Inline Alert · Spinner · Progress · Empty State
 Overlay          ▸ Modal · Bottom Sheet · Drawer · Popover · Dropdown Menu
+Navigation       ▸ Tabs · Segmented Control · Breadcrumb
 Data Display     ▸ Table
 Layout           ▸ Page Header
 Foundation       ▸ Icon System
@@ -144,7 +146,7 @@ Foundation       ▸ Icon System
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme]` / OS 자동
 - ✅ **레이아웃·Elevation·피드백·오버레이** 추가
 - ✅ **UX 라이팅 가이드** — [writing.md](./foundations/writing.md) + 한/영 다국어 [i18n.md](./foundations/i18n.md)
-- 🔜 **내비게이션 컴포넌트** — Tabs · Segmented · Breadcrumb
+- ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs · Segmented · Breadcrumb) · *Figma 게시 대기*
 - 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI + i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
@@ -154,6 +156,7 @@ Foundation       ▸ Icon System
 
 | 버전 | 변경 |
 |------|------|
+| 2.3 | **내비게이션 컴포넌트** — Tabs(언더라인·pill, 오버플로 스크롤/메뉴), Segmented Control(라디오 그룹 시맨틱), Breadcrumb(3단계·중간 접기). Figma 게시 전 코드 우선 정의 |
 | 2.2 | **UX 라이팅 가이드**(보이스·톤, 버튼/오류/안내 문구 규칙, 용어 사전), **다국어(i18n)** 규범(문자열 키·확장률·ICU 복수형·`Intl` 포맷·한↔영 용어 대응) |
 | 2.1 | 토큰 빌드 파이프라인(`dist/`), Accent·Chart·Subtle 컬러, 타이포 굵기 축(body 400), Layout·Elevation 파운데이션, SNB(270·좌측), Skeleton·Feedback·Overlay 컴포넌트, **다크 모드**, 디자인 금지 규칙(이모지·그라데이션 띠·고밀도) |
 | 2.0 | 3-레이어 토큰, W3C 토큰 export, 오타 정정(neutral 등), 기본 컴포넌트 카탈로그 |
