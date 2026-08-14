@@ -14,6 +14,7 @@
 | 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion · Layout · Elevation |
 | 🧩 **Components** | [components/](./components/) | Button · Input · Switch · Checkbox · Tooltip · Table 등 |
 | ✍️ **UX Writing** | [foundations/writing.md](./foundations/writing.md) | 보이스·톤, 버튼·오류·안내 문구 규칙, 용어 사전 |
+| ☑️ **라이팅 체크리스트** | [foundations/writing-checklist.md](./foundations/writing-checklist.md) | 리뷰·PR용 1장 점검표 (30초 스캔 · 즉시 반려 · 빠른 교정표) |
 | 🌐 **다국어(i18n)** | [foundations/i18n.md](./foundations/i18n.md) | 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 대응 |
 | 🧪 **라이팅 샘플** | [examples/writing.html](./examples/writing.html) | 거래처 관리 화면 5가지 상황 — 규칙 위반 ↔ DDS 적용 비교 (한/영 토글) |
 
@@ -64,6 +65,7 @@ Dongwha_DDS/
 │   ├── layout.md            ← Container · Grid · Breakpoint · SNB
 │   ├── elevation.md         ← 의미 깊이 레벨
 │   ├── writing.md           ← UX 라이팅 (버튼·오류·안내 문구 · 용어 사전)
+│   ├── writing-checklist.md ← 리뷰·PR용 1장 점검표
 │   ├── i18n.md              ← 다국어 (키 · 복수형 · 날짜/숫자 · 한↔영 대응)
 │   ├── DDS_tokens_w3c.json       ← SSOT (primitive→semantic)
 │   ├── DDS_tokens_extended.json  ← accent · chart · 굵기 토큰

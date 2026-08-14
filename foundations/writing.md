@@ -5,6 +5,8 @@
 
 [← design.md](../design.md) · 다국어 → [i18n.md](./i18n.md) · 실제 화면 샘플 → [examples/writing.html](../examples/writing.html)
 
+> **리뷰할 때는 이 문서 대신 [체크리스트](./writing-checklist.md) 한 장을 쓴다.** 이 문서는 근거와 표를 담은 규범서다.
+
 ---
 
 ## 1. 라이팅 원칙

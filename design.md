@@ -20,6 +20,7 @@
 | [Layout](./foundations/layout.md) | 간격 리듬(섹션·블록·스택) · Container · 12컬럼 Grid · Breakpoint |
 | [Elevation](./foundations/elevation.md) | 의미 깊이 레벨(raised·overlay·modal…) ↔ shadow 매핑, "선 대신 깊이" |
 | [UX Writing](./foundations/writing.md) | 보이스·톤, 문장 규칙, 버튼·오류·안내 문구 패턴, 용어 사전 |
+| [라이팅 체크리스트](./foundations/writing-checklist.md) | 리뷰·PR용 1장 점검표. 규범서 대신 이걸로 검수한다 |
 | [i18n](./foundations/i18n.md) | 다국어 — 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 용어 대응 |
 | [토큰 export](./foundations/DDS_tokens_w3c.json) | W3C Design Tokens 형식. Primitive 참조 구조 적용, 기계 판독용 SSOT |
 | [빌드 산출물](./dist/) | JSON에서 값이 **해석된** `tokens.css`·`tokens.resolved.json`·Tailwind preset. 컬러 hex/px가 실제로 채워진 드롭인 파일 (`python3 scripts/build_tokens.py`로 재생성) |
