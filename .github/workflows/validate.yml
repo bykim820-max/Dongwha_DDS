@@ -1,0 +1,32 @@
+# DDS 거버넌스 CI — design.md 로드맵 "빌드 검증 CI"
+#
+# 1) 하드코딩 검사 — hex·rgb()·간격 px·이모지 (scripts/check_hardcoding.py)
+# 2) 토큰 빌드 검증 — dist/ 가 foundations/ 토큰 JSON과 일치하는지
+#
+# 로컬에서 미리 확인:
+#   python3 scripts/check_hardcoding.py
+#   python3 scripts/build_tokens.py && git diff dist/
+
+name: DDS Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 하드코딩 검사 (hex · px · 이모지)
+        run: python3 scripts/check_hardcoding.py
+
+      - name: 토큰 빌드 검증 (dist ↔ 토큰 JSON 일치)
+        run: |
+          python3 scripts/build_tokens.py
+          if ! git diff --exit-code dist/; then
+            echo "::error::dist/ 가 토큰 JSON과 불일치합니다. 'python3 scripts/build_tokens.py' 실행 후 dist/ 를 함께 커밋하세요."
+            exit 1
+          fi
