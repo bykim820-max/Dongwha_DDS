@@ -143,7 +143,7 @@
   .elev div{height:64px;border-radius:var(--radius-lg);background:var(--color-bg-primary);display:grid;place-items:center;font-size:var(--body-sm-font-size);color:var(--color-text-tertiary);border:var(--border-width-sm) solid var(--color-border-secondary);}
 
   /* Overlay */
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,0.45);opacity:0;pointer-events:none;transition:opacity var(--motion-duration-quick) var(--motion-easing-standard);z-index:40;} .scrim.open{opacity:1;pointer-events:auto;}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,0.45);opacity:0;pointer-events:none;transition:opacity var(--motion-duration-quick) var(--motion-easing-standard);z-index:40;} .scrim.open{opacity:1;pointer-events:auto;} /* dds-allow: 스크림 dim 토큰 부재(백로그) — 전 예제 0.45 통일 */
   .ov{position:fixed;z-index:50;background:var(--color-bg-primary);box-shadow:var(--elevation-modal);opacity:0;pointer-events:none;}
   .modal{left:50%;top:50%;width:min(520px,calc(100vw - var(--space-32)));border-radius:var(--radius-2xl);transform:translate(-50%,calc(-50% + 12px));transition:opacity var(--motion-duration-base) var(--motion-easing-standard),transform var(--motion-duration-moderate) var(--motion-easing-spring-soft);}
   .modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%);}

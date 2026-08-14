@@ -25,6 +25,10 @@ node_modules/
 _site/
 .jekyll-cache/
 
+# Python
+__pycache__/
+*.pyc
+
 # Env
 .env
 .env.local

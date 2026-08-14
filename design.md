@@ -39,6 +39,12 @@
 
 📋 전체 카탈로그 및 `componentKey` 인덱스 → [components/README.md](./components/README.md)
 
+### Guides
+
+| 문서 | 내용 |
+|------|------|
+| [비개발자 선적용 가이드](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준 · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 |
+
 ---
 
 ## 🎯 디자인 철학
@@ -133,7 +139,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
 - ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs·Segmented·Breadcrumb). 사양 정의 완료, **Figma 게시 및 componentKey 발급은 대기 중**
-- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI + i18n 키 검증
+- 🟡 **거버넌스** — ✅ **1단계 완료**: 하드코딩 검사 CI(hex·rgb·간격 px·이모지 — `scripts/check_hardcoding.py`) + 토큰 빌드 검증(`.github/workflows/validate.yml`). 정당한 예외는 해당 줄 `dds-allow: <이유>` 주석 · 🔜 stylelint(에디터 단계) · 🔜 i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---

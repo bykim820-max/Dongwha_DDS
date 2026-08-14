@@ -29,7 +29,7 @@
 
   /* Inline Alert */
   .alert{display:flex;gap:var(--space-8);padding:var(--space-12) var(--space-16);border-radius:var(--radius-md);align-items:flex-start;}
-  .alert .ic{margin-top:1px;}
+  .alert .ic{margin-top:1px;} /* dds-allow: 1px 시각 보정 — spacing 최소 토큰(2px) 미만 */
   .alert .title{font-weight:var(--font-weight-medium);}
   .alert--info{background:var(--color-bg-info-subtle);color:var(--color-text-info);}
   .alert--success{background:var(--color-bg-success-subtle);color:var(--color-text-success);}
@@ -138,7 +138,7 @@
 <script>
   var skel = '<div class="userrow">'+
     '<div class="sk sk-circle" style="width:40px;height:40px"></div>'+
-    '<div style="flex:1;display:flex;flex-direction:column;gap:8px">'+
+    '<div style="flex:1;display:flex;flex-direction:column;gap:var(--space-8)">'+
     '<div class="sk sk-line" style="width:40%"></div><div class="sk sk-line" style="width:65%"></div></div></div>';
   var real = '<div class="userrow">'+
     '<div class="ava">김</div>'+

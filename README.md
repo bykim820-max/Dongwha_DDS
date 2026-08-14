@@ -17,10 +17,15 @@
 | ☑️ **라이팅 체크리스트** | [foundations/writing-checklist.md](./foundations/writing-checklist.md) | 리뷰·PR용 1장 점검표 (30초 스캔 · 즉시 반려 · 빠른 교정표) |
 | 🌐 **다국어(i18n)** | [foundations/i18n.md](./foundations/i18n.md) | 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 대응 |
 | 🧪 **라이팅 샘플** | [examples/writing.html](./examples/writing.html) | 거래처 관리 화면 5가지 상황 — 규칙 위반 ↔ DDS 적용 비교 (한/영 토글) |
+| 🧭 **비개발자 선적용 가이드** | [guides/non-developer-guide.md](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준 · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 |
 
 ---
 
 ## ⚡ 빠른 시작
+
+### 기획자 · PM (비개발자)
+1. **[guides/non-developer-guide.md](./guides/non-developer-guide.md) 한 장이면 충분합니다** — 컴포넌트 선택 기준, 하드코딩 금지 규칙, 복사해 쓰는 문구 템플릿, 배포 전 자가 체크리스트
+2. 문구 리뷰는 [writing-checklist.md](./foundations/writing-checklist.md) 점검표로
 
 ### 디자이너
 1. [design.md](./design.md) 의 "디자인 철학" 섹션부터 읽기
@@ -78,7 +83,9 @@ Dongwha_DDS/
 │   ├── feedback.md          ← Toast · Alert · Spinner · Progress · Empty
 │   ├── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
 │   └── navigation.md        ← Tabs · Segmented Control · Breadcrumb
-├── scripts/build_tokens.py  ← 토큰 빌드 (JSON → dist, 경량 Style Dictionary)
+├── guides/                  ← 비개발자 선적용 가이드 (기획자·디자이너·PM)
+├── scripts/                 ← build_tokens.py (토큰 빌드) · check_hardcoding.py (하드코딩 검사)
+├── .github/workflows/       ← validate.yml (하드코딩 검사 + 빌드 검증 CI)
 ├── dist/                    ← 생성물: tokens.css · tokens.resolved.json · tokens.tailwind.js
 └── examples/                ← 데모 (dashboard · layout · feedback · overlay · dark · writing)
 ```
@@ -139,6 +146,7 @@ Foundation       ▸ Icon System
 4. 모든 컴포넌트는 `prefers-reduced-motion` 미디어쿼리 포함
 5. **이모지 아이콘 금지 · 라인 SVG 아이콘만 사용**, **AI스러운 그라데이션 띠/배너·맹목적 고밀도 지양** → [design.md § 디자인 금지 규칙](./design.md#-디자인-금지-규칙-anti-patterns)
 6. **UI 문자열 하드코딩 금지** — i18n 키로 작성하고 문안은 [writing.md](./foundations/writing.md) 패턴 준수
+7. **PR 전 로컬 검사**: `python3 scripts/check_hardcoding.py` — CI(`validate.yml`)와 동일한 하드코딩 검사. 정당한 예외는 해당 줄에 `dds-allow: <이유>` 주석
 
 ---
 
@@ -149,7 +157,7 @@ Foundation       ▸ Icon System
 - ✅ **레이아웃·Elevation·피드백·오버레이** 추가
 - ✅ **UX 라이팅 가이드** — [writing.md](./foundations/writing.md) + 한/영 다국어 [i18n.md](./foundations/i18n.md)
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs · Segmented · Breadcrumb) · *Figma 게시 대기*
-- 🔜 **거버넌스** — stylelint(hex·px·이모지 차단) + 빌드 검증 CI + i18n 키 검증
+- 🟡 **거버넌스** — ✅ 하드코딩 검사 CI(hex·rgb·간격 px·이모지, `check_hardcoding.py`) + 토큰 빌드 검증(`validate.yml`) · 🔜 stylelint(에디터 단계) · 🔜 i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
 
 ---
@@ -158,6 +166,7 @@ Foundation       ▸ Icon System
 
 | 버전 | 변경 |
 |------|------|
+| 2.4 | **거버넌스 1단계** — 하드코딩 검사 CI(hex·rgb·간격 px·이모지) + 토큰 빌드 검증, 예제 하드코딩 정리(badge subtle 토큰화·스크림 통일), **비개발자 선적용 가이드**(guides/) |
 | 2.3 | **내비게이션 컴포넌트** — Tabs(언더라인·pill, 오버플로 스크롤/메뉴), Segmented Control(라디오 그룹 시맨틱), Breadcrumb(3단계·중간 접기). Figma 게시 전 코드 우선 정의 |
 | 2.2 | **UX 라이팅 가이드**(보이스·톤, 버튼/오류/안내 문구 규칙, 용어 사전), **다국어(i18n)** 규범(문자열 키·확장률·ICU 복수형·`Intl` 포맷·한↔영 용어 대응) |
 | 2.1 | 토큰 빌드 파이프라인(`dist/`), Accent·Chart·Subtle 컬러, 타이포 굵기 축(body 400), Layout·Elevation 파운데이션, SNB(270·좌측), Skeleton·Feedback·Overlay 컴포넌트, **다크 모드**, 디자인 금지 규칙(이모지·그라데이션 띠·고밀도) |
