@@ -22,7 +22,7 @@
       "color_text_primary":   { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_50}" },
       "color_text_secondary": { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_300}" },
       "color_text_tertiary":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_400}" },
-      "color_text_disabled":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_600}" },
+      "color_text_disabled":  { "$type": "color", "$value": "{color.primitive.brand_secondary_neutral_400}" },
       "color_text_success":   { "$type": "color", "$value": "{color.primitive.brand_primary_green_400}" },
       "color_text_info":      { "$type": "color", "$value": "{color.primitive.primitive_blue_400}" },
       "color_text_warning":   { "$type": "color", "$value": "{color.primitive.primitive_yellow_400}" },

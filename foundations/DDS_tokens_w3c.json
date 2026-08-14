@@ -657,19 +657,19 @@
       },
       "color_text_warning": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_yellow_600}"
+        "$value": "{color.primitive.primitive_yellow_800}"
       },
       "color_text_success": {
         "$type": "color",
-        "$value": "{color.primitive.brand_primary_green_500}"
+        "$value": "{color.primitive.brand_primary_green_700}"
       },
       "color_text_info": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_blue_500}"
+        "$value": "{color.primitive.primitive_blue_700}"
       },
       "color_text_danger": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_red_500}"
+        "$value": "{color.primitive.primitive_red_700}"
       },
       "color_text_info-bold": {
         "$type": "color",
@@ -725,7 +725,7 @@
       },
       "color_text_disabled": {
         "$type": "color",
-        "$value": "{color.primitive.brand_secondary_neutral_400}"
+        "$value": "{color.primitive.brand_secondary_neutral_500}"
       },
       "color_icon_primary": {
         "$type": "color",
@@ -741,19 +741,19 @@
       },
       "color_icon_info": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_blue_500}"
+        "$value": "{color.primitive.primitive_blue_700}"
       },
       "color_icon_warning": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_yellow_600}"
+        "$value": "{color.primitive.primitive_yellow_800}"
       },
       "color_icon_success": {
         "$type": "color",
-        "$value": "{color.primitive.brand_primary_green_500}"
+        "$value": "{color.primitive.brand_primary_green_700}"
       },
       "color_icon_danger": {
         "$type": "color",
-        "$value": "{color.primitive.primitive_red_500}"
+        "$value": "{color.primitive.primitive_red_700}"
       },
       "color_icon_disabled": {
         "$type": "color",
@@ -841,7 +841,7 @@
       },
       "color_bg_disabled": {
         "$type": "color",
-        "$value": "{color.primitive.brand_secondary_neutral_400}"
+        "$value": "{color.primitive.brand_secondary_neutral_200}"
       },
       "color_bg_interactive_primary": {
         "$type": "color",

@@ -142,6 +142,8 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 
 - ~~`Brand/Secondary/netural`의 `netural` 오타 유지~~ → **v2.0에서 `neutral`로 정정 완료.** Figma 변수 및 토큰 JSON 모두 반영됨. 함께 `transpaernt`→`transparent`, `Interctive`→`Interactive` 오타도 정정.
 - `primary_typography`의 `font_family`·`font_family_typeface` 토큰 값이 `"String value"` 플레이스홀더 상태. 실사용 토큰(`font_family_typeface_sans` 등)은 정상이므로, Figma에서 두 토큰에 실제 값을 채우거나 미사용 시 삭제 필요.
+- ~~상태색 `text/*`·`icon/*`이 면과 같은 500 단계를 참조해 대비 미달(warning 1.99:1, success 2.5:1). `bg/disabled`와 `text/disabled`가 같은 값이라 비활성 글자가 안 보임~~ → **정정 완료.** 글자·아이콘은 700~800, disabled는 면/글자를 분리. → [colors.md §2.2.1](./foundations/colors.md)
+  - **Figma 변수도 같은 매핑으로 갱신해야 한다.** 현재는 저장소 JSON에만 반영된 상태.
 - 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens_w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
