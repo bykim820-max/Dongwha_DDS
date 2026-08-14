@@ -4,34 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DDS · UX 라이팅 샘플 (거래처 관리)</title>
+<link rel="stylesheet" href="../dist/tokens.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  /* ── DDS 토큰 내장본 ── */
-  :root{
-    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#737373;
-    --color-text-info:#0f4aa8; --color-text-success:#0c8048; --color-text-warning:#b3890b; --color-text-danger:#a71010;
-    --color-bg-primary:#fff; --color-bg-secondary:#fafafa; --color-bg-tertiary:#f5f5f5; --color-bg-inverse-bold:#262626;
-    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048;
-    --color-bg-danger:#f51a1a; --color-bg-danger-hover:#a71010;
-    --color-bg-info-subtle:#eff6ff; --color-bg-success-subtle:#e9f9ef; --color-bg-warning-subtle:#fff9e6; --color-bg-danger-subtle:#ffecec;
-    --color-icon-info:#196ce8; --color-icon-success:#14bc62; --color-icon-warning:#e0b20f; --color-icon-danger:#f51a1a;
-    --color-icon-tertiary:#a3a3a3;
-    --color-border-primary:#d4d4d4; --color-border-secondary:#e5e5e5; --color-border-info:#196ce8; --color-border-danger:#f51a1a;
-    --color-bg-disabled:#f5f5f5; --color-text-disabled:#a3a3a3;
-    --space-2:2px; --space-4:4px; --space-6:6px; --space-8:8px; --space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-32:32px; --space-40:40px;
-    --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-rounded:999999px;
-    --border-width-sm:1px; --border-width-md:2px;
-    --font-heading:Pretendard; --font-body:Pretendard;
-    --heading-lg-font-size:28px; --heading-lg-line-height:36px;
-    --heading-md-font-size:24px; --heading-md-line-height:30px;
-    --heading-sm-font-size:20px; --heading-sm-line-height:26px;
-    --body-md-font-size:14px; --body-md-line-height:21px; --body-sm-font-size:12px; --body-sm-line-height:18px;
-    --font-weight-regular:400; --font-weight-medium:500; --font-weight-semibold:600;
-    --motion-duration-instant:80ms; --motion-duration-quick:160ms; --motion-duration-base:240ms; --motion-duration-moderate:320ms;
-    --motion-easing-standard:cubic-bezier(0.4,0,0.2,1); --motion-easing-decelerate:cubic-bezier(0,0,0.2,1);
-    --motion-easing-accelerate:cubic-bezier(0.4,0,1,1); --motion-easing-spring-soft:cubic-bezier(0.32,0.72,0,1);
-    --shadow-sm:0 1px 2px #00000029,0 0 1px #0000001f; --shadow-lg:0 4px 8px #00000029,0 0 4px #0000001f;
-  }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);line-height:1.5;
     font-weight:var(--font-weight-regular);letter-spacing:.2px;color:var(--color-text-primary);
@@ -42,6 +17,7 @@
   h3{font-size:var(--body-md-font-size);font-weight:var(--font-weight-semibold);margin:0;}
   p{margin:0;}
   .lead{color:var(--color-text-secondary);}
+  a{color:var(--color-text-info);}
   .caption{font-size:var(--body-sm-font-size);line-height:var(--body-sm-line-height);color:var(--color-text-tertiary);}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--body-sm-font-size);
     background:var(--color-bg-tertiary);padding:1px var(--space-4);border-radius:var(--radius-sm);}
@@ -63,7 +39,7 @@
   .scenario{display:flex;flex-direction:column;gap:var(--space-16);}
   .scenario > header{display:flex;flex-direction:column;gap:var(--space-4);}
   .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;
-    border-radius:var(--radius-rounded);background:var(--color-bg-inverse-bold);color:#fff;
+    border-radius:var(--radius-rounded);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);
     font-size:var(--body-sm-font-size);font-weight:var(--font-weight-semibold);}
   .scenario > header .line{display:flex;align-items:center;gap:var(--space-8);}
 
@@ -89,7 +65,7 @@
   /* 버튼 */
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-6);height:40px;min-width:64px;padding:0 var(--space-16);
     font-family:var(--font-body);font-size:var(--body-md-font-size);font-weight:var(--font-weight-medium);white-space:nowrap;
-    border:var(--border-width-sm) solid var(--color-border-primary);border-radius:var(--radius-md);
+    border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-md);
     background:var(--color-bg-primary);color:var(--color-text-primary);cursor:pointer;
     transition:transform var(--motion-duration-instant) var(--motion-easing-standard),
                background-color var(--motion-duration-instant) var(--motion-easing-standard);}
@@ -99,7 +75,7 @@
   .btn--primary{background:var(--color-bg-interactive-primary);color:#fff;border-color:transparent;}
   .btn--primary:hover{background:var(--color-bg-interactive-primary-hover);}
   .btn--danger{background:var(--color-bg-danger);color:#fff;border-color:transparent;}
-  .btn--danger:hover{background:var(--color-bg-danger-hover);}
+  .btn--danger:hover{background:var(--color-bg-danger-bold);}
   .btn--ghost{background:transparent;border-color:transparent;}
   .btn--ghost:hover{background:var(--color-bg-tertiary);}
   .btn--sm{height:32px;padding:0 var(--space-12);font-size:var(--body-sm-font-size);}
@@ -161,7 +137,7 @@
   #toasts{position:fixed;left:50%;bottom:var(--space-24);transform:translateX(-50%);z-index:60;
     display:flex;flex-direction:column;gap:var(--space-8);align-items:center;}
   .toast{display:flex;align-items:center;gap:var(--space-12);padding:var(--space-12) var(--space-16);
-    background:var(--color-bg-inverse-bold);color:#fff;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
+    background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);
     animation:toastin var(--motion-duration-base) var(--motion-easing-decelerate);max-width:calc(100vw - 32px);}
   .toast .link{background:none;border:0;color:#7ee2a8;font-family:var(--font-body);font-size:var(--body-md-font-size);
     font-weight:var(--font-weight-medium);cursor:pointer;padding:0;white-space:nowrap;}
@@ -174,7 +150,8 @@
   .bar{height:8px;border-radius:var(--radius-rounded);background:var(--color-bg-interactive-primary);min-width:4px;}
   .bar--en{background:var(--color-icon-info);}
   .growth{font-weight:var(--font-weight-semibold);color:var(--color-text-danger);white-space:nowrap;}
-  pre{margin:0;padding:var(--space-16);background:var(--color-bg-inverse-bold);color:#e5e5e5;border-radius:var(--radius-md);
+  /* 코드 블록은 라이트·다크 모두 고정 다크 면 (구문 색이 밝은 면에서 읽히지 않음) */
+  pre{margin:0;padding:var(--space-16);background:#262626;color:#e5e5e5;border-radius:var(--radius-md);
     overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--body-sm-font-size);line-height:1.6;}
   pre .k{color:#7ee2a8;} pre .s{color:#ffd479;} pre .c{color:#8f8f8f;}
 

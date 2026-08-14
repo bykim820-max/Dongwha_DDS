@@ -87,7 +87,7 @@
 
   /* Tooltip */
   .tip{position:relative;display:inline-flex;}
-  .tip .bub{position:absolute;bottom:calc(100% + var(--space-8));left:50%;transform:translateX(-50%) translateY(4px);background:var(--color-bg-inverse-bold);color:#fff;padding:var(--space-6) var(--space-12);border-radius:var(--radius-md);font-size:var(--body-sm-font-size);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-duration-base) var(--motion-easing-standard),transform var(--motion-duration-base) var(--motion-easing-spring-soft);}
+  .tip .bub{position:absolute;bottom:calc(100% + var(--space-8));left:50%;transform:translateX(-50%) translateY(4px);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);padding:var(--space-6) var(--space-12);border-radius:var(--radius-md);font-size:var(--body-sm-font-size);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity var(--motion-duration-base) var(--motion-easing-standard),transform var(--motion-duration-base) var(--motion-easing-spring-soft);}
   .tip:hover .bub,.tip:focus-within .bub{opacity:1;transform:translateX(-50%) translateY(0);}
 
   /* Navigation — Tabs */
@@ -152,7 +152,7 @@
   .ovb{padding:var(--space-24);color:var(--color-text-secondary);} .ovf{display:flex;justify-content:flex-end;gap:var(--space-8);padding:var(--space-16) var(--space-24);border-top:var(--border-width-sm) solid var(--color-border-secondary);}
   .iconbtn{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:var(--radius-md);border:0;background:transparent;color:var(--color-text-tertiary);cursor:pointer;} .iconbtn:hover{background:var(--color-bg-interactive-secondary-hover);}
   #toasts{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);display:flex;flex-direction:column;gap:var(--space-8);z-index:60;}
-  .toast{display:flex;align-items:center;gap:var(--space-8);padding:var(--space-12) var(--space-16);background:var(--color-bg-inverse-bold);color:#fff;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);animation:ti var(--motion-duration-base) var(--motion-easing-decelerate);}
+  .toast{display:flex;align-items:center;gap:var(--space-8);padding:var(--space-12) var(--space-16);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);animation:ti var(--motion-duration-base) var(--motion-easing-decelerate);}
   @keyframes ti{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
   .linkrow a{color:var(--color-text-info);text-decoration:none;font-weight:var(--font-weight-medium);}

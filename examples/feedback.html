@@ -4,29 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DDS · 피드백 컴포넌트 데모</title>
+<link rel="stylesheet" href="../dist/tokens.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  /* ── DDS 토큰 내장본 (라인 아이콘·이모지 금지·기능적 모션만) ── */
-  :root{
-    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#737373;
-    --color-text-info:#0f4aa8; --color-text-success:#0c8048; --color-text-warning:#b3890b; --color-text-danger:#a71010;
-    --color-bg-primary:#fff; --color-bg-secondary:#fafafa; --color-bg-tertiary:#f5f5f5; --color-bg-inverse-bold:#262626;
-    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048;
-    --color-bg-success:#14bc62; --color-bg-warning:#e0b20f; --color-bg-danger:#f51a1a; --color-bg-info:#196ce8;
-    --color-bg-info-subtle:#eff6ff; --color-bg-success-subtle:#e9f9ef; --color-bg-warning-subtle:#fff9e6; --color-bg-danger-subtle:#ffecec;
-    --color-icon-info:#196ce8; --color-icon-success:#14bc62; --color-icon-warning:#e0b20f; --color-icon-danger:#f51a1a;
-    --color-border-secondary:#e5e5e5; --color-border-info:#196ce8;
-    --space-2:2px; --space-4:4px; --space-6:6px; --space-8:8px; --space-10:10px; --space-12:12px; --space-16:16px; --space-20:20px; --space-24:24px; --space-32:32px;
-    --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-rounded:999999px;
-    --border-width-sm:1px; --border-width-md:2px;
-    --font-heading:Pretendard; --font-body:Pretendard;
-    --heading-md-font-size:24px; --heading-md-line-height:30px; --heading-sm-font-size:20px; --heading-sm-line-height:24px;
-    --body-md-font-size:14px; --body-sm-font-size:12px; --body-md-line-height:21px;
-    --font-weight-regular:400; --font-weight-medium:500; --font-weight-semibold:600; --font-weight-bold:700;
-    --motion-duration-quick:160ms; --motion-duration-base:240ms;
-    --motion-easing-standard:cubic-bezier(0.4,0,0.2,1); --motion-easing-decelerate:cubic-bezier(0,0,0.2,1); --motion-easing-accelerate:cubic-bezier(0.4,0,1,1);
-    --shadow-sm:0 1px 2px #00000029,0 0 1px #0000001f; --shadow-lg:0 4px 8px #00000029,0 0 4px #0000001f;
-  }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);line-height:1.5;
     font-weight:var(--font-weight-regular);letter-spacing:.2px;color:var(--color-text-primary);background:var(--color-bg-secondary);padding:var(--space-32);}
@@ -84,7 +64,7 @@
 
   /* Toast */
   #toasts{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);display:flex;flex-direction:column;gap:var(--space-8);z-index:50;}
-  .toast{display:flex;align-items:center;gap:var(--space-8);padding:var(--space-12) var(--space-16);background:var(--color-bg-inverse-bold);color:#fff;
+  .toast{display:flex;align-items:center;gap:var(--space-8);padding:var(--space-12) var(--space-16);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);
     border-radius:var(--radius-md);box-shadow:var(--shadow-lg);animation:toastin var(--motion-duration-base) var(--motion-easing-decelerate);}
   @keyframes toastin{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
   .toast.out{opacity:0;transform:translateY(-8px);transition:all var(--motion-duration-quick) var(--motion-easing-accelerate);}

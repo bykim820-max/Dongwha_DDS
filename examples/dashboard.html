@@ -4,34 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>DDS · 대시보드 데모</title>
+<link rel="stylesheet" href="../dist/tokens.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  /* ── DDS v2.0 토큰 (dist/tokens.css 내장본) ── */
-  :root{
-    --color-text-primary:#171717; --color-text-secondary:#404040; --color-text-tertiary:#737373;
-    --color-text-info:#196ce8; --color-text-success:#0c8048; --color-text-warning:#b3890b; --color-text-danger:#a71010;
-    --color-text-interactive-inverse:#ffffff; --color-text-disabled:#a3a3a3;
-    --color-bg-primary:#ffffff; --color-bg-secondary:#fafafa; --color-bg-tertiary:#f5f5f5;
-    --color-bg-info:#196ce8; --color-bg-success:#14bc62; --color-bg-warning:#e0b20f; --color-bg-danger:#f51a1a;
-    --color-bg-disabled:#a3a3a3; --color-bg-inverse:#262626;
-    --color-bg-interactive-primary:#14bc62; --color-bg-interactive-primary-hover:#0c8048; --color-bg-interactive-primary-pressed:#0a6036;
-    --color-bg-interactive-secondary-hover:#e5e5e5;
-    --color-border-primary:#00ad50; --color-border-secondary:#e5e5e5; --color-border-info:#196ce8;
-    --space-2:2px; --space-4:4px; --space-8:8px; --space-12:12px; --space-16:16px; --space-24:24px; --space-32:32px; --space-48:48px;
-    --radius-sm:2px; --radius-md:4px; --radius-lg:8px; --radius-xl:12px; --radius-rounded:999999px;
-    --border-width-sm:1px; --border-width-md:2px;
-    --font-heading:Pretendard; --font-body:Pretendard; --body-letter-spacing:0.2px; --heading-letter-spacing:-0.2px;
-    --heading-2xl-font-size:42px; --heading-2xl-line-height:48px; --heading-2xl-font-weight:500;
-    --heading-lg-font-size:30px; --heading-lg-line-height:32px; --heading-lg-font-weight:400;
-    --heading-md-font-size:24px; --heading-md-line-height:30px; --heading-md-font-weight:300;
-    --heading-sm-font-size:20px; --heading-sm-line-height:24px; --heading-sm-font-weight:300;
-    --body-lg-font-size:16px; --body-lg-line-height:18px; --body-lg-font-weight:300;
-    --body-md-font-size:14px; --body-md-line-height:16px; --body-md-font-weight:200;
-    --body-sm-font-size:12px; --body-sm-line-height:16px; --body-sm-font-weight:200;
-    --motion-duration-instant:80ms; --motion-duration-quick:160ms; --motion-duration-base:240ms;
-    --motion-easing-standard:cubic-bezier(0.4,0,0.2,1); --motion-easing-spring-soft:cubic-bezier(0.32,0.72,0,1);
-    --shadow-sm:0 1px 2px #00000029,0 0 1px #0000001f; --shadow-md:0 2px 4px #00000029,0 0 4px #0000001f;
-  }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--font-body),system-ui,sans-serif;font-size:var(--body-md-font-size);
     line-height:var(--body-md-line-height);letter-spacing:var(--body-letter-spacing);
@@ -66,7 +41,7 @@
   .search{height:36px;width:220px;padding:0 var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);
     border-radius:var(--radius-md);background:var(--color-bg-secondary);color:var(--color-text-primary);font-size:var(--body-md-font-size);}
   .search:focus-visible{outline:2px solid var(--color-border-info);outline-offset:-2px;}
-  .avatar{width:36px;height:36px;border-radius:var(--radius-rounded);background:var(--color-bg-inverse);color:#fff;
+  .avatar{width:36px;height:36px;border-radius:var(--radius-rounded);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);
     display:grid;place-items:center;font-size:var(--body-sm-font-size);}
 
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-8);height:36px;padding:0 var(--space-16);
