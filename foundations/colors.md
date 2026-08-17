@@ -240,5 +240,5 @@ semantic 토큰만 다크 값으로 다시 매핑한다. **primitive(hex 램프)
 
 - `Brand/Secondary/neutral` — 이전 버전의 `netural` 오타는 **v2.0에서 `neutral`로 정정 완료**(Figma 변수 및 `DDS_tokens_w3c.json` 반영). 문서·코드 모두 `neutral`로 통일한다.
 - 정확한 hex 값은 Figma 변수 패널에서 직접 확인 (Figma MCP `get_variable_defs`는 노드 선택 필요).
-- 다크 모드 토큰은 Phase 2(2026 7월~)에 추가 예정.
+- 다크 모드 토큰은 **추가 완료** — [§ 다크 모드](#-다크-모드) 참조.
 - 컬러만으로 정보를 전달하지 말 것 (색맹 대응) — 아이콘·텍스트 병행.
