@@ -207,7 +207,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 |---|---|---|---|
 | 1 | ✅ **제품 문맥 선언** — 확정. 기준 화면(ITSM 실서비스)만 `[미확인]`, AB 실험 중 선정 | DDS가 어떤 제품(사내 B2B 운영 도구)·어떤 사용자(장시간 상주)·어떤 업무를 위한 시스템인지, "우리 화면답다"의 정의, 기준 화면 2~3개 링크 | design.md 상단 § |
 | 2 | 🔜 **AI 사용 빈칸 기록** | AB 실험(`metrics/AB실험_설계서.md` §6 부산물 기록 — 로컬 전용, 저장소 미포함) 조건 B에서 AI가 DDS를 잘못 쓰거나 문서가 침묵한 지점을 화면별로 기록. **실험 중엔 기록만, 문서 반영은 4본 종료 후** | `metrics/cases/<화면>/gaps.md` |
-| 3 | 🔜 **컴포넌트 문법 보강** | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
+| 3 | 🟡 **컴포넌트 문법 보강** — ✅ [Button](./components/button.md) 완료 · 🔜 Input → Overlay → Table | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
 | 4 | 🔜 **페이지 패턴** | 목록 · 상세 · 폼(등록/수정) · 대시보드 4종. 컴포넌트 배치 · primary 위치 · 필터 위치 · 빈/로딩 상태. [examples/writing.html](./examples/writing.html)(거래처 관리)에서 목록+폼 패턴을 먼저 추출 | `patterns/` (신설) |
 | 5 | 🔜 **Figma 부채 정리** | 상태색 WCAG 매핑 Figma 변수 반영 · Navigation 3종 게시 및 componentKey 발급 · `font_family` 플레이스홀더 정리 | Figma + [components/README.md](./components/README.md) |
 

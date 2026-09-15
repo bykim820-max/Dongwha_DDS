@@ -66,12 +66,18 @@
   outline-offset: 2px;
 }
 
-.button:disabled,
-.button[aria-disabled="true"] {
+/* 이유 설명이 필요 없는 비활성 — 호버 · 포커스 · 클릭 모두 차단 */
+.button:disabled {
   background: var(--color-bg-disabled);
   color: var(--color-text-disabled);
   cursor: not-allowed;
   pointer-events: none;
+}
+/* 이유를 툴팁으로 설명해야 하는 비활성 — 호버 · 포커스는 유지, 클릭만 핸들러에서 무시 → button.md §5.1 */
+.button[aria-disabled="true"] {
+  background: var(--color-bg-disabled);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
 }
 
 .button[data-state="error"] {
