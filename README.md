@@ -18,7 +18,7 @@
 | ☑️ **라이팅 체크리스트** | [foundations/writing-checklist.md](./foundations/writing-checklist.md) | 리뷰·PR용 1장 점검표 (30초 스캔 · 즉시 반려 · 빠른 교정표) |
 | 🌐 **다국어(i18n)** | [foundations/i18n.md](./foundations/i18n.md) | 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 대응 |
 | 🧪 **라이팅 샘플** | [examples/writing.html](./examples/writing.html) | 거래처 관리 화면 5가지 상황 — 규칙 위반 ↔ DDS 적용 비교 (한/영 토글) |
-| 🧭 **비개발자 선적용 가이드** | [guides/non-developer-guide.md](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준 · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 |
+| 🧭 **비개발자 선적용 가이드** | [guides/non-developer-guide.md](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준(내비·버튼) · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 · **AI에게 화면 요청하는 법** |
 
 ---
 
