@@ -36,3 +36,6 @@ __pycache__/
 # Logs
 *.log
 npm-debug.log*
+
+# 내부 측정 자료 (팀장 성명·KPI 수치 포함) — 로컬 전용, 저장소 미포함
+metrics/
