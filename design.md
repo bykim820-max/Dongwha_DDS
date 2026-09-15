@@ -134,13 +134,35 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 
 ## 🗺 로드맵
 
+### 완료 (v2.0 ~ v2.4) — 단어장 층
+
 - ✅ **토큰 빌드 파이프라인** — `scripts/build_tokens.py`가 JSON을 해석해 `dist/`(tokens.css·resolved.json·Tailwind preset) 생성 (경량 Style Dictionary)
 - ✅ **다크 모드** — semantic 다크 토큰 + `[data-theme="dark"]`·자동(`prefers-color-scheme`) 지원 ([foundations/colors.md § 다크 모드](./foundations/colors.md#-다크-모드))
 - ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
 - ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs·Segmented·Breadcrumb). 사양 정의 완료, **Figma 게시 및 componentKey 발급은 대기 중**
-- 🟡 **거버넌스** — ✅ **1단계 완료**: 하드코딩 검사 CI(hex·rgb·간격 px·이모지 — `scripts/check_hardcoding.py`) + 토큰 빌드 검증(`.github/workflows/validate.yml`). 정당한 예외는 해당 줄 `dds-allow: <이유>` 주석 · 🔜 stylelint(에디터 단계) · 🔜 i18n 키 검증
+- ✅ **거버넌스 1단계** — 하드코딩 검사 CI(hex·rgb·간격 px·이모지 — `scripts/check_hardcoding.py`) + 토큰 빌드 검증(`.github/workflows/validate.yml`). 정당한 예외는 해당 줄 `dds-allow: <이유>` 주석
+
+### v2.5 — 문법 단계 (2026-09 ~)
+
+> 토큰·사양("단어장")은 갖춰졌다. 이제 AI와 신규 구성원이 **"이 화면에 이걸 써도 되나"** 를 문서만으로 판단할 수 있도록
+> 사용 규칙("문법")·제품 문맥·교정 기록을 채운다. 형식(JSON·MD)이나 도구를 더 얹는 일이 아니라 **빠져 있는 판단을 밖으로 꺼내 적는 일**이다.
+> 기준선은 [navigation.md](./components/navigation.md) — 선택 기준 표 · 오버플로 규칙 · 배치 규칙을 갖춘 유일한 컴포넌트 문서.
+
+| 순서 | 항목 | 내용 | 산출물 |
+|---|---|---|---|
+| 1 | 🔜 **제품 문맥 선언** | DDS가 어떤 제품(사내 B2B 운영 도구)·어떤 사용자(장시간 상주)·어떤 업무를 위한 시스템인지, "우리 화면답다"의 정의, 기준 화면 2~3개 링크 | design.md 상단 § |
+| 2 | 🔜 **AI 사용 빈칸 기록** | AB 실험(`metrics/AB실험_설계서.md` §6 부산물 기록 — 로컬 전용, 저장소 미포함) 조건 B에서 AI가 DDS를 잘못 쓰거나 문서가 침묵한 지점을 화면별로 기록. **실험 중엔 기록만, 문서 반영은 4본 종료 후** | `metrics/cases/<화면>/gaps.md` |
+| 3 | 🔜 **컴포넌트 문법 보강** | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
+| 4 | 🔜 **페이지 패턴** | 목록 · 상세 · 폼(등록/수정) · 대시보드 4종. 컴포넌트 배치 · primary 위치 · 필터 위치 · 빈/로딩 상태. [examples/writing.html](./examples/writing.html)(거래처 관리)에서 목록+폼 패턴을 먼저 추출 | `patterns/` (신설) |
+| 5 | 🔜 **Figma 부채 정리** | 상태색 WCAG 매핑 Figma 변수 반영 · Navigation 3종 게시 및 componentKey 발급 · `font_family` 플레이스홀더 정리 | Figma + [components/README.md](./components/README.md) |
+
+### 이후 — 도구·형식 층
+
+- 🔜 **거버넌스 2단계** — stylelint(에디터 단계) · i18n 키 검증
 - 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
+
+> 형식·도구는 사용 규칙이 모호한 상태를 바꾸지 못한다 — 기계가 읽기 좋은 형식으로 정갈하게 모호해질 뿐이다. v2.5 문법 단계가 채워진 뒤로 미룬다.
 
 ---
 

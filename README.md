@@ -157,8 +157,9 @@ Foundation       ▸ Icon System
 - ✅ **레이아웃·Elevation·피드백·오버레이** 추가
 - ✅ **UX 라이팅 가이드** — [writing.md](./foundations/writing.md) + 한/영 다국어 [i18n.md](./foundations/i18n.md)
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs · Segmented · Breadcrumb) · *Figma 게시 대기*
-- 🟡 **거버넌스** — ✅ 하드코딩 검사 CI(hex·rgb·간격 px·이모지, `check_hardcoding.py`) + 토큰 빌드 검증(`validate.yml`) · 🔜 stylelint(에디터 단계) · 🔜 i18n 키 검증
-- 🔜 **Code Connect** — Figma ↔ React/Vue 1:1 매핑
+- ✅ **거버넌스 1단계** — 하드코딩 검사 CI(hex·rgb·간격 px·이모지, `check_hardcoding.py`) + 토큰 빌드 검증(`validate.yml`)
+- 🔜 **v2.5 문법 단계** — 제품 문맥 선언 · AI 사용 빈칸 기록 · 컴포넌트 문법 보강(Button→Input→Overlay→Table) · 페이지 패턴 · Figma 부채 정리 → 상세 [design.md § 로드맵](./design.md#-로드맵)
+- 🔜 **이후** — 거버넌스 2단계(stylelint · i18n 키 검증) · Code Connect — 문법 단계 뒤로
 
 ---
 
