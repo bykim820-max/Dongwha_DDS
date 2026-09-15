@@ -132,6 +132,15 @@ Color/<role>/<intent>
   --color-bg-danger:    /* Color/bg/danger */;
   --color-bg-disabled:  /* Color/bg/disabled */;
 
+  /* Interactive — 누르는 것(버튼 · 선택). 면(bg/*)과 구분한다 (§5) */
+  --color-bg-interactive-primary:           /* Color/bg/interactive/primary   green 500 */;
+  --color-bg-interactive-primary-hover:     /* green 700 */;
+  --color-bg-interactive-primary-pressed:   /* green 800 */;
+  --color-bg-interactive-secondary:         /* Color/bg/interactive/secondary */;
+  --color-bg-interactive-secondary-hover:   /* … */;
+  --color-bg-interactive-secondary-pressed: /* … */;
+  --color-bg-interactive-selected:          /* Color/bg/interactive/selected  green 500 */;
+
   /* Text */
   --color-text-primary:   /* Color/text/primary */;
   --color-text-secondary: /* Color/text/secondary */;
@@ -175,6 +184,9 @@ module.exports = {
           warning:   'var(--color-bg-warning)',
           danger:    'var(--color-bg-danger)',
           disabled:  'var(--color-bg-disabled)',
+          'interactive-primary':   'var(--color-bg-interactive-primary)',   // 버튼 — bg.primary(면)와 다름
+          'interactive-secondary': 'var(--color-bg-interactive-secondary)',
+          /* -hover · -pressed · interactive-selected 도 동일 패턴 → dist/tokens.tailwind.js */
         },
         text:   { primary: 'var(--color-text-primary)', /* … */ },
         icon:   { primary: 'var(--color-icon-primary)', /* … */ },
@@ -191,8 +203,10 @@ module.exports = {
 
 | 상황 | 권장 토큰 |
 |------|-----------|
-| 메인 액션 버튼 배경 | `Color/bg/primary` |
-| 보조 버튼 배경 | `Color/bg/secondary` |
+| 메인 액션 버튼 배경 | `Color/bg/interactive/primary` (브랜드 green) |
+| 보조 버튼 배경 | `Color/bg/interactive/secondary` (+ `-hover` · `-pressed`) |
+| 페이지 · 카드 · 모달 표면 | `Color/bg/primary` (흰색 / 다크 `#262626`) |
+| 구역 구분 틴트 배경 | `Color/bg/secondary` · `Color/bg/tertiary` |
 | 본문 텍스트 | `Color/text/primary` |
 | 도움말·캡션 텍스트 | `Color/text/tertiary` |
 | 에러 메시지 텍스트 | `Color/text/danger` |
@@ -200,6 +214,12 @@ module.exports = {
 | 비활성 버튼 | `Color/bg/disabled` + `Color/text/disabled` |
 | 정보 알림 아이콘 | `Color/icon/info` |
 | 경고 알림 아이콘 | `Color/icon/warning` |
+
+> ⚠️ **`bg/*`(면)와 `bg/interactive/*`(누르는 것)를 섞지 않는다.**
+> `Color/bg/primary`는 **페이지 표면**(흰색)이고 `Color/bg/interactive/primary`가 **버튼**(green)이다.
+> 라이트 모드에서 `bg/secondary`와 `bg/interactive/secondary`는 같은 `#fafafa`라 눈에 안 띄지만,
+> 다크 모드에서 면은 `#171717`, 버튼은 `#404040`으로 갈라진다 — 면 토큰을 버튼에 쓰면 다크에서 버튼이 페이지보다 어두워진다.
+> hover · pressed 토큰은 `interactive/*` 아래에만 있다.
 
 ---
 

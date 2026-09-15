@@ -58,7 +58,7 @@
 | 변형 | 용도 | 배경 | 텍스트 |
 |------|------|------|--------|
 | `primary` | 메인 액션, 페이지당 1개 | `Color/bg/interactive/primary` (green 500) | 흰색 |
-| `secondary` | 보조 액션 | `Color/bg/secondary` | `Color/text/primary` |
+| `secondary` | 보조 액션 | `Color/bg/interactive/secondary` | `Color/text/primary` |
 | `tertiary` (ghost) | 약한 액션 | transparent | `Color/text/primary` |
 | `outline` | 보조 강조 | transparent + `Color/border/primary` | `Color/text/primary` |
 | `danger` | 파괴적 액션 (삭제) | `Color/bg/danger` | 흰색 |
@@ -223,7 +223,7 @@ type ButtonProps = {
 
 | 영역 | 토큰 |
 |------|------|
-| 배경 | `Color/bg/{primary|secondary|danger|disabled}` |
+| 배경 | `Color/bg/interactive/primary` · `Color/bg/interactive/secondary` · `Color/bg/danger` · `Color/bg/disabled` — ⚠️ `Color/bg/primary`·`bg/secondary`는 **면** 토큰, 버튼에 쓰지 않는다 ([colors.md §5](../foundations/colors.md)) |
 | 라벨 색상 | `Color/text/*` |
 | 보더 (outline 변형) | `Color/border/primary` |
 | Radius | `border/radius/md` |
