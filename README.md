@@ -11,6 +11,7 @@
 | 분야 | 위치 | 한 줄 요약 |
 |------|------|-----------|
 | 📘 **개요 · 철학** | [design.md](./design.md) | 3-레이어 토큰 아키텍처, 코드 매핑 규칙, LLM 변환 워크플로우 |
+| 🤖 **에이전트 지침** | [AGENTS.md](./AGENTS.md) | AI 에이전트가 작업 전에 읽는 규칙 — 읽는 순서 · 절대 규칙 · 검증 절차 · 다른 저장소에서 쓰는 법 (`CLAUDE.md`가 임포트) |
 | 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion · Layout · Elevation |
 | 🧩 **Components** | [components/](./components/) | Button · Input · Switch · Checkbox · Tooltip · Table 등 |
 | ✍️ **UX Writing** | [foundations/writing.md](./foundations/writing.md) | 보이스·톤, 버튼·오류·안내 문구 규칙, 용어 사전 |
