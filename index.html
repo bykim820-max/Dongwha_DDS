@@ -155,6 +155,22 @@
   .toast{display:flex;align-items:center;gap:var(--space-8);padding:var(--space-12) var(--space-16);background:var(--color-bg-inverse-bold);color:var(--color-bg-primary);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);animation:ti var(--motion-duration-base) var(--motion-easing-decelerate);}
   @keyframes ti{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
+  /* Writing — writing.md 핵심 4가지를 컴포넌트로 시연 (Don't/Do) */
+  .wr-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-24);}
+  .wr-2 table{font-size:var(--body-sm-font-size);margin-top:var(--space-8);} .wr-2 th,.wr-2 td{padding:var(--space-8);}
+  .wr-2 .cap{display:block;margin-top:var(--space-4);}
+  .wr-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-12);}
+  .dd{display:flex;flex-direction:column;gap:var(--space-12);padding:var(--space-16);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-lg);}
+  .dd .tag{display:inline-flex;align-items:flex-start;gap:var(--space-4);font-size:var(--body-sm-font-size);font-weight:var(--font-weight-medium);}
+  .dd .tag .ic{width:16px;height:16px;margin-top:2px;} /* dds-allow: 아이콘 광학 정렬 보정 */
+  .dd--dont .tag{color:var(--color-text-danger);} .dd--do .tag{color:var(--color-text-success);}
+  .mini{display:flex;flex-direction:column;gap:var(--space-8);}
+  .mini .h2{font-size:var(--body-md-font-size);line-height:1.5;} .mini .ovf{padding:0;border:0;}
+  .toast--static{animation:none;align-self:flex-start;}
+  .terms{display:flex;flex-wrap:wrap;gap:var(--space-8);}
+  .term{display:inline-flex;align-items:center;gap:var(--space-6);padding:var(--space-4) var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-rounded);font-size:var(--body-sm-font-size);}
+  .term s{color:var(--color-text-tertiary);}
+
   .linkrow a{color:var(--color-text-info);text-decoration:none;font-weight:var(--font-weight-medium);}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}}
 </style>
@@ -176,7 +192,7 @@
   <div class="brand"><span class="mark">D</span>DDS v2.0</div>
   <nav class="nav">
     <a href="#foundations">Foundations</a><a href="#buttons">Button</a><a href="#form">Form</a>
-    <a href="#feedback">Feedback</a><a href="#overlay">Overlay</a><a href="#navigation">Navigation</a><a href="#data">Table</a>
+    <a href="#feedback">Feedback</a><a href="#writing">Writing</a><a href="#overlay">Overlay</a><a href="#navigation">Navigation</a><a href="#data">Table</a>
   </nav>
   <button class="toggle" onclick="toggleTheme()"><svg class="ic" id="tgi"><use href="#i-moon"/></svg><span id="tgl">다크</span></button>
 </header>
@@ -229,7 +245,7 @@
     <div class="card">
       <div class="row" style="align-items:flex-start">
         <div class="field"><span class="lbl">이름</span><input class="input" placeholder="홍길동" /></div>
-        <div class="field"><span class="lbl">이메일 (에러)</span><input class="input input--error" value="잘못된-이메일" /><span class="err">형식이 올바르지 않습니다.</span></div>
+        <div class="field"><span class="lbl">이메일 (에러)</span><input class="input input--error" value="잘못된-이메일" /><span class="err">이메일 형식을 확인해 주세요.</span></div>
       </div>
       <div class="row" style="gap:var(--space-24)">
         <label class="row" style="gap:var(--space-8)"><span class="switch"><input type="checkbox" checked /><span class="swt"></span><span class="swb"></span></span><span>알림</span></label>
@@ -247,14 +263,93 @@
       <div class="alert a-info"><svg class="ic"><use href="#i-info"/></svg><div><span class="t">동기화 중</span> · 최신 데이터를 불러옵니다.</div></div>
       <div class="alert a-success"><svg class="ic"><use href="#i-check"/></svg><div><span class="t">저장 완료</span></div></div>
       <div class="alert a-warning"><svg class="ic"><use href="#i-warn"/></svg><div><span class="t">재고 부족</span></div></div>
-      <div class="alert a-danger"><svg class="ic"><use href="#i-xc"/></svg><div><span class="t">결제 실패</span></div></div>
+      <div class="alert a-danger"><svg class="ic"><use href="#i-xc"/></svg><div><span class="t">결제 실패</span> · 카드 유효기간이 지났습니다. 결제 수단을 변경해 주세요.</div></div>
       <div class="row" style="gap:var(--space-24)">
         <div class="row"><span class="sk" style="width:40px;height:40px;border-radius:var(--radius-rounded)"></span><span class="sk" style="width:120px;height:14px"></span></div>
         <span class="spinner" role="status" aria-label="로딩"></span>
         <div style="flex:1;min-width:160px"><div class="ptrack"><div class="pfill" style="width:64%"></div></div></div>
-        <button class="btn btn--primary" onclick="toast('저장되었습니다')"><svg class="ic"><use href="#i-plus"/></svg>토스트</button>
+        <button class="btn btn--primary" onclick="toast('저장했습니다.')"><svg class="ic"><use href="#i-plus"/></svg>토스트</button>
       </div>
       <div class="empty"><svg class="ic"><use href="#i-inbox"/></svg><div class="h2">받은 주문이 없습니다</div><span class="cap">새 주문이 들어오면 여기에 표시됩니다.</span></div>
+    </div>
+  </section>
+
+  <!-- Writing -->
+  <section id="writing">
+    <div class="h2">Writing</div>
+    <span class="cap linkrow">문구도 토큰처럼 — 같은 상황에는 같은 문안 패턴. 핵심 4가지만 시연합니다. 전문은 <a href="./foundations/writing.md">writing.md</a> · 검수는 <a href="./foundations/writing-checklist.md">체크리스트</a></span>
+    <div class="card">
+      <div class="wr-2">
+        <div>
+          <span class="lbl">1 · 보이스 &amp; 톤</span>
+          <span class="cap">보이스는 하나로 고정 — 정중하고 담백한 실무 동료. 톤만 상황에 따라 바뀝니다. 과장·사과 남발·이모지 금지.</span>
+          <table>
+            <thead><tr><th>상황</th><th>톤</th><th>예</th></tr></thead>
+            <tbody>
+              <tr><td>작업 성공</td><td>짧게 사실만</td><td>저장했습니다.</td></tr>
+              <tr><td>입력 오류</td><td>차분·해결 지향</td><td>이메일 형식을 확인해 주세요.</td></tr>
+              <tr><td>시스템 오류</td><td>침착·책임 있는</td><td>일시적인 문제로 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</td></tr>
+              <tr><td>파괴적 액션</td><td>단호·구체적</td><td>주문 3건을 삭제합니다. 삭제 후에는 복구할 수 없습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <span class="lbl">2 · 문장 규칙</span>
+          <span class="cap">어미는 용도별 4종만. 마침표는 완전한 문장에만 — 버튼·제목·라벨에는 없음. “~하십시오 · ~해요 · ~하시기 바랍니다” 금지.</span>
+          <table>
+            <thead><tr><th>유형</th><th>어미</th><th>예</th></tr></thead>
+            <tbody>
+              <tr><td>결과·완료 알림</td><td>~했습니다</td><td>삭제했습니다.</td></tr>
+              <tr><td>상태·사실 설명</td><td>~합니다 · ~입니다</td><td>30일간 보관됩니다.</td></tr>
+              <tr><td>행동 요청</td><td>~해 주세요</td><td>파일을 선택해 주세요.</td></tr>
+              <tr><td>버튼·제목·라벨</td><td>명사형 · 동사 어간</td><td>저장 · 주문 내역</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <span class="lbl" style="margin-top:var(--space-8)">3 · 문구 패턴 — Don't / Do</span>
+      <div class="wr-pair">
+        <div class="dd dd--dont">
+          <span class="tag"><svg class="ic"><use href="#i-x"/></svg>Don't · 버튼이 무엇을 하는지 말해주지 않음</span>
+          <div class="mini"><div class="h2">삭제할까요?</div><div class="ovf"><button class="btn">아니요</button><button class="btn btn--danger">예</button></div></div>
+        </div>
+        <div class="dd dd--do">
+          <span class="tag"><svg class="ic"><use href="#i-check"/></svg>Do · 동사로, 대상과 개수를 밝혀서</span>
+          <div class="mini"><div class="h2">주문 3건을 삭제할까요?</div><span class="cap">삭제한 주문은 복구할 수 없습니다.</span><div class="ovf"><button class="btn">취소</button><button class="btn btn--danger">삭제</button></div></div>
+        </div>
+      </div>
+      <div class="wr-pair">
+        <div class="dd dd--dont">
+          <span class="tag"><svg class="ic"><use href="#i-x"/></svg>Don't · 무슨 일인지도, 어떻게 할지도 없음</span>
+          <div class="field"><span class="lbl">이메일</span><input class="input input--error" value="kim@dongwha" aria-invalid="true" /><span class="err">오류가 발생했습니다.</span></div>
+        </div>
+        <div class="dd dd--do">
+          <span class="tag"><svg class="ic"><use href="#i-check"/></svg>Do · [무슨 일] + [어떻게] — 하나라도 빠지면 반려</span>
+          <div class="field"><span class="lbl">이메일</span><input class="input input--error" value="kim@dongwha" aria-invalid="true" /><span class="err">이메일 형식을 확인해 주세요.</span></div>
+        </div>
+      </div>
+      <div class="wr-pair">
+        <div class="dd dd--dont">
+          <span class="tag"><svg class="ic"><use href="#i-x"/></svg>Don't · 과장 + 느낌표 + 피동</span>
+          <div class="toast toast--static"><svg class="ic"><use href="#i-check"/></svg>완벽하게 저장되었습니다!</div>
+        </div>
+        <div class="dd dd--do">
+          <span class="tag"><svg class="ic"><use href="#i-check"/></svg>Do · 무엇을 + 완료, “~했습니다.”</span>
+          <div class="toast toast--static"><svg class="ic"><use href="#i-check"/></svg>저장했습니다.</div>
+        </div>
+      </div>
+
+      <span class="lbl" style="margin-top:var(--space-8)">4 · 용어 사전</span>
+      <span class="cap">같은 개념은 항상 같은 단어로. 대표 6쌍 — 전체는 writing.md §8, 영어 대응은 i18n.md §9.</span>
+      <div class="terms">
+        <span class="term"><s>패스워드</s>비밀번호</span>
+        <span class="term"><s>사인인</s>로그인</span>
+        <span class="term"><s>재시도</s>다시 시도</span>
+        <span class="term"><s>세팅</s>설정</span>
+        <span class="term"><s>상세보기</s>자세히 보기</span>
+        <span class="term"><s>노티</s>알림</span>
+      </div>
     </div>
   </section>
 
@@ -336,8 +431,8 @@
 <!-- Overlay 마크업 -->
 <div class="scrim" id="scrim" onclick="closeOv()"></div>
 <div class="ov modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
-  <div class="ovh"><div class="h2" id="mt">주문 삭제</div><button class="iconbtn" aria-label="닫기" onclick="closeOv()"><svg class="ic"><use href="#i-x"/></svg></button></div>
-  <div class="ovb">주문 <b>#10293</b> 을(를) 삭제할까요? 되돌릴 수 없습니다.</div>
+  <div class="ovh"><div class="h2" id="mt">주문을 삭제할까요?</div><button class="iconbtn" aria-label="닫기" onclick="closeOv()"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <div class="ovb"><b>#10293</b> 주문 1건을 삭제합니다. 삭제한 주문은 복구할 수 없습니다.</div>
   <div class="ovf"><button class="btn" onclick="closeOv()">취소</button><button class="btn btn--danger" onclick="closeOv()">삭제</button></div>
 </div>
 <div class="ov drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dt">
