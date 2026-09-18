@@ -170,6 +170,10 @@
   .terms{display:flex;flex-wrap:wrap;gap:var(--space-8);}
   .term{display:inline-flex;align-items:center;gap:var(--space-6);padding:var(--space-4) var(--space-12);border:var(--border-width-sm) solid var(--color-border-secondary);border-radius:var(--radius-rounded);font-size:var(--body-sm-font-size);}
   .term s{color:var(--color-text-tertiary);}
+  .term--no{color:var(--color-text-danger);} .term--no .ic{width:14px;height:14px;}
+  .chk{display:flex;flex-direction:column;gap:var(--space-8);}
+  .chk .cb{align-items:flex-start;} .chk .cb .cap{display:block;}
+  .chk input:checked~span>b{color:var(--color-text-tertiary);text-decoration:line-through;}
 
   .linkrow a{color:var(--color-text-info);text-decoration:none;font-weight:var(--font-weight-medium);}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}}
@@ -351,6 +355,35 @@
         <span class="term"><s>노티</s>알림</span>
       </div>
     </div>
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div>
+          <span class="lbl">5 · 리뷰 체크리스트 — 30초 스캔</span>
+          <span class="cap linkrow" style="display:block;margin-top:var(--space-4)">문구 리뷰 때 규범서 대신 이 5개만 먼저 본다. 대부분 여기서 끝난다. 영역별 전체 항목은 <a href="./foundations/writing-checklist.md">writing-checklist.md</a></span>
+        </div>
+        <span class="badge bg-w" id="chk-out" aria-live="polite">0/5 통과</span>
+      </div>
+      <div class="chk" id="chk-demo">
+        <label class="cb"><input type="checkbox" /><span class="cbb"><svg viewBox="0 0 24 24" fill="none"><use href="#i-check"/></svg></span><span><b>버튼이 동사인가?</b><span class="cap">확인 · OK가 아니라 저장 · 거래처 등록</span></span></label>
+        <label class="cb"><input type="checkbox" /><span class="cbb"><svg viewBox="0 0 24 24" fill="none"><use href="#i-check"/></svg></span><span><b>오류에 다음 행동이 있는가?</b><span class="cap">“오류가 발생했습니다” 단독 금지</span></span></label>
+        <label class="cb"><input type="checkbox" /><span class="cbb"><svg viewBox="0 0 24 24" fill="none"><use href="#i-check"/></svg></span><span><b>사용자를 탓하지 않는가?</b><span class="cap">“잘못 입력하셨습니다” 금지</span></span></label>
+        <label class="cb"><input type="checkbox" /><span class="cbb"><svg viewBox="0 0 24 24" fill="none"><use href="#i-check"/></svg></span><span><b>조건을 입력 전에 알렸는가?</b><span class="cap">Helper 먼저, Error는 나중</span></span></label>
+        <label class="cb"><input type="checkbox" /><span class="cbb"><svg viewBox="0 0 24 24" fill="none"><use href="#i-check"/></svg></span><span><b>문자열이 하드코딩되지 않았는가?</b><span class="cap">UI 문자열 · aria-label · placeholder 모두 i18n 키로</span></span></label>
+      </div>
+
+      <span class="lbl" style="margin-top:var(--space-8)">즉시 반려 — 보이면 논의 없이 되돌린다</span>
+      <div class="terms">
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>확인 · 예 · 아니오 버튼</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>“오류가 발생했습니다” 단독</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>“잘못 입력하셨습니다”</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>Error: · null · 500 노출</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>이모지 · 느낌표 · 의성어</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>라벨 없이 placeholder만</span>
+        <span class="term term--no"><svg class="ic"><use href="#i-x"/></svg>하드코딩된 한글 문자열</span>
+      </div>
+
+      <span class="cap">리뷰어용 한 줄 — <b>라벨은 동사, 오류는 해결책, 안내는 다음 행동.</b> 셋 중 하나라도 빠지면 되돌린다.</span>
+    </div>
   </section>
 
   <!-- Overlay -->
@@ -507,6 +540,12 @@
       if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();select((i+1)%btns.length,true);}
       if(e.key==='ArrowLeft' ||e.key==='ArrowUp')  {e.preventDefault();select((i-1+btns.length)%btns.length,true);}
     });
+  })();
+  // Writing — 체크리스트 통과 개수
+  (function(){
+    var r=document.getElementById('chk-demo'),o=document.getElementById('chk-out'),cbs=[].slice.call(r.querySelectorAll('input'));
+    function upd(){var n=cbs.filter(function(c){return c.checked;}).length;o.textContent=n+'/'+cbs.length+' 통과';o.className='badge '+(n===cbs.length?'bg-s':'bg-w');}
+    cbs.forEach(function(c){c.addEventListener('change',upd);}); upd();
   })();
   // 토스트
   function toast(msg){var wr=document.getElementById('toasts'),t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.innerHTML='<svg class="ic"><use href="#i-check"/></svg>'+msg;wr.appendChild(t);setTimeout(function(){t.remove();},3500);}
