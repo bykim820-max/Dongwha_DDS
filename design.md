@@ -1,6 +1,6 @@
-# Dongwha Design System (DDS) v2.0
+# Dongwha Design System (DDS)
 
-> 동화 디자인시스템 v2.0의 단일 진실 소스(SSOT).
+> 동화 디자인시스템의 단일 진실 소스(SSOT). 현재 버전은 [`VERSION`](./VERSION) · 변경 이력은 [CHANGELOG.md](./CHANGELOG.md).
 > AI 에이전트와 사람이 모두 읽기 좋은 구조로 정리한 디자인 가이드.
 
 ---
@@ -98,6 +98,8 @@
 | 문서 | 내용 |
 |------|------|
 | [비개발자 선적용 가이드](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준(내비·버튼) · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 · **AI에게 화면 요청하는 법**(§5) |
+| [MIGRATION.md](./MIGRATION.md) | **소비 시스템용** — 버전 규칙(SemVer) · 가져가기 · 갱신 절차 · 버전별 대응표 |
+| [CHANGELOG.md](./CHANGELOG.md) | 버전별 변경 이력. 추가 · 변경(값) · ⚠️ 확인 필요(코드 수정) 3단 |
 | [AGENTS.md](./AGENTS.md) | **AI 에이전트용** — 읽는 순서 · 절대 규칙 · 작업 절차 · 검증. 이 저장소를 여는 에이전트의 진입점 (`CLAUDE.md`가 임포트) |
 
 ---
@@ -196,6 +198,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - ✅ **Foundations 확장** — Layout([layout.md](./foundations/layout.md))·Elevation([elevation.md](./foundations/elevation.md))·Accent/Chart 컬러·타이포 굵기 축
 - ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs·Segmented·Breadcrumb). 사양 정의 완료, **Figma 게시 및 componentKey 발급은 대기 중**
+- ✅ **버전 · 배포 체계** — `VERSION` 단일 출처 · [CHANGELOG.md](./CHANGELOG.md) · [MIGRATION.md](./MIGRATION.md) · 버전 태그 · **Claude Code 플러그인**([plugins/dds/](./plugins/dds/README.md))
 - ✅ **거버넌스 1단계** — 하드코딩 검사 CI(hex·rgb·간격 px·이모지 — `scripts/check_hardcoding.py`) + 토큰 빌드 검증(`.github/workflows/validate.yml`). 정당한 예외는 해당 줄 `dds-allow: <이유>` 주석
 
 ### v2.5 — 문법 단계 (2026-09 ~)

@@ -1,6 +1,6 @@
 # DDS 에이전트 지침
 
-> 이 저장소는 Dongwha Design System(DDS) v2.0의 단일 진실 소스(SSOT)다. 산출물은 **문서와 토큰**이다.
+> 이 저장소는 Dongwha Design System(DDS)의 단일 진실 소스(SSOT)다. 현재 버전은 `VERSION` 파일. 산출물은 **문서와 토큰**이다.
 > 사람용 안내는 [README.md](./README.md), 설계 원칙은 [design.md](./design.md).
 > 이 파일은 **에이전트가 작업 전에 읽는 규칙**이다. 이 저장소에서 문서를 편집할 때도, 다른 저장소에서 DDS로 화면을 만들 때도 적용된다.
 
@@ -64,6 +64,24 @@ python3 scripts/build_tokens.py && git diff --stat dist/   # 토큰을 바꿨다
 
 CI: [.github/workflows/validate.yml](./.github/workflows/validate.yml)
 
+### 3.4 새 버전 내기 (릴리스)
+
+사용자가 "새 버전 내줘"라고 하면 이 순서를 따른다. **커밋 · 태그 · 푸시는 사용자 승인 후.**
+
+| 순서 | 할 일 | 비고 |
+|---|---|---|
+| 1 | **버전 결정** — 마지막 태그 이후 변경을 [MIGRATION.md §1](./MIGRATION.md) 규칙으로 분류 | 토큰 이름 삭제·변경 = MAJOR · 추가 = MINOR · 값 조정·문서 정정 = PATCH. 근거와 함께 제안 |
+| 2 | `VERSION` 수정 → `python3 scripts/build_tokens.py` | `dist/` 헤더가 새 버전으로 바뀐다 |
+| 3 | [CHANGELOG.md](./CHANGELOG.md) 맨 위에 새 절 | **추가 / 변경(값 — 이전·이후 표) / ⚠️ 확인 필요** 3단. 소비자가 할 일 기준으로 쓴다 |
+| 4 | ⚠️ 항목이 있으면 [MIGRATION.md §4](./MIGRATION.md)에 대응표 추가 | **"찾기" 명령 필수** — `/dds:check`가 그 명령을 소비 프로젝트에서 실행한다 |
+| 5 | §3.3 검증 | |
+| 6 | 커밋 → 태그 `vX.Y.Z` → 푸시 (커밋과 태그 둘 다) | 태그가 곧 릴리스다. 소비자의 `/dds:check`와 시작 알림이 태그로 새 버전을 안다 |
+| 7 | **GitHub Release 만들기** — 사용자에게 안내 | 저장소 → Releases → Draft a new release → 태그 선택 → CHANGELOG 해당 절 붙여넣기 → Publish. Watch(Releases) 중인 사람에게 메일 알림이 간다. 태그만으로는 메일이 가지 않는다 |
+| 8 | **사내 공지문 초안** 작성 | CHANGELOG 해당 절에서: 버전 · 한 줄 요약 · ⚠️ 확인 필요 유무 · "`/dds:check`로 확인" 안내. 복사용 코드 블록으로 준다 |
+
+- README의 버전 배지는 태그에서 자동으로 읽는다. 손대지 않는다.
+- **플러그인(`plugins/dds/`) 버전은 DDS 버전과 별개다.** DDS 릴리스 때 올리지 않는다. 플러그인의 명령·스킬 내용을 고쳤을 때만 `plugins/dds/.claude-plugin/plugin.json`의 `version`을 올리고 `claude plugin validate --strict plugins/dds`로 검증한다. 플러그인 태그는 `dds--vX.Y.Z` 형식(`claude plugin tag plugins/dds`)이라 DDS 태그와 겹치지 않는다.
+
 ---
 
 ## 4. 하지 않는 것
@@ -77,14 +95,38 @@ CI: [.github/workflows/validate.yml](./.github/workflows/validate.yml)
 
 ## 5. 다른 저장소에서 DDS를 쓰게 하기
 
-DDS를 소비하는 저장소(예: ITSM)의 `AGENTS.md` 또는 `CLAUDE.md`에 아래를 넣는다. 경로는 그 환경의 절대 경로.
+**Claude Code를 쓰면 플러그인이 기본이다.** 아래 스니펫·절차를 `/dds:init` · `/dds:check` · `/dds:upgrade`가 대신 실행한다 → [plugins/dds/README.md](./plugins/dds/README.md)
+
+```bash
+claude plugin marketplace add bykim820-max/Dongwha_DDS
+claude plugin install dds@dongwha-dds
+```
+
+플러그인 없이 할 때는 소비 저장소의 `AGENTS.md` 또는 `CLAUDE.md`에 아래를 넣는다. 경로는 그 환경의 절대 경로.
 
 ```markdown
 # DDS 적용
 이 프로젝트의 UI는 Dongwha Design System(DDS)을 따른다.
 작업 전 /절대경로/Dongwha_DDS/AGENTS.md 를 읽고 그 규칙을 적용한다.
-토큰: /절대경로/Dongwha_DDS/dist/tokens.css
+토큰: src/styles/dds/tokens.css (버전: src/styles/dds/DDS_VERSION)
+토큰 파일은 DDS 저장소에서 버전 고정해 복사해 온 것이다. 직접 수정하지 않는다.
+갱신 절차: /절대경로/Dongwha_DDS/MIGRATION.md
 ```
+
+### 5.1 토큰은 복사해 오고, 문서는 참조한다
+
+- **`dist/` 파일은 소비 저장소로 복사**하고 버전을 `DDS_VERSION`에 기록한다 ([MIGRATION.md §2](./MIGRATION.md))
+- **문서(`components/*.md` 등)는 복사하지 않는다.** 복사본은 반드시 낡는다 — 링크로 참조한다
+- 복사해 온 `tokens.css`를 수정하지 않는다. 다음 갱신 때 사라진다
+
+### 5.2 버전을 올릴 때
+
+1. [CHANGELOG.md](./CHANGELOG.md)에서 **현재 버전 → 목표 버전 사이 항목을 전부** 읽는다
+2. ⚠️ **확인 필요** 항목은 파일을 새로 받아도 안 고쳐진다 — [MIGRATION.md §4 대응표](./MIGRATION.md)대로 코드를 고친다
+3. **변경** 항목(토큰 값 변화)은 받은 뒤 해당 색이 쓰인 화면을 라이트·다크 양쪽에서 확인한다
+4. `dist/` 교체 + `DDS_VERSION` 갱신
+
+> 버전 번호만 보고 판단하지 않는다. PATCH에도 ⚠️ 확인 필요 항목이 들어갈 수 있다.
 
 ---
 

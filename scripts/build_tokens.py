@@ -18,6 +18,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "foundations" / "DDS_tokens_w3c.json"
 EXT = ROOT / "foundations" / "DDS_tokens_extended.json"
 DARK = ROOT / "foundations" / "DDS_tokens_dark.json"
+VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()   # 버전 단일 출처
 DIST = ROOT / "dist"
 DIST.mkdir(exist_ok=True)
 
@@ -184,9 +185,10 @@ def css_value(leaf, val, kind):
 
 lines = []
 lines.append("/* ============================================================")
-lines.append("   DDS v2.0 · Design Tokens (생성 파일 — 직접 수정 금지)")
+lines.append(f"   DDS v{VERSION} · Design Tokens (생성 파일 — 직접 수정 금지)")
 lines.append("   source: foundations/DDS_tokens_w3c.json + foundations/motion.md")
 lines.append("   regenerate: python3 scripts/build_tokens.py")
+lines.append("   변경 이력·갱신 방법: CHANGELOG.md · MIGRATION.md · dist/README.md")
 lines.append("   ============================================================ */")
 lines.append(":root {")
 
@@ -323,8 +325,9 @@ tw = {
         }
     }
 }
-js = ("// DDS v2.0 Tailwind preset (생성 파일 — 직접 수정 금지)\n"
+js = (f"// DDS v{VERSION} Tailwind preset (생성 파일 — 직접 수정 금지)\n"
       "// regenerate: python3 scripts/build_tokens.py\n"
+      "// 변경 이력·갱신 방법: CHANGELOG.md · MIGRATION.md\n"
       "// 사용: presets: [require('./dist/tokens.tailwind.js')] + dist/tokens.css import\n"
       "module.exports = " + json.dumps(tw, ensure_ascii=False, indent=2) + ";\n")
 (DIST / "tokens.tailwind.js").write_text(js, encoding="utf-8")

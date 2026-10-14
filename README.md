@@ -1,8 +1,8 @@
-# Dongwha Design System (DDS) v2.0
+# Dongwha Design System (DDS)
 
 > 동화의 통합 디자인시스템. **AI 에이전트와 디자이너·개발자 모두가 한 곳에서** 토큰과 컴포넌트 사양을 확인할 수 있도록 정리한 문서 저장소.
 
-![status](https://img.shields.io/badge/status-active-22c55e) ![version](https://img.shields.io/badge/version-2.0-2563eb) ![mode](https://img.shields.io/badge/mode-light%20%2B%20dark-6366f1) ![font](https://img.shields.io/badge/font-Pretendard-111827)
+![status](https://img.shields.io/badge/status-active-22c55e) ![version](https://img.shields.io/github/v/tag/bykim820-max/Dongwha_DDS?filter=v*&label=version&color=2563eb) ![mode](https://img.shields.io/badge/mode-light%20%2B%20dark-6366f1) ![font](https://img.shields.io/badge/font-Pretendard-111827)
 
 ---
 
@@ -11,6 +11,9 @@
 | 분야 | 위치 | 한 줄 요약 |
 |------|------|-----------|
 | 📘 **개요 · 철학** | [design.md](./design.md) | 3-레이어 토큰 아키텍처, 코드 매핑 규칙, LLM 변환 워크플로우 |
+| 🧩 **Claude Code 플러그인** | [plugins/dds/](./plugins/dds/README.md) | **다른 시스템에서 쓰는 가장 쉬운 방법** — `/dds:init` 가져오기 · `/dds:check` 새 버전 확인 · `/dds:upgrade` 올리기 · `dds:ui` 자동 규칙 적용 |
+| 🔄 **가져가기 · 갱신** | [MIGRATION.md](./MIGRATION.md) | **다른 시스템에서 DDS를 쓰는 쪽을 위한 문서** — 버전 규칙, 처음 가져가기, 새 버전으로 올리기, 버전별 대응표 |
+| 📋 **변경 이력** | [CHANGELOG.md](./CHANGELOG.md) | 버전별 추가 · 변경 · ⚠️ 확인 필요 항목 |
 | 🤖 **에이전트 지침** | [AGENTS.md](./AGENTS.md) | AI 에이전트가 작업 전에 읽는 규칙 — 읽는 순서 · 절대 규칙 · 검증 절차 · 다른 저장소에서 쓰는 법 (`CLAUDE.md`가 임포트) |
 | 🎨 **Foundations** | [foundations/](./foundations/) | Colors · Typography · Spacing · Radius · State · Motion · Layout · Elevation |
 | 🧩 **Components** | [components/](./components/) | Button · Input · Switch · Checkbox · Tooltip · Table 등 |

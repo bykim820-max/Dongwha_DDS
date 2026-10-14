@@ -1,0 +1,10 @@
+{
+  "name": "dds",
+  "description": "프로젝트에 고정된 DDS 버전의 규칙·토큰으로 UI를 만들고, 새 버전을 확인·적용한다 (/dds:init · /dds:check · /dds:upgrade)",
+  "version": "1.0.0",
+  "author": {
+    "name": "동화 스마트워크팀"
+  },
+  "homepage": "https://github.com/bykim820-max/Dongwha_DDS",
+  "repository": "https://github.com/bykim820-max/Dongwha_DDS"
+}

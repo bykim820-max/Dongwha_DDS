@@ -3,6 +3,20 @@
 > ⚠️ **이 폴더의 파일은 직접 수정하지 마세요.** `foundations/DDS_tokens_w3c.json`(+ `foundations/motion.md`)에서 자동 생성됩니다.
 > 토큰을 바꾸려면 JSON을 수정한 뒤 재생성하세요.
 
+> 📦 **다른 시스템에서 이 파일을 가져다 쓰시나요?** Claude Code를 쓴다면 **[dds 플러그인](../plugins/dds/README.md)** 의 `/dds:init`이 가장 쉽습니다. 직접 하려면 → **[MIGRATION.md](../MIGRATION.md)**
+> 버전 고정해서 받는 법, 새 버전이 나왔을 때 갱신하는 절차, 버전별 대응표가 있습니다.
+> 무엇이 바뀌었는지는 → [CHANGELOG.md](../CHANGELOG.md)
+
+## 내가 가진 버전 확인
+
+```bash
+head -3 dist/tokens.css
+#   DDS v2.5.0 · Design Tokens (생성 파일 — 직접 수정 금지)
+```
+
+⚠️ **v2.4.0 이전에 배포된 파일은 내용과 무관하게 헤더가 전부 `v2.0`으로 찍혀 있습니다.**
+실제 버전 판별은 [CHANGELOG 판별표](../CHANGELOG.md#먼저-읽어주세요--v240-이전-파일의-버전-표기-오류)를 보세요.
+
 ## 재생성
 
 ```bash

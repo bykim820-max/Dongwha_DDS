@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dongwha-dds",
+  "description": "Dongwha Design System(DDS) — 사내 시스템에서 DDS를 쓰기 위한 Claude Code 플러그인",
+  "owner": {
+    "name": "동화 스마트워크팀"
+  },
+  "plugins": [
+    {
+      "name": "dds",
+      "description": "프로젝트에 고정된 DDS 버전의 규칙·토큰으로 UI를 만들고, 새 버전을 확인·적용한다 (/dds:init · /dds:check · /dds:upgrade)",
+      "author": {
+        "name": "동화 스마트워크팀"
+      },
+      "source": "./plugins/dds",
+      "category": "design",
+      "homepage": "https://github.com/bykim820-max/Dongwha_DDS"
+    }
+  ]
+}
