@@ -97,9 +97,11 @@ CI: [.github/workflows/validate.yml](./.github/workflows/validate.yml)
 
 **Claude Code를 쓰면 플러그인이 기본이다.** 아래 스니펫·절차를 `/dds:init` · `/dds:check` · `/dds:upgrade`가 대신 실행한다 → [plugins/dds/README.md](./plugins/dds/README.md)
 
+팀 전체에 쓰게 하려면 소비 저장소에서 프로젝트 범위로 등록하고 `.claude/settings.json`을 커밋한다 (`/dds:init`이 함께 한다). 개인만 쓰려면 `--scope project`를 뺀다.
+
 ```bash
-claude plugin marketplace add bykim820-max/Dongwha_DDS
-claude plugin install dds@dongwha-dds
+claude plugin marketplace add bykim820-max/Dongwha_DDS --scope project
+claude plugin install dds@dongwha-dds --scope project
 ```
 
 플러그인 없이 할 때는 소비 저장소의 `AGENTS.md` 또는 `CLAUDE.md`에 아래를 넣는다. 경로는 그 환경의 절대 경로.

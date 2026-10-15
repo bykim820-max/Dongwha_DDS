@@ -2,14 +2,40 @@
 
 Dongwha Design System(DDS)을 쓰는 사내 시스템에서 Claude Code가 **프로젝트에 고정된 DDS 버전**의 규칙과 토큰으로 일하게 한다.
 
-## 설치 — 한 번만
+## 설치
+
+필요한 것: Claude Code · git · github.com 접속. GitHub 계정은 필요 없다 (공개 저장소).
+
+### 팀 전체 — 프로젝트에 등록 (권장)
+
+시스템 저장소의 담당자가 **프로젝트 폴더에서 한 번** 실행한다. `/dds:init`도 이 단계를 함께 한다.
+
+```bash
+claude plugin marketplace add bykim820-max/Dongwha_DDS --scope project
+claude plugin install dds@dongwha-dds --scope project
+```
+
+프로젝트에 `.claude/settings.json`이 생긴다. **이 파일을 커밋하면** 그 프로젝트를 Claude Code로 여는 팀원은 플러그인 설치를 안내받는다.
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "dongwha-dds": { "source": { "source": "github", "repo": "bykim820-max/Dongwha_DDS" } }
+  },
+  "enabledPlugins": { "dds@dongwha-dds": true }
+}
+```
+
+### 나만 — 개인 설치
 
 ```bash
 claude plugin marketplace add bykim820-max/Dongwha_DDS
 claude plugin install dds@dongwha-dds
 ```
 
-Claude Code를 다시 시작하면 적용된다.
+터미널이 낯설면 Claude Code 채팅창에 "DDS 플러그인 설치해줘"와 함께 위 두 줄을 붙여넣어도 된다.
+
+어느 쪽이든 Claude Code를 다시 시작하면 적용된다.
 
 ## 쓰는 법
 
@@ -35,6 +61,15 @@ claude plugin update dds
 ```
 
 **DDS 새 버전이 나왔다고 플러그인을 업데이트할 필요는 없다.** 플러그인은 DDS 버전을 GitHub 태그에서 직접 확인한다. 플러그인 업데이트는 명령 자체가 바뀌었을 때만 필요하다.
+
+## 플러그인 변경 이력
+
+플러그인 버전은 DDS 버전과 별개다. DDS 변경 이력은 [CHANGELOG.md](../../CHANGELOG.md).
+
+| 버전 | 변경 |
+|---|---|
+| 1.0.1 | `/dds:init`이 프로젝트 설정(`.claude/settings.json`)에 플러그인을 등록 — 커밋하면 팀원 모두가 받는다 |
+| 1.0.0 | 최초 — `/dds:init` · `/dds:check` · `/dds:upgrade` · `dds:ui` · 새 버전 시작 알림 |
 
 ## 관련 문서
 

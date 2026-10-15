@@ -9,6 +9,15 @@
 
 아래 2~4장의 절차를 명령 하나로 한다. **기획자·개발자 모두** 이 방법을 권한다.
 
+**팀 전체에 — 프로젝트에 등록 (권장).** 시스템 저장소 담당자가 프로젝트 폴더에서 한 번 실행하고, 생긴 `.claude/settings.json`을 커밋한다. 그 프로젝트를 여는 팀원은 설치를 안내받는다. `/dds:init`이 이 단계도 함께 한다.
+
+```bash
+claude plugin marketplace add bykim820-max/Dongwha_DDS --scope project
+claude plugin install dds@dongwha-dds --scope project
+```
+
+**나만 — 개인 설치.** `--scope project` 없이 같은 두 줄.
+
 ```bash
 claude plugin marketplace add bykim820-max/Dongwha_DDS
 claude plugin install dds@dongwha-dds

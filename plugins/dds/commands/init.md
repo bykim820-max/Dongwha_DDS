@@ -1,5 +1,5 @@
 ---
-description: 이 프로젝트에 DDS 토큰을 버전 고정으로 처음 가져온다
+description: 이 프로젝트에 DDS 토큰을 버전 고정으로 처음 가져오고, 팀원 모두가 플러그인을 받도록 프로젝트에 등록한다
 argument-hint: "[버전 — 예: 2.5.0, 생략하면 최신]"
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---
@@ -65,7 +65,36 @@ echo "<버전>" > <위치>/DDS_VERSION
 - Claude Code dds 플러그인이 있으면 dds:ui 스킬이 이 규칙을 적용한다. 새 버전 확인은 /dds:check
 ```
 
+3. **팀원 모두에게 플러그인 설치** — 프로젝트 설정에 플러그인을 등록한다. 이 파일을 커밋하면 이 프로젝트를 Claude Code로 여는 팀원이 플러그인 설치를 안내받는다. 사람마다 설치법을 알려 줄 필요가 없어진다.
+
+   이미 등록돼 있으면 건너뛴다:
+
+   ```bash
+   grep -q '"dds@dongwha-dds"' .claude/settings.json 2>/dev/null && echo "이미 등록됨"
+   ```
+
+   등록은 CLI로 한다 — 기존 설정을 지우지 않고 합쳐 준다:
+
+   ```bash
+   claude plugin marketplace add bykim820-max/Dongwha_DDS --scope project
+   claude plugin install dds@dongwha-dds --scope project
+   ```
+
+   `claude` 명령을 쓸 수 없으면 `.claude/settings.json`에 아래 두 키를 **기존 내용을 유지한 채 합쳐서** 넣는다. 파일을 통째로 덮어쓰지 않는다.
+
+   ```json
+   {
+     "extraKnownMarketplaces": {
+       "dongwha-dds": { "source": { "source": "github", "repo": "bykim820-max/Dongwha_DDS" } }
+     },
+     "enabledPlugins": { "dds@dongwha-dds": true }
+   }
+   ```
+
+   `.claude/settings.json`이 `.gitignore`에 걸려 있으면 팀원에게 전달되지 않는다. 그 경우 사용자에게 알린다. (`settings.local.json`은 개인용이라 커밋되지 않는 게 정상이다 — 여기에 넣지 않는다.)
+
 ## 7. 보고
 
 받은 버전 · 파일 위치 · 수정한 파일 · 남은 할 일(import 등)을 표로 보고한다.
+`.claude/settings.json`을 수정했다면 **"이 파일을 커밋하면 팀원 모두가 플러그인을 받습니다"** 라고 알린다.
 **커밋하지 않는다** — 사용자가 요청할 때만.
