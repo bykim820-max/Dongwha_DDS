@@ -85,6 +85,7 @@
 새 컴포넌트를 추가할 때 다음 섹션을 따른다.
 
 ```
+0. 선택 기준        — 대안 컴포넌트와의 구분 표 + 판별 질문 (기준선: button.md §0)
 1. 컴포넌트 패밀리   — Figma componentKey 표
 2. Anatomy           — 구성 요소 트리
 3. Variants          — Figma Variant Property
