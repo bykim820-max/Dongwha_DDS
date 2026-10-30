@@ -64,11 +64,11 @@ DDS는 `MAJOR.MINOR.PATCH` 세 자리를 쓴다. **자리마다 해야 할 일�
 
 ### 2.2 버전을 고정해서 받기
 
-태그 주소에서 파일 하나만 받는다. 주소의 `v2.5.0`이 버전 고정이다.
+태그 주소에서 파일 하나만 받는다. 주소의 `v2.6.0`이 버전 고정이다.
 
 ```bash
 mkdir -p src/styles/dds
-curl -fsSL https://raw.githubusercontent.com/bykim820-max/Dongwha_DDS/v2.5.0/dist/tokens.css -o src/styles/dds/tokens.css
+curl -fsSL https://raw.githubusercontent.com/bykim820-max/Dongwha_DDS/v2.6.0/dist/tokens.css -o src/styles/dds/tokens.css
 ```
 
 어떤 버전이 있는지:
@@ -82,14 +82,14 @@ git ls-remote --tags --refs https://github.com/bykim820-max/Dongwha_DDS.git
 내 프로젝트에 **어떤 버전을 쓰고 있는지 적어 둔다.** 적어 두지 않으면 나중에 "우리가 뭘 쓰고 있지?"를 알 수 없다.
 
 ```bash
-echo "2.5.0" > src/styles/dds/DDS_VERSION
+echo "2.6.0" > src/styles/dds/DDS_VERSION
 ```
 
 `dist/tokens.css`의 헤더에도 버전이 찍혀 있다 (v2.5.0부터).
 
 ```bash
 head -3 src/styles/dds/tokens.css
-#   DDS v2.5.0 · Design Tokens (생성 파일 — 직접 수정 금지)
+#   DDS v2.6.0 · Design Tokens (생성 파일 — 직접 수정 금지)
 ```
 
 > **v2.4.0 이전 파일은 헤더가 전부 `v2.0`으로 찍혀 있다.** 내가 가진 게 실제로 몇 버전인지는
@@ -150,6 +150,50 @@ git ls-remote --tags --refs https://github.com/bykim820-max/Dongwha_DDS.git     
 ## 4. 버전별 대응표
 
 새 버전으로 올릴 때 **코드를 직접 고쳐야 하는 것**만 모았다.
+
+### Input lg 글자 크기 14px → 16px
+
+**해당 버전: v2.6.0 미만 → v2.6.0 이상** · 심각도: 중간 (모바일 화면)
+
+v2.6.0부터 Input `lg`(48px)의 글자가 `body/md`(14px) → `body/lg`(16px)다. 14px 입력칸은 **iOS Safari에서 포커스할 때 화면이 확대**된다.
+모바일(768px 미만) 폼은 `lg`를 쓰는 것이 규칙이 됐다 → [input.md §4.1](./components/input.md#41-기본값과-사용처). **토큰 파일은 그대로라 새로 받아도 고쳐지지 않는다.**
+
+| 쓰인 곳 | 이전 | 이후 |
+|---|---|---|
+| Input `lg` 글자 크기 | `var(--body-md-font-size)` | `var(--body-lg-font-size)` |
+| Input `lg` 줄 높이 | `var(--body-md-line-height)` | `var(--body-lg-line-height)` |
+| 모바일 폼 입력칸 | `md`(40px) | `lg`(48px) |
+
+**찾기** — `/dds:check`가 이 명령을 실행한다
+
+```bash
+grep -rnE '<Input[^>]*size="lg"|input[-_]lg|input--lg' src/ --include="*.css" --include="*.scss" --include="*.vue" --include="*.tsx" --include="*.jsx"
+```
+
+나온 곳에서 글자 크기가 `--body-md-font-size`면 `--body-lg-font-size`로 바꾼다. 모바일 미디어 쿼리(`max-width: 767px`) 안의 입력칸이 `md`면 `lg`로 올린다.
+
+**고친 뒤 확인** — 아이폰(또는 Safari 모바일 모드)에서 입력칸을 눌러 화면이 확대되지 않는지 본다.
+
+### 폼 필드 옆 찾기 버튼 xs → md
+
+**해당 버전: v2.6.0 미만 → v2.6.0 이상** · 심각도: 낮음 (높이 어긋남)
+
+v2.6.0 이전 `button.md §4.1`이 폼 필드 옆 보조 액션("찾기")에 `xs`(24px)를 안내했다. 40px 필드 옆에 24px 버튼이 붙어 높이가 어긋난다.
+**같은 줄의 Input과 Button은 같은 사이즈를 쓴다** → [button.md §4.1](./components/button.md#41-기본값과-사용처).
+
+| 쓰인 곳 | 이전 | 이후 |
+|---|---|---|
+| 필드 옆 "찾기" · 우편번호 검색 등 | Button `xs` (24px) | 필드와 같은 사이즈 — 보통 `md` (40px) |
+
+**찾기** — `/dds:check`가 이 명령을 실행한다
+
+```bash
+grep -rnE 'size="xs"|btn[-_]xs|btn--xs' src/ --include="*.css" --include="*.scss" --include="*.vue" --include="*.tsx" --include="*.jsx"
+```
+
+나온 곳 중 **입력칸 바로 옆**에 있는 버튼만 고친다. 테이블 행 · 칩 옆의 `xs`는 올바른 사용이다.
+
+**고친 뒤 확인** — 입력칸과 버튼의 위아래 선이 맞는지 본다.
 
 ### 버튼 배경에 면 토큰을 쓴 경우
 

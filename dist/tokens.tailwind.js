@@ -1,4 +1,4 @@
-// DDS v2.5.0 Tailwind preset (생성 파일 — 직접 수정 금지)
+// DDS v2.6.0 Tailwind preset (생성 파일 — 직접 수정 금지)
 // regenerate: python3 scripts/build_tokens.py
 // 변경 이력·갱신 방법: CHANGELOG.md · MIGRATION.md
 // 사용: presets: [require('./dist/tokens.tailwind.js')] + dist/tokens.css import
