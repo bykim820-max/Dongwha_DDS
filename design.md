@@ -211,7 +211,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 |---|---|---|---|
 | 1 | ✅ **제품 문맥 선언** — 확정. 기준 화면(ITSM 실서비스)만 `[미확인]`, AB 실험 중 선정 | DDS가 어떤 제품(사내 B2B 운영 도구)·어떤 사용자(장시간 상주)·어떤 업무를 위한 시스템인지, "우리 화면답다"의 정의, 기준 화면 2~3개 링크 | design.md 상단 § |
 | 2 | 🔜 **AI 사용 빈칸 기록** | AB 실험(`metrics/AB실험_설계서.md` §6 부산물 기록 — 로컬 전용, 저장소 미포함) 조건 B에서 AI가 DDS를 잘못 쓰거나 문서가 침묵한 지점을 화면별로 기록. **실험 중엔 기록만, 문서 반영은 4본 종료 후** | `metrics/cases/<화면>/gaps.md` |
-| 3 | 🟡 **컴포넌트 문법 보강** — ✅ [Button](./components/button.md) 완료 · ✅ [Input](./components/input.md) 완료 (결정 대기 `[미확인]` 5건 · 컴포넌트 부재 3건) · 🔜 Overlay → Table | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
+| 3 | 🟡 **컴포넌트 문법 보강** — ✅ [Button](./components/button.md) 완료 · ✅ [Input](./components/input.md) 완료 (컴포넌트 부재 3건 남음) · 🔜 Overlay → Table | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
 | 4 | 🔜 **페이지 패턴** | 목록 · 상세 · 폼(등록/수정) · 대시보드 4종. 컴포넌트 배치 · primary 위치 · 필터 위치 · 빈/로딩 상태. [examples/writing.html](./examples/writing.html)(거래처 관리)에서 목록+폼 패턴을 먼저 추출 | `patterns/` (신설) |
 | 5 | 🔜 **Figma 부채 정리** | 상태색 WCAG 매핑 Figma 변수 반영 · Navigation 3종 게시 및 componentKey 발급 · `font_family` 플레이스홀더 정리 | Figma + [components/README.md](./components/README.md) |
 
@@ -232,7 +232,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
   - **Figma 변수도 같은 매핑으로 갱신해야 한다.** 현재는 저장소 JSON에만 반영된 상태.
 - **베트남어 지원이 [i18n.md](./foundations/i18n.md)에 미반영.** 현재 문서는 한↔영만 다룬다. 베트남어는 성조 부호(diacritics)로 글자 높이가 커지고 확장률이 영어와 다르므로 ① 확장률 표 추가 ② Pretendard의 베트남어 글리프 커버리지 확인(미지원 시 폴백 폰트 지정) ③ 용어 대응표 확장이 필요하다.
 - **폼 입력 컴포넌트 3종 문서 부재 — Select · Textarea · Date Picker.** [input.md §0](./components/input.md)·[option-group.md](./components/option-group.md)·[navigation.md](./components/navigation.md)가 가리키지만 문서·Figma 컴포넌트가 없다. 현재는 `[미확인: 컴포넌트 부재]`로 표시하고 네이티브 요소에 Input의 States·Tokens를 적용하도록 안내 중.
-- **모바일 입력 글자 크기 14px.** Input 전 사이즈가 `body/md`(14px)라 iOS Safari에서 포커스 시 화면이 확대된다. 모바일 `lg`에 `body/lg`(16px)를 쓸지 결정 필요 → [input.md §4.1](./components/input.md#41-기본값과-사용처)
+- ~~모바일 입력 글자 크기 14px — iOS Safari 포커스 시 화면 확대~~ → **정정 완료.** Input `lg`를 `body/lg`(16px)로, 모바일 폼은 `lg` 필수 → [input.md §4.1](./components/input.md#41-기본값과-사용처)
 - 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens_w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
