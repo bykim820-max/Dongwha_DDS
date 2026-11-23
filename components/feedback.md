@@ -54,7 +54,7 @@
 | 영역 | 토큰 |
 |------|------|
 | 배경 | `Color/bg/inverse-bold` (뉴트럴 다크) 또는 intent `*-subtle` |
-| 텍스트 | 다크 배경 위 `#fff` / subtle 위 `Color/text/{intent}` |
+| 텍스트 | 다크 배경 위 `#fff` / subtle 위 `Color/text/{intent}` — ⚠️ 다크 모드에서는 `bg/inverse-bold`가 밝아져 `#fff` 글자가 안 보인다. 다크를 지원하면 subtle 조합을 쓴다 → [design.md 알려진 이슈](../design.md) |
 | 아이콘 | `Color/icon/{intent}` |
 | Radius · 그림자 | `border/radius/md` · `shadow/lg` |
 | 모션 | `duration/base`·`quick` + `easing/decelerate`·`accelerate` |

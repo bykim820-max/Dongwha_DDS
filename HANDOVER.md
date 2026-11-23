@@ -109,6 +109,7 @@ v2.6.0까지 DDS를 가져간 프로젝트는 GitHub 주소에 기대고 있다.
 | Figma 입력칸에 크기(sm · md · lg) 없음 · 같은 이름 컴포넌트 두 벌 · 이름 없는 상태 `State8` · `State9` | 문서 등록 컴포넌트는 노드 `5128:832` | [design.md](./design.md) 알려진 이슈 |
 | Figma 입력칸 포커스 테두리가 초록 (문서는 파랑) | 기록만 함 | [input.md §5](./components/input.md) |
 | Figma 컴포넌트 다수가 색 변수 미연결 | 변수를 고쳐도 컴포넌트가 따라 바뀌지 않는 곳이 있다 | [design.md](./design.md) 알려진 이슈 |
+| 다크 모드 기본 Toast 글자가 안 보임 (`bg/inverse-bold` 위 `#fff`) | 다크 지원 화면은 subtle 면 + intent 글자색 Toast로 안내. 반전 글자 토큰 필요 | [design.md](./design.md) 알려진 이슈 · [feedback.md §2](./components/feedback.md) |
 | `Color/text/interactive/secondary` 다크 모드 대비 미달 (3.19:1) | 다크에서는 `Color/text/secondary`로 대체 안내 중 | [design.md](./design.md) 알려진 이슈 |
 | 베트남어 지원이 i18n.md에 없음 | 한↔영만 다룸 | [design.md](./design.md) 알려진 이슈 |
 | 스크림(모달 뒤 어둡게) 토큰 없음 | 예시 화면마다 예외 처리로 0.45 통일 | `index.html` · `examples/` |

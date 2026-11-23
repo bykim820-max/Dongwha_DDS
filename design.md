@@ -237,6 +237,9 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - **`Color/text/interactive/secondary`가 다크 모드에서 WCAG AA 미달.** 다크 테마가 이 토큰을 재정의하지 않아 라이트와 같은 값(neutral-500)이 그대로 쓰인다. `bg/primary` 위 **3.19:1** · `bg/secondary` 위 3.78:1 (기준 4.5:1). `-hover`(neutral-700)는 다크에서 더 어두워져 **1.46:1**로 사실상 안 보인다. 라이트는 통과(4.74:1 · hover 10.37:1).
   - 대응: `DDS_tokens_dark.json`에서 `text/interactive/secondary`·`-hover`를 다크용 단계로 재매핑 → `build_tokens.py` 재생성. 값 조정이므로 PATCH, 소비자는 해당 링크·보조 액션을 다크에서 재확인
   - 그 전까지 다크 모드를 지원하는 화면의 보조 텍스트 링크는 `Color/text/secondary`를 쓴다 ([examples/login.html](./examples/login.html) 적용)
+- **다크 모드에서 기본 Toast 글자가 안 보인다** (2026-11-23, AI 비교 시연 중 발견). [feedback.md §2 Tokens](./components/feedback.md)는 Toast를 `Color/bg/inverse-bold` 위 `#fff` 글자로 정의하는데, 다크 테마에서 `bg/inverse-bold`가 `#fafafa`로 바뀌어 흰 글자가 묻힌다. `--color-text-interactive-inverse`도 다크에서 `#ffffff` 그대로라 대체가 안 된다
+  - 예시 화면(`index.html` · `examples/feedback.html` · `examples/writing.html`)은 글자색에 `--color-bg-primary`를 써서 읽히지만, **배경 토큰을 글자에 쓰는 우회**다 (AGENTS.md 절대 규칙 3 · colors.md §5)
+  - 대응: 다크에서 반전되는 글자 토큰(예: `text/inverse`)이 필요하다 `[미확인: 토큰 부재 — inverse 면 위 글자색]`. 그 전까지 다크 모드를 지원하는 화면은 intent `*-subtle` 면 + `Color/text/{intent}` 조합의 Toast를 쓴다 (feedback.md §2 Tokens가 허용하는 다른 조합)
 - **Figma ↔ 문서 불일치 (2026-11-23 점검)** — 유지 모드라 기록만 한다. 재개 시 처리
   - **Figma에 다크 모드가 없다.** 색 변수 컬렉션이 모두 모드 1개. 다크 값은 저장소 토큰(`DDS_tokens_dark.json`)에만 있다
   - **입력칸에 크기(sm · md · lg) 변형이 없다.** `Part/Text field placeholder`는 State만 있다 → [input.md §4](./components/input.md)의 크기 · `lg` 16px 규칙을 Figma에 반영할 자리가 없다
