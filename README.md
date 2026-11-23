@@ -4,12 +4,15 @@
 
 ![status](https://img.shields.io/badge/status-active-22c55e) ![version](https://img.shields.io/github/v/tag/bykim820-max/Dongwha_DDS?filter=v*&label=version&color=2563eb) ![mode](https://img.shields.io/badge/mode-light%20%2B%20dark-6366f1) ![font](https://img.shields.io/badge/font-Pretendard-111827)
 
+> **2027년부터 유지 모드 · 정본은 동화Lab** `[미정: 주소]` — v2.6.0이 최종 버전이다. 이 GitHub 저장소는 이미 DDS를 가져간 프로젝트가 깨지지 않도록 **보관용으로 남겨 둔 것**이다. 맡은 사람은 [HANDOVER.md](./HANDOVER.md)부터 읽는다.
+
 ---
 
 ## 🧭 무엇이 들어있나요
 
 | 분야 | 위치 | 한 줄 요약 |
 |------|------|-----------|
+| 🤝 **인계 · 유지 모드** | [HANDOVER.md](./HANDOVER.md) | 2027년부터 담당자 없이 운영 — 자산 · 권한, 해도 되는 것 · 하지 않는 것, 자주 올 문의, 미결 과제 |
 | 📘 **개요 · 철학** | [design.md](./design.md) | 3-레이어 토큰 아키텍처, 코드 매핑 규칙, LLM 변환 워크플로우 |
 | 🧩 **Claude Code 플러그인** | [plugins/dds/](./plugins/dds/README.md) | **다른 시스템에서 쓰는 가장 쉬운 방법** — `/dds:init` 가져오기 · `/dds:check` 새 버전 확인 · `/dds:upgrade` 올리기 · `dds:ui` 자동 규칙 적용 |
 | 🔄 **가져가기 · 갱신** | [MIGRATION.md](./MIGRATION.md) | **다른 시스템에서 DDS를 쓰는 쪽을 위한 문서** — 버전 규칙, 처음 가져가기, 새 버전으로 올리기, 버전별 대응표 |
@@ -21,14 +24,14 @@
 | ☑️ **라이팅 체크리스트** | [foundations/writing-checklist.md](./foundations/writing-checklist.md) | 리뷰·PR용 1장 점검표 (30초 스캔 · 즉시 반려 · 빠른 교정표) |
 | 🌐 **다국어(i18n)** | [foundations/i18n.md](./foundations/i18n.md) | 문자열 키, 확장률, ICU 복수형, 날짜·숫자·통화, 한↔영 대응 |
 | 🧪 **라이팅 샘플** | [examples/writing.html](./examples/writing.html) | 거래처 관리 화면 5가지 상황 — 규칙 위반 ↔ DDS 적용 비교 (한/영 토글) |
-| 🧭 **비개발자 선적용 가이드** | [guides/non-developer-guide.md](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준(내비·버튼) · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 · **AI에게 화면 요청하는 법** |
+| 🧭 **비개발자 선적용 가이드** | [guides/index.html](./guides/index.html) — 여는 법은 [안내](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 HTML 페이지 — 컴포넌트 선택 기준(내비·버튼·입력) · 토큰/아이콘 규칙 · 복사 버튼 달린 문구 템플릿 · 체크리스트 · **AI에게 화면 요청하는 법** |
 
 ---
 
 ## ⚡ 빠른 시작
 
 ### 기획자 · PM (비개발자)
-1. **[guides/non-developer-guide.md](./guides/non-developer-guide.md) 한 장이면 충분합니다** — 컴포넌트 선택 기준, 하드코딩 금지 규칙, 복사해 쓰는 문구 템플릿, 배포 전 자가 체크리스트
+1. **[guides/index.html](./guides/index.html) 한 페이지면 충분합니다** — 컴포넌트 선택 기준, 하드코딩 금지 규칙, 복사해 쓰는 문구 템플릿, 배포 전 자가 체크리스트. GitHub에서는 코드로 보이니 [여는 법](./guides/non-developer-guide.md)을 따르세요
 2. 문구 리뷰는 [writing-checklist.md](./foundations/writing-checklist.md) 점검표로
 
 ### 디자이너
@@ -87,7 +90,7 @@ Dongwha_DDS/
 │   ├── feedback.md          ← Toast · Alert · Spinner · Progress · Empty
 │   ├── overlay.md           ← Modal · Sheet · Drawer · Popover · Menu
 │   └── navigation.md        ← Tabs · Segmented Control · Breadcrumb
-├── guides/                  ← 비개발자 선적용 가이드 (기획자·디자이너·PM)
+├── guides/                  ← 비개발자 선적용 가이드 페이지 index.html (기획자·디자이너·PM)
 ├── scripts/                 ← build_tokens.py (토큰 빌드) · check_hardcoding.py (하드코딩 검사)
 ├── .github/workflows/       ← validate.yml (하드코딩 검사 + 빌드 검증 CI)
 ├── dist/                    ← 생성물: tokens.css · tokens.resolved.json · tokens.tailwind.js

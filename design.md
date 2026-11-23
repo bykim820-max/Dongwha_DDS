@@ -97,7 +97,7 @@
 
 | 문서 | 내용 |
 |------|------|
-| [비개발자 선적용 가이드](./guides/non-developer-guide.md) | 기획자·디자이너·PM용 — 컴포넌트 선택 기준(내비·버튼) · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 · **AI에게 화면 요청하는 법**(§5) |
+| [비개발자 선적용 가이드](./guides/index.html) | 기획자·디자이너·PM용 HTML 페이지 — 컴포넌트 선택 기준(내비·버튼·입력) · 토큰/아이콘 규칙 · 문구 템플릿 · 자가 체크리스트 · **AI에게 화면 요청하는 법**(§5). 여는 법 → [guides/non-developer-guide.md](./guides/non-developer-guide.md) |
 | [MIGRATION.md](./MIGRATION.md) | **소비 시스템용** — 버전 규칙(SemVer) · 가져가기 · 갱신 절차 · 버전별 대응표 |
 | [CHANGELOG.md](./CHANGELOG.md) | 버전별 변경 이력. 추가 · 변경(값) · ⚠️ 확인 필요(코드 수정) 3단 |
 | [AGENTS.md](./AGENTS.md) | **AI 에이전트용** — 읽는 순서 · 절대 규칙 · 작업 절차 · 검증. 이 저장소를 여는 에이전트의 진입점 (`CLAUDE.md`가 임포트) |
@@ -199,6 +199,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - ✅ **UX 라이팅 가이드** — 문구 규칙([writing.md](./foundations/writing.md)) + 한/영 다국어([i18n.md](./foundations/i18n.md))
 - ✅ **내비게이션 컴포넌트** — [navigation.md](./components/navigation.md) (Tabs·Segmented·Breadcrumb). 사양 정의 완료, **Figma 게시 및 componentKey 발급은 대기 중**
 - ✅ **버전 · 배포 체계** — `VERSION` 단일 출처 · [CHANGELOG.md](./CHANGELOG.md) · [MIGRATION.md](./MIGRATION.md) · 버전 태그 · **Claude Code 플러그인**([plugins/dds/](./plugins/dds/README.md))
+- ✅ **비개발자 가이드 페이지** — [guides/index.html](./guides/index.html). md 가이드를 HTML 정본으로 옮기고 Input 절(1.8) 추가. 하드코딩 검사 대상에 `guides/` 포함
 - ✅ **거버넌스 1단계** — 하드코딩 검사 CI(hex·rgb·간격 px·이모지 — `scripts/check_hardcoding.py`) + 토큰 빌드 검증(`.github/workflows/validate.yml`). 정당한 예외는 해당 줄 `dds-allow: <이유>` 주석
 
 ### v2.5 — 문법 단계 (2026-09 ~)
@@ -233,8 +234,11 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 - **베트남어 지원이 [i18n.md](./foundations/i18n.md)에 미반영.** 현재 문서는 한↔영만 다룬다. 베트남어는 성조 부호(diacritics)로 글자 높이가 커지고 확장률이 영어와 다르므로 ① 확장률 표 추가 ② Pretendard의 베트남어 글리프 커버리지 확인(미지원 시 폴백 폰트 지정) ③ 용어 대응표 확장이 필요하다.
 - **폼 입력 컴포넌트 3종 문서 부재 — Select · Textarea · Date Picker.** [input.md §0](./components/input.md)·[option-group.md](./components/option-group.md)·[navigation.md](./components/navigation.md)가 가리키지만 문서·Figma 컴포넌트가 없다. 현재는 `[미확인: 컴포넌트 부재]`로 표시하고 네이티브 요소에 Input의 States·Tokens를 적용하도록 안내 중.
 - ~~모바일 입력 글자 크기 14px — iOS Safari 포커스 시 화면 확대~~ → **정정 완료.** Input `lg`를 `body/lg`(16px)로, 모바일 폼은 `lg` 필수 → [input.md §4.1](./components/input.md#41-기본값과-사용처)
+- **`Color/text/interactive/secondary`가 다크 모드에서 WCAG AA 미달.** 다크 테마가 이 토큰을 재정의하지 않아 라이트와 같은 값(neutral-500)이 그대로 쓰인다. `bg/primary` 위 **3.19:1** · `bg/secondary` 위 3.78:1 (기준 4.5:1). `-hover`(neutral-700)는 다크에서 더 어두워져 **1.46:1**로 사실상 안 보인다. 라이트는 통과(4.74:1 · hover 10.37:1).
+  - 대응: `DDS_tokens_dark.json`에서 `text/interactive/secondary`·`-hover`를 다크용 단계로 재매핑 → `build_tokens.py` 재생성. 값 조정이므로 PATCH, 소비자는 해당 링크·보조 액션을 다크에서 재확인
+  - 그 전까지 다크 모드를 지원하는 화면의 보조 텍스트 링크는 `Color/text/secondary`를 쓴다 ([examples/login.html](./examples/login.html) 적용)
 - 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens_w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
 
-*최종 갱신: 2026-10-29 · Input 문법 보강(선택 기준 · 기본값 · 라벨 · 검증 · 로딩 · 배치) · 폼 입력 컴포넌트 부재 이슈 등록*
+*최종 갱신: 2026-11-23 · 비개발자 가이드 HTML 페이지*

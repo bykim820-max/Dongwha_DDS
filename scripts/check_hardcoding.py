@@ -7,7 +7,7 @@ CI와 로컬에서 동일하게 실행한다:
     python3 scripts/check_hardcoding.py
 
 검사 대상
-  - 저장소 루트와 examples/ 의 *.html — UI로 렌더되는 파일
+  - 저장소 루트 · examples/ · guides/ 의 *.html — UI로 렌더되는 파일
   - hex·px는 CSS 문맥(<style> 블록, style= 속성)만 검사한다.
     본문 텍스트의 주문번호(#10293)나 앵커(#feedback)는 색상이 아니다.
   - 이모지는 파일 전체를 검사한다 (UI 노출 금지 — icons.md §0)
@@ -32,7 +32,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 # ── 검사 대상 ────────────────────────────────────────────────
 def target_files() -> list[Path]:
-    files = sorted(ROOT.glob("*.html")) + sorted((ROOT / "examples").glob("*.html"))
+    files = sorted(ROOT.glob("*.html"))
+    for d in ("examples", "guides"):
+        files += sorted((ROOT / d).glob("*.html"))
     return [f for f in files if "dist" not in f.parts]
 
 # ── 패턴 ────────────────────────────────────────────────────
