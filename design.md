@@ -214,7 +214,7 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 | 2 | 🔜 **AI 사용 빈칸 기록** | AB 실험(`metrics/AB실험_설계서.md` §6 부산물 기록 — 로컬 전용, 저장소 미포함) 조건 B에서 AI가 DDS를 잘못 쓰거나 문서가 침묵한 지점을 화면별로 기록. **실험 중엔 기록만, 문서 반영은 4본 종료 후** | `metrics/cases/<화면>/gaps.md` |
 | 3 | 🟡 **컴포넌트 문법 보강** — ✅ [Button](./components/button.md) 완료 · ✅ [Input](./components/input.md) 완료 (컴포넌트 부재 3건 남음) · 🔜 Overlay → Table | 선택 기준(대안 컴포넌트와의 구분) · 기본값 명시 · 라벨 글자 수·말줄임 · 로딩 시 표시 · 원칙의 예외 케이스. **Button → Input → Overlay → Table** 순 (B2B 화면 출현 빈도순) | `components/*.md` |
 | 4 | 🔜 **페이지 패턴** | 목록 · 상세 · 폼(등록/수정) · 대시보드 4종. 컴포넌트 배치 · primary 위치 · 필터 위치 · 빈/로딩 상태. [examples/writing.html](./examples/writing.html)(거래처 관리)에서 목록+폼 패턴을 먼저 추출 | `patterns/` (신설) |
-| 5 | 🔜 **Figma 부채 정리** | 상태색 WCAG 매핑 Figma 변수 반영 · Navigation 3종 게시 및 componentKey 발급 · `font_family` 플레이스홀더 정리 | Figma + [components/README.md](./components/README.md) |
+| 5 | 🟡 **Figma 부채 정리** — ✅ 상태색 변수 · `font_family` 정리(2026-11-23) · 🔜 Navigation 3종 게시 · 다크 모드 · 입력칸 크기 (알려진 이슈) | 상태색 WCAG 매핑 Figma 변수 반영 · Navigation 3종 게시 및 componentKey 발급 · `font_family` 플레이스홀더 정리 | Figma + [components/README.md](./components/README.md) |
 
 ### 이후 — 도구·형식 층
 
@@ -228,17 +228,23 @@ DDS 산출물은 **절제되고 신뢰감 있는 톤**을 유지한다. 아래�
 ## ⚠️ 알려진 이슈
 
 - ~~`Brand/Secondary/netural`의 `netural` 오타 유지~~ → **v2.0에서 `neutral`로 정정 완료.** Figma 변수 및 토큰 JSON 모두 반영됨. 함께 `transpaernt`→`transparent`, `Interctive`→`Interactive` 오타도 정정.
-- `primary_typography`의 `font_family`·`font_family_typeface` 토큰 값이 `"String value"` 플레이스홀더 상태. 실사용 토큰(`font_family_typeface_sans` 등)은 정상이므로, Figma에서 두 토큰에 실제 값을 채우거나 미사용 시 삭제 필요.
+- ~~`primary_typography`의 `font_family`·`font_family_typeface` 토큰 값이 `"String value"` 플레이스홀더 상태~~ → **2026-11-23 정정 완료.** Figma 변수와 토큰 JSON 모두 `Pretendard`로 채움 (`tokens.css` 영향 없음)
 - ~~상태색 `text/*`·`icon/*`이 면과 같은 500 단계를 참조해 대비 미달(warning 1.99:1, success 2.5:1). `bg/disabled`와 `text/disabled`가 같은 값이라 비활성 글자가 안 보임~~ → **정정 완료.** 글자·아이콘은 700~800, disabled는 면/글자를 분리. → [colors.md §2.2.1](./foundations/colors.md)
-  - **Figma 변수도 같은 매핑으로 갱신해야 한다.** 현재는 저장소 JSON에만 반영된 상태.
+  - ~~Figma 변수도 같은 매핑으로 갱신해야 한다~~ → **2026-11-23 Figma 반영 완료** (`Semantic: Colors` 10개 — `text`·`icon` 상태색 4종씩, `text/disabled`, `bg/disabled`). 라이브러리 게시 필요
 - **베트남어 지원이 [i18n.md](./foundations/i18n.md)에 미반영.** 현재 문서는 한↔영만 다룬다. 베트남어는 성조 부호(diacritics)로 글자 높이가 커지고 확장률이 영어와 다르므로 ① 확장률 표 추가 ② Pretendard의 베트남어 글리프 커버리지 확인(미지원 시 폴백 폰트 지정) ③ 용어 대응표 확장이 필요하다.
-- **폼 입력 컴포넌트 3종 문서 부재 — Select · Textarea · Date Picker.** [input.md §0](./components/input.md)·[option-group.md](./components/option-group.md)·[navigation.md](./components/navigation.md)가 가리키지만 문서·Figma 컴포넌트가 없다. 현재는 `[미확인: 컴포넌트 부재]`로 표시하고 네이티브 요소에 Input의 States·Tokens를 적용하도록 안내 중.
+- **폼 입력 컴포넌트 3종 문서 부재 — Select · Textarea · Date Picker.** [input.md §0](./components/input.md)·[option-group.md](./components/option-group.md)·[navigation.md](./components/navigation.md)가 가리키지만 문서가 없다. Figma에는 **Textarea만 있다** (`Part/Text area field`, key `0a79bb32c39cdd009bdd24f35c6e50661afbbdae`) — Select · Date Picker는 Figma에도 없다. 현재는 `[미확인: 컴포넌트 부재]`로 표시하고 네이티브 요소에 Input의 States·Tokens를 적용하도록 안내 중.
 - ~~모바일 입력 글자 크기 14px — iOS Safari 포커스 시 화면 확대~~ → **정정 완료.** Input `lg`를 `body/lg`(16px)로, 모바일 폼은 `lg` 필수 → [input.md §4.1](./components/input.md#41-기본값과-사용처)
 - **`Color/text/interactive/secondary`가 다크 모드에서 WCAG AA 미달.** 다크 테마가 이 토큰을 재정의하지 않아 라이트와 같은 값(neutral-500)이 그대로 쓰인다. `bg/primary` 위 **3.19:1** · `bg/secondary` 위 3.78:1 (기준 4.5:1). `-hover`(neutral-700)는 다크에서 더 어두워져 **1.46:1**로 사실상 안 보인다. 라이트는 통과(4.74:1 · hover 10.37:1).
   - 대응: `DDS_tokens_dark.json`에서 `text/interactive/secondary`·`-hover`를 다크용 단계로 재매핑 → `build_tokens.py` 재생성. 값 조정이므로 PATCH, 소비자는 해당 링크·보조 액션을 다크에서 재확인
   - 그 전까지 다크 모드를 지원하는 화면의 보조 텍스트 링크는 `Color/text/secondary`를 쓴다 ([examples/login.html](./examples/login.html) 적용)
+- **Figma ↔ 문서 불일치 (2026-11-23 점검)** — 유지 모드라 기록만 한다. 재개 시 처리
+  - **Figma에 다크 모드가 없다.** 색 변수 컬렉션이 모두 모드 1개. 다크 값은 저장소 토큰(`DDS_tokens_dark.json`)에만 있다
+  - **입력칸에 크기(sm · md · lg) 변형이 없다.** `Part/Text field placeholder`는 State만 있다 → [input.md §4](./components/input.md)의 크기 · `lg` 16px 규칙을 Figma에 반영할 자리가 없다
+  - **같은 이름의 입력칸 컴포넌트가 두 벌.** 문서에 등록된 것은 key `a00a00a4…`(노드 `5128:832`). 다른 하나(`5125:468`, key `2470d429…`)는 trailing 아이콘 속성이 있는 별도 버전. 이름 없는 변형 `State8` · `State9`도 있다
+  - **입력칸 포커스 테두리가 초록.** 문서는 `Color/border/info`(파랑) — 선택 = 초록, 포커스 = 파랑 규칙과 어긋난다
+  - **컴포넌트 다수가 색 변수에 연결되지 않았다.** 입력칸 8개 상태 중 상태색 · 비활성 변수를 쓰는 것은 `disabled` 1곳. 변수를 고쳐도 컴포넌트 색이 따라 바뀌지 않는 곳이 있다
 - 토큰 값은 W3C Design Tokens 형식 export 파일(`./foundations/DDS_tokens_w3c.json`)에서 확인 가능. `get_variable_defs`는 노드 선택이 필요해 MCP 경유로는 일부 토큰만 수집되므로, 전체 토큰은 export 파일을 기준으로 함.
 
 ---
 
-*최종 갱신: 2026-11-23 · 비개발자 가이드 HTML 페이지*
+*최종 갱신: 2026-11-23 · 비개발자 가이드 HTML 페이지 · Figma 색 변수 정정 · Figma 불일치 점검*

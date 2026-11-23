@@ -41,6 +41,7 @@ head -3 dist/tokens.css
 
 | 날짜 | 고친 문서 | 내용 | 고친 사람 |
 |---|---|---|---|
+| 2026-11-23 | Figma `Semantic: Colors` · `primary-Typography` 변수, `foundations/DDS_tokens_w3c.json` | Figma 상태색 · 비활성색 변수 10개를 v2.4.0 대비 정정과 같은 값으로 재연결. `font_family` · `font_family_typeface` 플레이스홀더를 `Pretendard`로 (`tokens.css` 영향 없음, `tokens.resolved.json` 2개 값). Figma ↔ 문서 불일치 점검 결과를 design.md 알려진 이슈에 기록 | 김부영 |
 | 2026-11-23 | `guides/index.html` 신설 · `HANDOVER.md` 신설 | 비개발자 가이드를 HTML 페이지로(Input 절 추가), 인계 문서 추가, 정본을 동화Lab으로 이전 | 김부영 |
 
 ---

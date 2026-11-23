@@ -16,7 +16,7 @@
 | **한 줄 자유 텍스트를 씀** — 이름 · 제목 · 거래처명 | **Input** `type="text"` | `<input>` | 값을 사용자가 새로 만든다 |
 | **형식이 정해진 값을 씀** — 이메일 · 전화 · URL | **Input** `type="email"` · `tel` · `url` | `<input>` + `autocomplete` | 모바일 키보드 · 자동완성 · 브라우저 기본 검증이 따라온다 |
 | **계산하지 않는 숫자를 씀** — 사번 · 우편번호 · 사업자번호 · 주문번호 | **Input** `type="text"` + `inputmode="numeric"` | `<input>` | `type="number"`는 앞자리 0을 지우고, 휠 스크롤로 값이 바뀌고, 하이픈을 받지 않는다 |
-| **여러 줄 텍스트를 씀** — 사유 · 비고 · 설명 | Textarea `[미확인: 컴포넌트 부재 — Textarea]` | `<textarea>` | 한 줄 Input에 문단을 받으면 내용을 검토할 수 없다. 문서가 생기기 전까지 이 문서의 States · Tokens를 그대로 적용한다 |
+| **여러 줄 텍스트를 씀** — 사유 · 비고 · 설명 | Textarea `[미확인: 컴포넌트 부재 — Textarea]` (Figma에는 `Part/Text area field`가 있다. 문서만 없음) | `<textarea>` | 한 줄 Input에 문단을 받으면 내용을 검토할 수 없다. 문서가 생기기 전까지 이 문서의 States · Tokens를 그대로 적용한다 |
 | 정해진 값 중 **하나를 고름** — 2~4개 | [Option Group](./option-group.md) (radio) | `radiogroup` | 선택지가 한눈에 보인다 |
 | 정해진 값 중 **하나를 고름** — 5개 이상 | Select `[미확인: 컴포넌트 부재 — Select]` | `<select>` | [option-group.md §9](./option-group.md) · [navigation.md](./navigation.md)가 이미 Select를 가리킨다. 문서가 생기기 전까지 네이티브 `<select>`에 이 문서의 States · Tokens를 적용한다 |
 | **날짜 · 기간을 지정** | Date Picker `[미확인: 컴포넌트 부재 — Date Picker]` | `<input type="date">` | 형식(`2026-10-29` · `10/29`)을 사용자가 맞히게 하지 않는다. 문서가 생기기 전까지 네이티브 `type="date"`를 쓴다 |

@@ -35,6 +35,7 @@
 
 - [ ] 동화Lab에 업로드 묶음([START.md](./START.md) 구성) 올리기
 - [ ] 동화Lab 페이지 편집 권한자 지정
+- [ ] Figma 라이브러리 **게시(Publish)** — 2026-11-23 색 · 글꼴 변수 수정분
 - [ ] Figma 파일 소유권 · 편집 권한 이전
 - [ ] 비즈플랫폼개발팀에 MCP 협의 담당 변경 또는 보류 통보
 - [ ] 문서의 문의처 "스마트워크팀 김부영"을 `[미정: 공용 창구]`로 교체 — `README.md` · `MIGRATION.md` 끝줄
@@ -100,10 +101,15 @@ v2.6.0까지 DDS를 가져간 프로젝트는 GitHub 주소에 기대고 있다.
 
 | 과제 | 상태 | 근거 |
 |---|---|---|
-| Figma 변수에 상태색 대비 정정 반영 | 토큰 원본 JSON에만 반영됨 | [colors.md §2.2.1](./foundations/colors.md) |
+| ~~Figma 변수에 상태색 대비 정정 반영~~ | **2026-11-23 완료** — 라이브러리 게시 확인 필요 | [colors.md §2.2.1](./foundations/colors.md) |
 | Navigation 3종(Tabs · Segmented · Breadcrumb) Figma 게시 · componentKey 발급 | 문서만 있음 | [navigation.md §0](./components/navigation.md) |
-| `font_family` · `font_family_typeface` 토큰 값이 `"String value"` | 빌드 때마다 경고. 실사용 토큰은 정상 | [design.md](./design.md) 알려진 이슈 |
-| Select · Textarea · Date Picker 문서 없음 | 네이티브 요소 + Input 스타일로 대체 안내 중 | [input.md §0](./components/input.md) |
+| ~~`font_family` · `font_family_typeface` 토큰 값이 `"String value"`~~ | **2026-11-23 완료** — Figma · 토큰 JSON 모두 `Pretendard` | [design.md](./design.md) 알려진 이슈 |
+| Select · Textarea · Date Picker 문서 없음 | 네이티브 요소 + Input 스타일로 대체 안내 중. **Textarea는 Figma에 있다** (`Part/Text area field`) | [input.md §0](./components/input.md) |
+| Figma에 다크 모드 없음 | 색 변수 모드 1개. 다크 값은 토큰 파일에만 있다 | [design.md](./design.md) 알려진 이슈 |
+| Figma 입력칸에 크기(sm · md · lg) 없음 · 같은 이름 컴포넌트 두 벌 · 이름 없는 상태 `State8` · `State9` | 문서 등록 컴포넌트는 노드 `5128:832` | [design.md](./design.md) 알려진 이슈 |
+| Figma 입력칸 포커스 테두리가 초록 (문서는 파랑) | 기록만 함 | [input.md §5](./components/input.md) |
+| Figma 컴포넌트 다수가 색 변수 미연결 | 변수를 고쳐도 컴포넌트가 따라 바뀌지 않는 곳이 있다 | [design.md](./design.md) 알려진 이슈 |
+| `Color/text/interactive/secondary` 다크 모드 대비 미달 (3.19:1) | 다크에서는 `Color/text/secondary`로 대체 안내 중 | [design.md](./design.md) 알려진 이슈 |
 | 베트남어 지원이 i18n.md에 없음 | 한↔영만 다룸 | [design.md](./design.md) 알려진 이슈 |
 | 스크림(모달 뒤 어둡게) 토큰 없음 | 예시 화면마다 예외 처리로 0.45 통일 | `index.html` · `examples/` |
 | 고정폭 글꼴 토큰 없음 | 가이드 페이지에서 시스템 글꼴 사용 | `guides/index.html` |

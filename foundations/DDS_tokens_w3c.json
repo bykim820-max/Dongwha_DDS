@@ -961,11 +961,11 @@
     "primitive": {
       "font_family": {
         "$type": "fontFamily",
-        "$value": "String value"
+        "$value": "Pretendard"
       },
       "font_family_typeface": {
         "$type": "fontFamily",
-        "$value": "String value"
+        "$value": "Pretendard"
       },
       "font_family_typeface_sans": {
         "$type": "fontFamily",
